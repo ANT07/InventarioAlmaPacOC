@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 02-15-2019 04:07:08 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="InventarioAlmaPacOC" name="retail.modelo.entidades.Ventas" optimistic-lock="version" schema="dbo" table="ventas">
+    <id name="idVenta" type="int">
+      <column name="idVenta"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="retail.modelo.entidades.Clientes" fetch="select" name="clientes">
+      <column name="idCliente" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="retail.modelo.entidades.Vendedor" fetch="select" name="vendedor">
+      <column name="idVendedor" not-null="true"/>
+    </many-to-one>
+    <property name="fechaVenta" type="timestamp">
+      <column length="23" name="fechaVenta" not-null="true"/>
+    </property>
+    <property name="totalVenta" type="double">
+      <column name="totalVenta" not-null="true" precision="53" scale="0"/>
+    </property>
+    <property name="estado" type="int">
+      <column name="estado" not-null="true"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="detalleventas" table="detalleventa" cascade="all">
+      <key>
+        <column name="idVenta" not-null="true"/>
+      </key>
+      <one-to-many class="retail.modelo.entidades.Detalleventa"/>
+    </set>
+  </class>
+</hibernate-mapping>

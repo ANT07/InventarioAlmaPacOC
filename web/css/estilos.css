@@ -1,0 +1,16 @@
+body{
+    background: #00396F;
+}
+#ContainerLogin{
+    width: 350px;
+    margin-top: 220px;
+}
+#FormLogin{
+    margin-top: 30px;
+    
+}
+#btnIngresar{
+    width: 100%;
+    height: 40px;
+}
+

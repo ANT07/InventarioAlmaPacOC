@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 02-15-2019 04:07:08 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="InventarioAlmaPacOC" name="retail.modelo.entidades.OrderDetail" optimistic-lock="version" schema="dbo" table="ORDER_DETAIL">
+    <composite-id class="retail.modelo.entidades.OrderDetailId" name="id">
+      <key-property name="orderdetailid" type="int">
+        <column name="ORDERDETAILID"/>
+      </key-property>
+      <key-property name="orderid" type="string">
+        <column length="50" name="ORDERID"/>
+      </key-property>
+    </composite-id>
+    <many-to-one class="retail.modelo.entidades.OrderMaster" fetch="select" insert="false" name="orderMaster" update="false">
+      <column length="50" name="ORDERID" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="retail.modelo.entidades.Producto" fetch="join" name="product">
+      <column  name="PRODUCTID" not-null="true"/>
+    </many-to-one>
+    <property name="orderdetailquantity" type="java.lang.Float">
+      <column name="ORDERDETAILQUANTITY" precision="24" scale="0"/>
+    </property>
+    <property name="orderdetailtotal" type="java.lang.Float">
+      <column name="ORDERDETAILTOTAL" precision="24" scale="0"/>
+    </property>
+    <property name="orderdetailunitprice" type="java.lang.Float">
+      <column name="ORDERDETAILUNITPRICE" precision="24" scale="0"/>
+    </property>
+    <property name="productcolor" type="string">
+      <column length="50" name="PRODUCTCOLOR"/>
+    </property>
+  </class>
+</hibernate-mapping>

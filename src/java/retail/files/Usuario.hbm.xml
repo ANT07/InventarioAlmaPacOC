@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 02-15-2019 04:07:08 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="InventarioAlmaPacOC" name="retail.modelo.entidades.Usuario" optimistic-lock="version" schema="dbo" table="usuario">
+    <id name="usuario" type="string">
+      <column length="100" name="USUARIO"/>
+      <generator class="assigned"/>
+    </id>
+    <many-to-one class="retail.modelo.entidades.Roll" fetch="select" name="roll">
+      <column name="ROLL_ID"/>
+    </many-to-one>
+    <property name="nombre" type="string">
+      <column length="250" name="NOMBRE"/>
+    </property>
+    <property name="contrasena" type="string">
+      <column length="250" name="CONTRASENA"/>
+    </property>
+    <property name="estadousuario" type="java.lang.Integer">
+      <column name="ESTADOUSUARIO"/>
+    </property>
+  </class>
+</hibernate-mapping>

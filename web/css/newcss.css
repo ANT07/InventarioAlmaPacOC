@@ -1,0 +1,27 @@
+body{
+    background: #443F3E;
+    padding-top: 80px;
+}
+#ContainerLista{
+    
+    width: 900px;
+    margin-top: 50px;
+    
+}
+#lista{
+    
+        
+}
+#btnInsert
+{
+    margin-left: 700px;
+    margin-top: 1px;
+}
+#txtBuscar
+{
+    text-align: left;
+    box-sizing: border-box;
+    border: 1px solid #3366ff5;
+}
+
+

@@ -1,0 +1,19 @@
+<%-- any content can be specified here e.g.: --%>
+
+
+<%@page import="retail.modelo.entidades.Usuario"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.Set"%>
+
+
+<%@ page pageEncoding="UTF-8" %>
+<%
+    Usuario userLogin = (Usuario) session.getAttribute("user");
+    if (userLogin == null) {
+        RequestDispatcher salida = request.getRequestDispatcher("/index.jsp");
+        salida.forward(request,
+                response);
+    }
+
+%>

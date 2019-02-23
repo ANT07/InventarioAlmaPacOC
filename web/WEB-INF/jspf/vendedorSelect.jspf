@@ -1,0 +1,16 @@
+<%-- any content can be specified here e.g.: --%>
+<%@page import="retail.modelo.entidades.Vendedor"%>
+<%@page import="java.util.List"%>
+<%@page import="retail.modelo.servicios.ServiciosVendedor"%>
+<%@ page pageEncoding="UTF-8" %>
+<%
+    ServiciosVendedor serviciosVendedores = new ServiciosVendedor();
+    List<Vendedor> vendedores = serviciosVendedores.obtenerVendedores();
+    pageContext.setAttribute("vendedores", vendedores);
+%>
+<select name="idVendedor" id="idVendedor" class="form-control input-sm">
+    <option value="-1" label="Seleccione..."></option>
+    <c:forEach var="vendedor" items="${vendedores}">
+        <option value="${vendedor.idVendedor}" label="${vendedor.nombreVendedor} ${vendedor.apellidoVendedor}"></option>
+    </c:forEach>
+</select>
