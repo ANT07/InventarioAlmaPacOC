@@ -32,8 +32,8 @@
         <div class="container">
             
             <form style="width: 100%;" class="center-block form-horizontal" action="NewOrderServlet" method="post"  id="formulario">
-                <div class="row">
-                <div class="col-md-4 well well-sm">
+                <div class="row well-lg">
+                <div class="col-md-4 well ">
                             <% 
                                 GregorianCalendar fechaCalendar = new GregorianCalendar();
                                 String fecha = "";

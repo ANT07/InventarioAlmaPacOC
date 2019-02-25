@@ -42,7 +42,7 @@ Contributor(s):
 <hibernate-configuration>
   <session-factory>
     <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
-    <property name="hibernate.connection.url">jdbc:sqlserver://192.168.20.25:52918;databaseName=InventarioAlmaPacOC</property>
+    <property name="hibernate.connection.url">jdbc:sqlserver://DESKTOP-JP9V5G3\SQLEXPRESS:56160;databaseName=InventarioAlmaPacOC</property>
     <property name="hibernate.connection.username">sa</property>
     <property name="hibernate.connection.password">1234</property>
     <mapping resource="retail/files/Menu.hbm.xml"/>

@@ -127,7 +127,8 @@ public class RollServlet extends HttpServlet {
                     Set<RollSubmenu> rollSubmenus = new HashSet<>();
 
                     for (SubMenu rollSubmenu1 : submenus) {
-                        RollSubmenu rollSubmenu = new RollSubmenu();
+                        RollSubmenu rollSubmenu = new RollSubmenu();                       
+                        rollSubmenu.setRoll(roll);
                         rollSubmenu.setEstado(0);
                         rollSubmenu.setSubMenu(rollSubmenu1);
                         rollSubmenu.setRoll(roll);

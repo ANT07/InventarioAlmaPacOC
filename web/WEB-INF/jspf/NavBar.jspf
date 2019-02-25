@@ -49,7 +49,7 @@
                 vertical-align: middle !important;
             }
 
-            .barra{
+/*            .barra{
                 height: 50px !important;
                 transition: height 3s;
             }
@@ -57,7 +57,7 @@
             .mostrarBarra:hover{
                 height: 400px !important;
                 transition: height 3s;
-            }
+            }*/
 
             .menu{
                 font-size: 8pt !important;

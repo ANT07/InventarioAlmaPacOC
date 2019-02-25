@@ -5,7 +5,7 @@
   <class catalog="InventarioAlmaPacOC" name="retail.modelo.entidades.Producto" optimistic-lock="version" schema="dbo" table="producto">
     <id name="codigoProducto" type="int">
       <column name="codigoProducto"/>
-      <generator class="assigned"/>
+      <generator class="identity"/>
     </id>
     <property name="nombreProducto" type="string">
       <column length="50" name="nombreProducto" not-null="true"/>
