@@ -13,6 +13,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.CriteriaSpecification;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import retail.modelo.conexion.NewHibernateUtil;
 import retail.modelo.entidades.RollSubmenu;
@@ -69,6 +70,7 @@ public class RollSubmenuDAO {
         Criteria criteria = session.createCriteria(RollSubmenu.class);
         criteria.add(Restrictions.in("rollSubmenuId",
                 ids));
+        criteria.addOrder(Order.asc("rollSubmenuId"))
         criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
         List lista = criteria.list();
         session.close();
