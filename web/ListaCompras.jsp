@@ -29,30 +29,29 @@
         <title>Confirmar Compras</title>
     </head>
     <body>
+        <%@include file="WEB-INF/jspf/NavBar.jspf"%>
         <div class="container well center-block" >
             <center><h1>Compras</h1></center>
             <hr>
             <%
-                
                 ServiciosProducto serviciosProducto = new ServiciosProducto();
 
                 ServiciosCompra serviciosCompra = new ServiciosCompra();
-                                
+
                 ServiciosDetalleCompra serviciosDetalleCompra = new ServiciosDetalleCompra();
-                
+
                 UtilClass utilClass = new UtilClass();
-                
+
                 List<Compra> compras = serviciosCompra.obtenerCompra();
-               
+
                 pageContext.setAttribute("serviciosProducto", serviciosProducto);
-                
+
                 pageContext.setAttribute("serviciosDetalleCompra", serviciosDetalleCompra);
-                
+
                 pageContext.setAttribute("compras", compras);
-                
+
                 pageContext.setAttribute("utilClass", utilClass);
             %>
-            <%@include file="WEB-INF/jspf/NavBar.jspf"%>
             <hr><center>
                 <input class="form-control" style="width: 150px" id="txtBuscar" type="text" onkeyup="Buscar()" placeholder="Buscar" ></center>
             <div class="form-group" style="float: left;">
@@ -97,14 +96,15 @@
                 </div>
             </div><br>
             <center> <div class="form-group">
-                <p  class="alert-info" style="font-size: 16px; color: #007bff; width: 330px;<c:if var="prueba" test="${Mensaje == null}" > display: none; </c:if>">${Mensaje}</p> 
-                </div></center>
+                    </div></center>
                 <div class="table-condensed" >
                     <table class="table table-condensed table-hover table-striped" id="lista">
                         <thead class="thead-light">
                             <tr class="info" style="align-content: center   ">
-                                <th>No. Compra</th>
+                                <th>Id</th>
                                 <th>Fecha</th>
+                                <th>No. Documento</th>
+                                <th>Fecha Inventario</th>
                                 <th>Proveedor</th>  
                                 <th>Monto</th>
                                 <th>Acción</th>
@@ -113,13 +113,22 @@
                         <tbody>
                         <c:forEach var="compra" items="${compras}" >
                             <c:set var="proveedor" value="${serviciosCompra.obtenerComprasById(compra.idCompra)}"></c:set>
-                            
+
 
                                 <tr>
-                                <td>${compra.idCompra}</td>
+                                    <td>${compra.idCompra}</td>
                                 <td>${utilClass.formatoFecha(compra.fechaCompra)}</td>
-                                <td>${compra.proveedor}</td>
-                                
+                                <td>${utilClass.formatoFecha(compra.fechaDocumento)}</td>
+                                <td>
+                                    <c:if test="${compra.fechaInventario == null}">
+                                        00/00/00
+                                    </c:if>
+                                    <c:if test="${compra.fechaInventario != null}">
+                                        ${utilClass.formatoFecha(compra.fechaInventario)}
+                                    </c:if>                              
+                                </td>
+                                <td>${compra.proveedor.providername}</td>
+
                                 <td>$ ${utilClass.formatoDecimales(compra.totalCompra)}</td>
                                 <td>
                                     <c:url var="editar" value="EditarCompra.jsp">
@@ -140,7 +149,10 @@
                                         <a href="${editar}" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span> Editar</a>
                                     </c:if>
                                     <c:if test="${compra.estado == 1}">
-                                        <a href="${anular}"  class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Anular</a>
+                                        <h4><span class="label label-info" title="niewc">
+                                            Compra Actualizada
+                                            </span></h4>
+<!--                                        <a href="${anular}"  class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Anular</a>-->
                                     </c:if>    
                                 </td>
                             </tr>
@@ -155,7 +167,7 @@
             </div>
 
         </div>
-        
+
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>

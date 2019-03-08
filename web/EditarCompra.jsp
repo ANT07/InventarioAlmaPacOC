@@ -33,52 +33,49 @@
         <%@include file="WEB-INF/jspf/NavBar.jspf"%>
         <%
             int idCompra = Integer.parseInt(request.getParameter("idCompra"));
-            
-            
+
             ServiciosCompra serviciosCompra = new ServiciosCompra();
-            
-           
+
             ServiciosDetalleCompra serviciosDetalleCompra = new ServiciosDetalleCompra();
-            
+
             ServiciosProducto serviciosProducto = new ServiciosProducto();
-            
+
             UtilClass utilClass = new UtilClass();
 
-            
-            Compra compra = serviciosCompra.obtenerComprasById(idCompra);
-            
-            
-            List<Detallecompra> compraDetalles = serviciosDetalleCompra.obtenerDetallecomprasByIdCompra(idCompra);
+            Compra compra = serviciosCompra.obtenerCompraById(idCompra);
 
-            pageContext.setAttribute("serviciosDetalleCompra",serviciosDetalleCompra);
-            pageContext.setAttribute("serviciosCompra",serviciosCompra);
-            pageContext.setAttribute("compra",compra);
-            pageContext.setAttribute("compraDetalless",compraDetalles);
-            pageContext.setAttribute("serviciosProducto",serviciosProducto);
-            pageContext.setAttribute("utilClass",utilClass);
+            List<Detallecompra> compraDetalles = serviciosDetalleCompra.obtenerDetallecomprasByCompra(idCompra);
+
+            pageContext.setAttribute("serviciosDetalleCompra", serviciosDetalleCompra);
+            pageContext.setAttribute("serviciosCompra", serviciosCompra);
+            pageContext.setAttribute("compra", compra);
+            pageContext.setAttribute("compraDetalless", compraDetalles);
+            pageContext.setAttribute("serviciosProducto", serviciosProducto);
+            pageContext.setAttribute("utilClass", utilClass);
         %>
 
         <div class="container well">
             <form class="form-horizontal" action="comprascontrolador.do" method="post" onsubmit="validarFormulario(event)">
                 <input type="hidden" value="actualizar" name="accion">
-                <div class="form-group">
-                    <div class="col-md-2">
-                        <input type="hidden" name="fechaCompra" value="${utilClass.formatoFecha(compra.fechaCompra)}">
-                        <input type="hidden" value="${compra.idCompra}" name="idCompra">
-                        <div style="display: inline;">
-                            <h2><span class="label label-info">Compra No.: ${compra.idCompra}</span></h2>
-                        </div>
-                        <div style="display: inline;">
-                            <h2><span class="label label-info">${utilClass.formatoFecha(compra.fechaCompra)}</span></h2>
-                        </div>
-                    </div>
-                </div>
-                
-                 
-                <div class="form-group">
+                <input type="hidden" name="idCompra" value="${compra.idCompra}">
+                <div class="form-group has-feedback ">
                     <label class="control-label col-md-2 ">Proveedor: </label>
                     <div class="col-md-4">
-                        <input type="text" class="form-control input-sm" required name="txtProveedor" value="${compra.proveedor}">
+                        <input type="hidden" id="proveedorCompra" value="${compra.proveedor.providerid}">
+                        <jsp:include page="/HelperPages/ProviderDropDown.jsp"></jsp:include>
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback ">
+                        <label class="control-label col-md-2 ">No. Documento: </label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control input-sm" required name="noDocumento" value="${compra.noDocumento}">
+                    </div>
+                </div>
+                <div class="form-group has-feedback ">
+                    <input type="hidden" name="fechaCompra" value="${fecha}">
+                    <label for="idCliente" class="control-label col-md-2 ">Fecha Documento: </label>
+                    <div class="col-md-4">
+                        <input type="text" class="datepicker form-control" name="fechaDocumento"/>
                     </div>
                 </div>
 
@@ -101,14 +98,14 @@
                             <tbody>
                                 <c:set var="num" value="1"></c:set>
                                 <c:forEach var="detalleCompra" items="${compraDetalless}">
-                                    <c:set var="productoDetalle" value="${serviciosProducto.obtenerProductoByCod(detalleCompra.idProducto)}"></c:set>
+
                                     <tr id="fila${num}">
                                         <td >
                                             <%@include file="WEB-INF/jspf/productosDataList.jspf" %>
-                                            <input type="text" onblur="obtenerNombreProducto(this)"  name="codigoProducto" id="codigoProducto" class="form-control input-sm" list="iProducto" value="${detalleCompra.idProducto}">
+                                            <input type="text" onblur="obtenerNombreProducto(this)"  name="codigoProducto" id="codigoProducto" class="form-control input-sm" list="iProducto" value="${detalleCompra.producto.codigoProducto}">
                                         </td>
                                         <td >
-                                            <input type="text" id="descripcion" value="${productoDetalle.nombreProducto}" readonly class="form-control input-sm" >
+                                            <input type="text" id="descripcion" value="${detalleCompra.producto.nombreProducto}" readonly class="form-control input-sm" >
                                         </td>
                                         <td>
                                             <input type="number" name="cantidadDetalle" value="${detalleCompra.cantidadDetalle}" oninvalid="validarExistencia(event)" id="cantidadDetalle" class="form-control input-sm" step="1" min="1" onblur="totalizarDetalle(this)">
@@ -278,7 +275,20 @@
             });
         }
 
+        function colocarValuesSelects() {
+            var idProveedorHidden = document.querySelector("input[type='hidden']#proveedorCompra");
+            var idProveedorSelect = document.querySelector("select#providerid");
 
+            idProveedorSelect.value = idProveedorHidden.value;
+        }
+
+        window.addEventListener("load", colocarValuesSelects);
+
+        $(document).ready(function () {
+            $( ".datepicker" ).datepicker({ dateFormat: 'dd/mm/yy'});
+            $(".datepicker").datepicker("setDate", new Date("${utilClass.formatoFecha(compra.fechaDocumento)}"));
+
+        });
     </script>
 </html>
 

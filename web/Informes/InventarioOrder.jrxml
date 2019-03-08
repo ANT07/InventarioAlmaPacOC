@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2019-02-20T14:46:27 -->
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Orderr" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="04f49551-200c-4a20-8eaf-981aacf1580a">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="InventarioOrdenCompra.xml"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="473"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="513"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -15,6 +13,7 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.xml"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#D6D6D6">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -160,7 +159,7 @@ E-Mail: info@apacifico.com]]></text>
 			<image scaleImage="FillFrame">
 				<reportElement x="1" y="0" width="139" height="80" uuid="10460bd8-7708-448a-a1c9-9e64bf619c5c"/>
 				<graphicElement fill="Solid"/>
-				<imageExpression><![CDATA["C:/Users/anthony/Desktop/logo pacifico.png"]]></imageExpression>
+				<imageExpression><![CDATA["C:/Users/ANTHONY MARTINEZ/Documents/NetBeansProjects/InventarioAlmaPacOC/web/image/logopacifico.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>

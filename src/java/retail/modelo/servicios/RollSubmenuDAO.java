@@ -70,7 +70,7 @@ public class RollSubmenuDAO {
         Criteria criteria = session.createCriteria(RollSubmenu.class);
         criteria.add(Restrictions.in("rollSubmenuId",
                 ids));
-        criteria.addOrder(Order.asc("rollSubmenuId"))
+        criteria.addOrder(Order.asc("rollSubmenuId"));
         criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
         List lista = criteria.list();
         session.close();

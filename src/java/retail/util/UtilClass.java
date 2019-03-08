@@ -51,6 +51,10 @@ public class UtilClass {
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
         return formatoFecha.format(date);
     }
+    public  String formatoFechaInputDate(Date date){
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy/MM/dd");
+        return formatoFecha.format(date);
+    }
     
     public static String getOrderId(){
         

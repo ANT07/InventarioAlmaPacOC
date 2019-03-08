@@ -30,6 +30,7 @@
         </style>
     </head>
     <body>
+        <%@include file="WEB-INF/jspf/NavBar.jspf"%>
         <%
             String fecha = UtilClass.getFechaServidor();
             ServiciosProducto serviciosProducto = new ServiciosProducto();
@@ -38,24 +39,27 @@
             pageContext.setAttribute("fecha",
                     fecha);
         %>
-        <%@include file="WEB-INF/jspf/NavBar.jspf"%>
         <div class="container well">
             <form class="form-horizontal" action="comprascontrolador.do" method="post" onsubmit="validarFormulario(event)">
 
                 <input type="hidden" value="insertar" name="accion">
-
-                <div class="form-group has-feedback ">
-                    <input type="hidden" name="fechaVenta" value="${fecha}">
-                    <label for="idCliente" class="control-label col-md-2 ">Fecha Compra: </label>
-                    <div class="col-md-4">
-                        <input type="date" name="fechaCompra" step="1" required pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}">
-                    </div>
-                </div>
-
                 <div class="form-group has-feedback ">
                     <label class="control-label col-md-2 ">Proveedor: </label>
                     <div class="col-md-4">
-                        <input type="text" class="form-control input-sm" required name="txtProveedor">
+                        <jsp:include page="/HelperPages/ProviderDropDown.jsp"></jsp:include>
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback ">
+                        <label class="control-label col-md-2 ">No. Documento: </label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control input-sm" required name="noDocumento">
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback ">
+                        <input type="hidden" name="fechaCompra" value="${fecha}">
+                    <label for="idCliente" class="control-label col-md-2 ">Fecha Documento: </label>
+                    <div class="col-md-4">
+                        <input type="date" name="fechaDocumento" step="1" required pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}" class="form-control">
                     </div>
                 </div>
 

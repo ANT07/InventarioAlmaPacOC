@@ -14,23 +14,26 @@ public class Compra  implements java.io.Serializable {
 
      private int idCompra;
      private Date fechaCompra;
+     private Date fechaInventario;
+     private Date fechaDocumento;
      private double totalCompra;
-     private String proveedor;
+     private Provider proveedor;
      private int estado;
      private Set detallecompras = new HashSet(0);
+     private String noDocumento;
 
     public Compra() {
     }
 
 	
-    public Compra(int idCompra, Date fechaCompra, double totalCompra, String proveedor, int estado) {
+    public Compra(int idCompra, Date fechaCompra, double totalCompra, Provider proveedor, int estado) {
         this.idCompra = idCompra;
         this.fechaCompra = fechaCompra;
         this.totalCompra = totalCompra;
         this.proveedor = proveedor;
         this.estado = estado;
     }
-    public Compra(int idCompra, Date fechaCompra, double totalCompra, String proveedor, int estado, Set detallecompras) {
+    public Compra(int idCompra, Date fechaCompra, double totalCompra, Provider proveedor, int estado, Set detallecompras) {
        this.idCompra = idCompra;
        this.fechaCompra = fechaCompra;
        this.totalCompra = totalCompra;
@@ -60,11 +63,11 @@ public class Compra  implements java.io.Serializable {
     public void setTotalCompra(double totalCompra) {
         this.totalCompra = totalCompra;
     }
-    public String getProveedor() {
+    public Provider getProveedor() {
         return this.proveedor;
     }
     
-    public void setProveedor(String proveedor) {
+    public void setProveedor(Provider proveedor) {
         this.proveedor = proveedor;
     }
     public int getEstado() {
@@ -80,6 +83,30 @@ public class Compra  implements java.io.Serializable {
     
     public void setDetallecompras(Set detallecompras) {
         this.detallecompras = detallecompras;
+    }
+
+    public Date getFechaInventario() {
+        return fechaInventario;
+    }
+
+    public void setFechaInventario(Date fechaInventario) {
+        this.fechaInventario = fechaInventario;
+    }
+
+    public Date getFechaDocumento() {
+        return fechaDocumento;
+    }
+
+    public void setFechaDocumento(Date fechaDocumento) {
+        this.fechaDocumento = fechaDocumento;
+    }
+
+    public String getNoDocumento() {
+        return noDocumento;
+    }
+
+    public void setNoDocumento(String noDocumento) {
+        this.noDocumento = noDocumento;
     }
 
 

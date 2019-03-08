@@ -9,6 +9,7 @@ import retail.modelo.conexion.NewHibernateUtil;
 import retail.modelo.servicios.interfaces.DetalleCompraDAO;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -81,7 +82,10 @@ public class ServiciosDetalleCompra implements DetalleCompraDAO {
         Criteria criteriaCompra = criteriaDetalleCompra.createCriteria(
                 "compra");
         criteriaCompra.add(Restrictions.idEq(idCompra));
-        return criteriaDetalleCompra.list();
+        criteriaDetalleCompra.setFetchMode("producto", FetchMode.JOIN);
+        List<Detallecompra> detalleCompras = criteriaDetalleCompra.list();
+        session.close();
+        return detalleCompras;
     }
 
 }

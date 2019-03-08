@@ -1,0 +1,152 @@
+
+
+<%@page import="retail.modelo.entidades.SubMenu"%>
+<%@page import="retail.modelo.entidades.Menu"%>
+<%@page import="retail.modelo.servicios.SubmenuDAO"%>
+<%@page import="retail.modelo.servicios.MenuDAO"%>
+<%@page import="java.util.List"%>
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+        <link href="//oss.maxcdn.com/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css" rel="stylesheet">
+        <!--        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>-->
+        <script src="${pageContext.request.contextPath}/js/jquery.min.js" type="text/javascript"></script>
+        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk="crossorigin="anonymous"></script>
+
+        <script src="${pageContext.request.contextPath}/bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.0/dist/jquery.validate.js"></script>
+        <script src="${pageContext.request.contextPath}/js/jquery.jgrowl.js" type="text/javascript"></script>
+
+
+        <link href="${pageContext.request.contextPath}/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <!-- Optional theme -->
+        <link href="${pageContext.request.contextPath}/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/jquery.jgrowl.css" rel="stylesheet" type="text/css"/>
+        <script src="${pageContext.request.contextPath}/Javascript/javascript.js"></script>
+
+
+        <style>
+            body{
+                padding-top: 90px;
+                background-color: #00606F;
+            }
+
+            .content-bottom{
+                position: fixed;
+                bottom: 0;
+                height: 50px;
+                background-color: #333333;
+                width: 100%;
+                padding: 10px;
+                font-weight: bold;
+                color: white;
+                z-index: 100;
+            }
+
+            tbody td{
+                text-align: left !important;
+                vertical-align: middle !important;
+            }
+
+            /*            .barra{
+                            height: 50px !important;
+                            transition: height 3s;
+                        }
+            
+                        .mostrarBarra:hover{
+                            height: 400px !important;
+                            transition: height 3s;
+                        }*/
+
+            .menu{
+                font-size: 8pt !important;
+                width: 100px;
+            }
+
+        </style>
+        <script>
+            $.validator.setDefaults({
+                errorClass: "text-danger"
+            });
+
+            $.validator.addMethod("valueNotEquals", function (value, element, arg) {
+                return arg[0] !== value;
+            }, "Value must not equal arg.");
+
+            function resetForm(form) {
+                document.getElementById(form).reset();
+            }
+        </script>
+    </head>
+    <body>
+        <%@include file="/WEB-INF/jspf/ComprobarLogin.jspf" %>
+        <%            MenuDAO menuDAO = new MenuDAO();
+            SubmenuDAO submenuDAO = new SubmenuDAO();
+            Usuario usuario = (Usuario) session.getAttribute("user");
+            List<Menu> menus = menuDAO.obtenerMenuByRoll(
+                    usuario.getRoll().getRollId());
+        %>
+        <nav class="navbar navbar-inverse navbar-fixed-top ">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">ALMACEN PACIFICO</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <% for (Menu menu : menus) {%>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle menu" data-toggle="dropdown" role="button"><span class="glyphicon glyphicon-education"></span> <%=menu.getMenuName()%> <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <%
+                                    List<SubMenu> submenus = submenuDAO.obtenerSubmenuByMenu(
+                                            menu.getMenuId(),
+                                            usuario.getRoll().getRollId());
+                                    for (SubMenu submenu : submenus) {
+                                %>
+                                <li ><a href="<%=request.getContextPath() + submenu.getUrl()%>?sumenu=<%=submenu.getSubmenuName()%>"><%=submenu.getSubmenuName()%></a></li>
+                                    <%}%>
+                            </ul>
+                        </li>
+                        <%}%>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="${pageContext.request.contextPath}/sesion.do?accion=salir"><span class="glyphicon glyphicon-log-out"></span> Salir</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+        <script src="//oss.maxcdn.com/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
+        <div class="content-bottom  container" id="mensajesVarios" style="display: none;">
+            <p class="">Estado: ${Mensaje}</p>
+        </div> 
+    </body>
+    <script>
+
+            window.onload = mostrarContenedorMensajes;
+            function mostrarContenedorMensajes() {
+                var mensajeServidor = "${Mensaje}";
+                if (mensajeServidor != "") {
+                    $('#mensajesVarios').slideDown();
+                    setTimeout(cerrarContenedorMensajes, 5000);
+                }
+            }
+
+            function cerrarContenedorMensajes() {
+                $('#mensajesVarios').slideUp();
+            }
+    </script>
+</html>

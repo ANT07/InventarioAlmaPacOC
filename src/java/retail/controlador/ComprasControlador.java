@@ -8,6 +8,7 @@ package retail.controlador;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.servlet.RequestDispatcher;
@@ -20,12 +21,14 @@ import retail.modelo.entidades.Compra;
 import retail.modelo.entidades.Detalleventa;
 import retail.modelo.entidades.Detallecompra;
 import retail.modelo.entidades.Producto;
+import retail.modelo.entidades.Provider;
 import retail.modelo.entidades.Ventas;
 import retail.modelo.servicios.ServiciosCompra;
 import retail.modelo.servicios.ServiciosDetalleCompra;
 import retail.modelo.servicios.ServiciosDetalleVenta;
 import retail.modelo.servicios.ServiciosProducto;
 import retail.modelo.servicios.ServiciosVenta;
+import retail.util.UtilClass;
 
 /**
  *
@@ -73,8 +76,9 @@ public class ComprasControlador extends HttpServlet {
                 try {
 
                     String fecha = request.getParameter("fechaCompra");
-
-                    String proveedor = request.getParameter("txtProveedor");
+                    String fechaDocumento = request.getParameter("fechaDocumento");
+                    String noDocumento = request.getParameter("noDocumento");
+                    int proveedorId = Integer.parseInt(request.getParameter("providerid"));
 
                     String[] codigosProductos = request.getParameterValues(
                             "codigoProducto");
@@ -92,8 +96,13 @@ public class ComprasControlador extends HttpServlet {
                             request.getParameter("totalCompra"));
 
                     //Intertando Compra
-                    compra.setFechaCompra(retail.util.UtilClass.formatFecha2(
+                    compra.setFechaCompra(retail.util.UtilClass.formatFecha(
                             fecha));
+                    compra.setFechaDocumento(retail.util.UtilClass.formatFecha2(
+                            fechaDocumento));
+                    compra.setNoDocumento(noDocumento);
+                    Provider proveedor = new Provider();
+                    proveedor.setProviderid(proveedorId);
                     compra.setProveedor(proveedor);
                     compra.setTotalCompra(totalCompra);
 
@@ -145,6 +154,7 @@ public class ComprasControlador extends HttpServlet {
                     Compra compraEfectuar = serviciosCompra.obtenerCompraById(
                             idCompra);
                     compraEfectuar.setEstado(1);
+                    compraEfectuar.setFechaInventario(UtilClass.formatFecha(UtilClass.getFechaServidor()));
 
                     for (Detallecompra compradetalle : compradetalles) {
                         Producto producto = compradetalle.getProducto();
@@ -173,8 +183,9 @@ public class ComprasControlador extends HttpServlet {
                     int idCompra = Integer.parseInt(request.getParameter(
                             "idCompra"));
                     compra = serviciosCompra.obtenerCompraById(idCompra);
-                    String fecha = request.getParameter("fechaCompra");
-                    String proveedor = (request.getParameter("txtProveedor"));
+                    String fechaDocumento = request.getParameter("fechaDocumento");
+                    String noDocumento = request.getParameter("noDocumento");
+                    int proveedorId = Integer.parseInt(request.getParameter("providerid"));
 
                     String[] codigosProductos = request.getParameterValues(
                             "codigoProducto");
@@ -188,12 +199,13 @@ public class ComprasControlador extends HttpServlet {
                             request.getParameter("totalCompra"));
 
                     //Intertando Venta
+                    compra.setFechaDocumento(retail.util.UtilClass.formatFecha(
+                            fechaDocumento));
+                    Provider proveedor = new Provider();
+                    proveedor.setProviderid(proveedorId);
                     compra.setProveedor(proveedor);
-                    compra.setFechaCompra(retail.util.UtilClass.formatFecha(
-                            fecha));
                     compra.setTotalCompra(totalCompra);
-                    serviciosCompra.actualizarCompra(compra);
-
+                    compra.setNoDocumento(noDocumento);
                     //obteniendo viejos detalles de la venta
                     List<Detallecompra> detalleCompraViejos = serviciosCompraDetalle.obtenerDetallecomprasByCompra(
                             idCompra);
@@ -205,6 +217,7 @@ public class ComprasControlador extends HttpServlet {
                                 detalleCompraViejo);
                     }
                     //insertando nuevos detalles de la venta
+                     HashSet<Detallecompra> detalleCompraNuevos = new HashSet<>();
                     for (int i = 0; i < codigosProductos.length; i++) {
 
                         Detallecompra detalleCompra = new Detallecompra();
@@ -220,9 +233,10 @@ public class ComprasControlador extends HttpServlet {
                                 codigosProductos[i]));
                         detalleCompra.setProducto(producto);
                         detalleCompra.setCompra(compra);
-                        serviciosCompraDetalle.insertarDetallecompra(
-                                detalleCompra);
+                        detalleCompraNuevos.add(detalleCompra);
                     }
+                    compra.setDetallecompras(detalleCompraNuevos);
+                    serviciosCompra.actualizarCompra(compra);
                     //Redirigiendo a la lista
                     Mensaje = "La Compra fue actualizada de manera correcta";
                     request.setAttribute("Mensaje",
