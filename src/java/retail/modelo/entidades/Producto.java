@@ -15,27 +15,29 @@ public class Producto  implements java.io.Serializable {
      private String nombreProducto;
      private String descripcionProducto;
      private double precioProducto;
-     private int existenciaProducto;
+//     private int existenciaProducto;
      private Set detalleventas = new HashSet(0);
      private Set detallecompras = new HashSet(0);
+     private Set existencias = new HashSet(0);
+     private Set traslados = new HashSet(0);
 
     public Producto() {
     }
 
 	
-    public Producto(int codigoProducto, String nombreProducto, String descripcionProducto, double precioProducto, int existenciaProducto) {
+    public Producto(int codigoProducto, String nombreProducto, String descripcionProducto, double precioProducto) {
         this.codigoProducto = codigoProducto;
         this.nombreProducto = nombreProducto;
         this.descripcionProducto = descripcionProducto;
         this.precioProducto = precioProducto;
-        this.existenciaProducto = existenciaProducto;
+//        this.existenciaProducto = existenciaProducto;
     }
-    public Producto(int codigoProducto, String nombreProducto, String descripcionProducto, double precioProducto, int existenciaProducto, Set detalleventas, Set detallecompras) {
+    public Producto(int codigoProducto, String nombreProducto, String descripcionProducto, double precioProducto, Set detalleventas, Set detallecompras) {
        this.codigoProducto = codigoProducto;
        this.nombreProducto = nombreProducto;
        this.descripcionProducto = descripcionProducto;
        this.precioProducto = precioProducto;
-       this.existenciaProducto = existenciaProducto;
+//       this.existenciaProducto = existenciaProducto;
        this.detalleventas = detalleventas;
        this.detallecompras = detallecompras;
     }
@@ -68,13 +70,13 @@ public class Producto  implements java.io.Serializable {
     public void setPrecioProducto(double precioProducto) {
         this.precioProducto = precioProducto;
     }
-    public int getExistenciaProducto() {
-        return this.existenciaProducto;
-    }
-    
-    public void setExistenciaProducto(int existenciaProducto) {
-        this.existenciaProducto = existenciaProducto;
-    }
+//    public int getExistenciaProducto() {
+//        return this.existenciaProducto;
+//    }
+//    
+//    public void setExistenciaProducto(int existenciaProducto) {
+//        this.existenciaProducto = existenciaProducto;
+//    }
     public Set getDetalleventas() {
         return this.detalleventas;
     }
@@ -88,6 +90,22 @@ public class Producto  implements java.io.Serializable {
     
     public void setDetallecompras(Set detallecompras) {
         this.detallecompras = detallecompras;
+    }
+
+    public Set getExistencias() {
+        return existencias;
+    }
+
+    public void setExistencias(Set existencias) {
+        this.existencias = existencias;
+    }
+
+    public Set getTraslados() {
+        return traslados;
+    }
+
+    public void setTraslados(Set traslados) {
+        this.traslados = traslados;
     }
 
 

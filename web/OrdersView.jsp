@@ -50,7 +50,7 @@
         %>
         <div class="container">
             <form class="form-horizontal" action="ServletBusqueda" method="post">
-                <div class="row">
+                <div class="row well well-sm">
                     <div class="col-md-4">
                         <div class="form-group">
                             <div class="col-md-4">

@@ -9,6 +9,7 @@ import retail.modelo.conexion.NewHibernateUtil;
 import retail.modelo.servicios.interfaces.DetalleVentaDAO;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -83,8 +84,9 @@ public class ServiciosDetalleVenta implements DetalleVentaDAO {
                 "ventas");
         criteriaVenta.add(Restrictions.eq("idVenta",
                 idVenta));
-        session.close();
-        return criteriaDetalleVenta.list();
+        criteriaDetalleVenta.setFetchMode("producto", FetchMode.JOIN);
+        List<Detalleventa> detalleVentas = criteriaDetalleVenta.list();
+        return detalleVentas;
     }
 
 }

@@ -70,5 +70,14 @@ public class ServiciosProducto implements ProductoDAO{
         session.close();
         return productos;
     }
+    
+//    public List<Object []> obtenerProducto_ExistenciaVentas(int codigoProducto){
+//        SessionFactory sessionFactory = NewHibernateUtil.getSessionFactory();
+//        Session session = sessionFactory.openSession();
+//        Producto productos = (Producto) session.get(Producto.class,
+//                id);
+//        session.close();
+//        return productos;
+//    }
 
 }

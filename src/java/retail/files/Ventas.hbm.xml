@@ -7,10 +7,10 @@
       <column name="idVenta"/>
       <generator class="identity"/>
     </id>
-    <many-to-one class="retail.modelo.entidades.Clientes" fetch="select" name="clientes">
+    <many-to-one class="retail.modelo.entidades.Clientes" fetch="join" name="clientes">
       <column name="idCliente" not-null="true"/>
     </many-to-one>
-    <many-to-one class="retail.modelo.entidades.Vendedor" fetch="select" name="vendedor">
+    <many-to-one class="retail.modelo.entidades.Vendedor" fetch="join" name="vendedor">
       <column name="idVendedor" not-null="true"/>
     </many-to-one>
     <property name="fechaVenta" type="timestamp">
@@ -19,7 +19,7 @@
     <property name="totalVenta" type="double">
       <column name="totalVenta" not-null="true" precision="53" scale="0"/>
     </property>
-    <property name="estado" type="int">
+    <property name="estado" type="int"  >
       <column name="estado" not-null="true"/>
     </property>
     <set fetch="select" inverse="true" lazy="true" name="detalleventas" table="detalleventa" cascade="all">

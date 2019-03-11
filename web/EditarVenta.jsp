@@ -72,7 +72,7 @@
                         <label for="idCliente">Cliente: </label>
                     </div>
                     <div class="col-md-4">
-                        <input type="hidden" value="${venta.idCliente}" id="idCliente">
+                        <input type="hidden" value="${venta.clientes.idCliente}" id="idCliente">
                         <%@include file="WEB-INF/jspf/clientesSelect.jspf" %>
                     </div>
                 </div>
@@ -81,7 +81,7 @@
                         <label for="idCliente">Vendedor </label>
                     </div>
                     <div class="col-md-4">
-                        <input type="hidden" value="${venta.idVendedor}" id="idVendedor">
+                        <input type="hidden" value="${venta.vendedor.idVendedor}" id="idVendedor">
                         <%@include file="WEB-INF/jspf/vendedorSelect.jspf" %>
                     </div>
                 </div>
@@ -105,18 +105,17 @@
                                 <tbody>
                                     <c:set var="num" value="1"></c:set>
                                     <c:forEach var="detalleVenta" items="${ventaDetalles}">
-                                        <c:set var="productoDetalle" value="${serviciosProducto.obtenerProductoByCod(detalleVenta.idProducto)}"></c:set>
                                         <tr id="fila${num}">
                                             <td >
-                                                <input type="hidden" id="codigoProductoHidden" value="${detalleVenta.idProducto}">
+                                                <input type="hidden" id="codigoProductoHidden" value="${detalleVenta.producto.codigoProducto}">
                                                 <%@include file="WEB-INF/jspf/productosDataList.jspf" %>
-                                                <input type="text" onblur="obtenerNombreProducto(this)"  name="codigoProducto" id="codigoProducto" class="form-control input-sm" list="iProducto" value="${detalleVenta.idProducto}">
+                                                <input type="text" onblur="obtenerNombreProducto(this)"  name="codigoProducto" id="codigoProducto" class="form-control input-sm" list="iProducto" value="${detalleVenta.producto.codigoProducto}">
                                             </td>
                                             <td >
-                                                <input type="text" id="descripcion" value="${productoDetalle.nombreProducto}" readonly class="form-control input-sm" >
+                                                <input type="text" id="descripcion" value="${detalleVenta.producto.nombreProducto}" readonly class="form-control input-sm" >
                                             </td>
                                             <td>
-                                                <input type="number" name="cantidadDetalle" value="${detalleVenta.cantidadDetalle}" oninvalid="validarExistencia(event)" max="${productoDetalle.existenciaProducto}" id="cantidadDetalle" class="form-control input-sm" step="1" min="1" onblur="totalizarDetalle(this)">
+                                                <input type="number" name="cantidadDetalle" value="${detalleVenta.cantidadDetalle}" oninvalid="validarExistencia(event)" max="${detalleVenta.producto.existenciaProducto}" id="cantidadDetalle" class="form-control input-sm" step="1" min="1" onblur="totalizarDetalle(this)">
                                             </td>
                                             <td  >
                                                 <input type="number" min="0" name="precioDetalle" value="${detalleVenta.precioDetalle}" id="precioDetalle" step="0.01" class="form-control input-sm" onblur="totalizarDetalle(this)">
@@ -262,7 +261,9 @@
             //validacion de existencias por productos
             for (var i = 0; i < codigosProductos.length; i++) {
                 estadoValidacion = validarExistenciaByCodigo(codigosProductos[i]);
-
+                if(!estadoValidacion){
+                    break;
+                }
             }
             //validacion para selects
             for (var i = 0; i < selects.length; i++) {

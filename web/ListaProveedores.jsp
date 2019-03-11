@@ -95,7 +95,7 @@
                         </div>
                         <center><div class="modal-footer">
                                 <center>
-                                    <form action="provider.do.do" method="post">
+                                    <form action="provider.do" method="post">
                                         <input type="hidden" value='' name='cod' id='cod'>
                                         <input type="hidden" value='eliminar' name='Tipo'>
                                         <input type="submit" class="btn btn-danger" value="Sí, eliminar">

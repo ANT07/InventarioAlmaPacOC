@@ -15,6 +15,7 @@ public class Department  implements java.io.Serializable {
      private String departmentname;
      private Integer departemetstate;
      private Set orderMasters = new HashSet(0);
+     private int inventario;
 
     public Department() {
     }
@@ -52,6 +53,14 @@ public class Department  implements java.io.Serializable {
     
     public void setOrderMasters(Set orderMasters) {
         this.orderMasters = orderMasters;
+    }
+
+    public int getInventario() {
+        return inventario;
+    }
+
+    public void setInventario(int inventario) {
+        this.inventario = inventario;
     }
 
 

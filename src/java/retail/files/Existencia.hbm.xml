@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 02-15-2019 04:07:08 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class catalog="InventarioAlmaPacOC" name="retail.modelo.entidades.Existencia" optimistic-lock="version" schema="dbo" table="existencia">
+        <id name="idExistencia" type="int">
+            <column name="idExistencia"/>
+            <generator class="identity"/>
+        </id>
+        <property name="disponible" type="double">
+            <column name="disponible" not-null="true"/>
+        </property>
+        <many-to-one class="retail.modelo.entidades.Producto" fetch="join" name="producto" >
+            <column name="codigoProducto" not-null="true"/>
+        </many-to-one>
+        <many-to-one class="retail.modelo.entidades.Department" fetch="join" name="departamento" >
+            <column name="idDepartamento" not-null="true"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

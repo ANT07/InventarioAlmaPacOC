@@ -25,7 +25,6 @@
             body
             {
                 background: #00606F;
-                padding-top: 100px;
             }
             #cont{
                 background: #e9e9e9;
@@ -34,7 +33,7 @@
         </style>
     </head>
     <body>
-        <%@include file="WEB-INF/jspf/NavBar.jspf"%><br><br>
+        <%@include file="WEB-INF/jspf/NavBar.jspf"%>
         <div class="">
             <div  class="col-xs-6 col-xs-offset-3 " id="cont" >
                 <label>${Mensaje}</label>
@@ -108,68 +107,67 @@
         <script src="js/jquery-3.1.1.min.js"></script>
         <script type="text/javascript">
 
-            function valida(e) {
-                tecla = (document.all) ? e.keyCode : e.which;
+                                    function valida(e) {
+                                        tecla = (document.all) ? e.keyCode : e.which;
 
-                if (tecla == 8) {
-                    return true;
-                }
+                                        if (tecla == 8) {
+                                            return true;
+                                        }
 
-                patron = /[0-9 \d/./]/;
-                tecla_final = String.fromCharCode(tecla);
-                return patron.test(tecla_final);
-            }
+                                        patron = /[0-9 \d/./]/;
+                                        tecla_final = String.fromCharCode(tecla);
+                                        return patron.test(tecla_final);
+                                    }
 
-            $('#FormCrearUs').bootstrapValidator({
-                
-                feedbackIcons: {
-                    valid: 'glyphicon glyphicon-ok',
-                    invalid: 'glyphicon glyphicon-remove',
-                    validating: 'glyphicon glyphicon-refresh'
-                },
-                fields: {
-                    txtNombre: {
-                        validators: {
-                            stringLength: {
-                                min: 2,
-                                message: 'Por favor ingrese 2 caracteres como mínimo'
-                            },
-                            notEmpty: {
+                                    $('#FormCrearUs').bootstrapValidator({
 
-                                message: 'El nombre del producto es requerido'
+                                        feedbackIcons: {
+                                            valid: 'glyphicon glyphicon-ok',
+                                            invalid: 'glyphicon glyphicon-remove',
+                                            validating: 'glyphicon glyphicon-refresh'
+                                        },
+                                        fields: {
+                                            txtNombre: {
+                                                validators: {
+                                                    stringLength: {
+                                                        min: 2,
+                                                        message: 'Por favor ingrese 2 caracteres como mínimo'
+                                                    },
+                                                    notEmpty: {
 
-                            },
-                            
-                        }
-                    },
-                    txtDescripcion: {
-                        validators: {
-                            stringLength: {
-                                min: 5,
-                                message: 'Por favor ingrese 5 caracteres como mínimo'
-                            },
-                            notEmpty: {
-                                message: 'La descripcion del producto es requerida'
-                            },
-                            
-                        }
-                    },
-                    txtPrecio: {
-                        validators: {
-                            
-                            notEmpty: {
-                                message: 'El precio del producto es requerido'
-                            },
-                            
-                            numeric:{
-                                message: 'El precio no es válido'
-                            },
-                        }
-                    },
-                    
+                                                        message: 'El nombre del producto es requerido'
 
-                }
-            })
+                                                    },
+
+                                                }
+                                            },
+                                            txtDescripcion: {
+                                                validators: {
+                                                    stringLength: {
+                                                        min: 5,
+                                                        message: 'Por favor ingrese 5 caracteres como mínimo'
+                                                    },
+                                                    notEmpty: {
+                                                        message: 'La descripcion del producto es requerida'
+                                                    },
+
+                                                }
+                                            },
+                                            txtPrecio: {
+                                                validators: {
+
+                                                    notEmpty: {
+                                                        message: 'El precio del producto es requerido'
+                                                    },
+
+                                                    numeric: {
+                                                        message: 'El precio no es válido'
+                                                    },
+                                                }
+                                            },
+
+                                        }
+                                    })
 
         </script>
     </body>

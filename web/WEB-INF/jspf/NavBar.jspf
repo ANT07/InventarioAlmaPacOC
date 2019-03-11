@@ -84,8 +84,8 @@
                     usuario.getRoll().getRollId());
         %>
 
-        <header class="my-header">
-            <nav class="container navbar navbar-static-top">
+        <header class="my-header" >
+            <nav class="container navbar navbar-static-top" >
                 <div class="navbar-header">
 
                     <div class="my-logo">
@@ -101,7 +101,7 @@
                                     String pageName = request.getRequestURL().toString();
                                     int sep = pageName.lastIndexOf("/");
                                     int dot = pageName.lastIndexOf(".");
-                                    pageContext.setAttribute("namePage", pageName.substring(sep +1, dot));
+                                    pageContext.setAttribute("namePage", pageName.substring(sep + 1, dot));
                                 %>
                                 ${namePage}
                             </a>
@@ -143,7 +143,7 @@
                                                 <a href="#" class="btn btn-default"> <i class="fa fa-user"></i> Perfil</a>
                                             </div>
                                             <div class="pull-right">
-                                                <a href="#" class="btn btn-default"> <i class="fa fa-power-off"></i> Salir</a>
+                                                <a href="${pageContext.request.contextPath}/sesion.do?accion=salir" class="btn btn-default"> <i class="fa fa-power-off"></i> Salir</a>
                                             </div>
                                         </li>
                                     </ul>                   
@@ -174,12 +174,14 @@
                     <li class="dropdown my-li-nav"  >
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" ><%=menu.getMenuName()%> <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <%
-                                List<SubMenu> submenus = submenuDAO.obtenerSubmenuByMenu(
-                                        menu.getMenuId(),
-                                        usuario.getRoll().getRollId());
-                                for (SubMenu submenu : submenus) {
-                            %>
+                            <li class="dropdown-header">Opciones</li>
+                                <%
+                                    List<SubMenu> submenus = submenuDAO.obtenerSubmenuByMenu(
+                                            menu.getMenuId(),
+                                            usuario.getRoll().getRollId());
+                                    for (SubMenu submenu : submenus) {
+                                %>
+
                             <li class="my-li-nav" ><a href="<%=request.getContextPath() + submenu.getUrl()%>"><%=submenu.getSubmenuName()%></a></li>
                                 <%}%>
                         </ul>

@@ -24,6 +24,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <%@include file="WEB-INF/jspf/NavBar.jspf"%>
         <div class="container well " >
             <center><h1>Ventas</h1></center>
             <hr>
@@ -44,7 +45,6 @@
                 pageContext.setAttribute("ventas", ventas);
                 pageContext.setAttribute("utilClass", utilClass);
             %>
-            <%@include file="WEB-INF/jspf/NavBar.jspf"%>
             <hr><center>
                 <input class="form-control" style="width: 150px" id="txtBuscar" type="text" onkeyup="Buscar()" placeholder="Buscar" ></center>
             <div class="form-group" style="float: left;">
@@ -63,20 +63,20 @@
                         </div>
                         <div class="modal-body" >
                             <center>
-                            <div class="form-group" >
-                                <h4>N°Registros</h4>
-                                <select name="state" id="maxRows" class="form-control" style="width: 100px;">
-                                    <option value="5000">Ver todo</option>
-                                    <option value="5" >5</option>
-                                    <option value="10">10</option>
-                                    <option value="15">15</option>
-                                    <option value="20">20</option>
-                                    <option value="50">50</option>
-                                    <option value="75">75</option>
-                                    <option value="100">100</option>
-                                </select>
+                                <div class="form-group" >
+                                    <h4>N°Registros</h4>
+                                    <select name="state" id="maxRows" class="form-control" style="width: 100px;">
+                                        <option value="5000">Ver todo</option>
+                                        <option value="5" >5</option>
+                                        <option value="10">10</option>
+                                        <option value="15">15</option>
+                                        <option value="20">20</option>
+                                        <option value="50">50</option>
+                                        <option value="75">75</option>
+                                        <option value="100">100</option>
+                                    </select>
 
-                            </div>    </center>      
+                                </div>    </center>      
                         </div> 
 
                         <div class="modal-footer">
@@ -89,8 +89,7 @@
                 </div>
             </div><br>
             <center> <div class="form-group">
-                <p  class="alert-info" style="font-size: 16px; color: #007bff; width: 330px;<c:if var="prueba" test="${Mensaje == null}" > display: none; </c:if>">${Mensaje}</p> 
-                </div></center>
+                    </div></center>
                 <div class="table-condensed" >
                     <table class="table table-condensed table-hover table-striped" id="lista">
                         <thead class="thead-light" style="align-content: center">
@@ -105,14 +104,12 @@
                         </thead>
                         <tbody>
                         <c:forEach var="venta" items="${ventas}" >
-                            <c:set var="cliente" value="${serviciosCliente.obtenerClientesById(venta.idCliente)}"></c:set>
-                            <c:set var="vendedor" value="${serviciosVendedor.obtenerVendedorById(venta.idVendedor)}"></c:set>
 
-                                <tr>
-                                    <td><b>${venta.idVenta}</b></td>
+                            <tr>
+                                <td><b>${venta.idVenta}</b></td>
                                 <td>${utilClass.formatoFecha(venta.fechaVenta)}</td>
-                                <td>${vendedor.nombreVendedor} ${vendedor.apellidoVendedor}</td>
-                                <td>${cliente.nombreCliente} ${cliente.apellidoCliente}</td>
+                                <td>${venta.vendedor.nombreVendedor} ${venta.vendedor.apellidoVendedor}</td>
+                                <td>${venta.clientes.nombreCliente} ${venta.clientes.apellidoCliente}</td>
                                 <td>$ ${utilClass.formatoDecimales(venta.totalVenta)}</td>
                                 <td>
                                     <c:url var="editar" value="EditarVenta.jsp">

@@ -7,8 +7,9 @@ package retail.controlador;
 
 import java.io.IOException;
 import java.util.List;
-import java.sql.ResultSet;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -17,12 +18,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import retail.modelo.entidades.Clientes;
+import retail.modelo.entidades.Department;
 import retail.modelo.entidades.Detalleventa;
+import retail.modelo.entidades.Existencia;
 import retail.modelo.entidades.Producto;
 import retail.modelo.entidades.Vendedor;
 import retail.modelo.entidades.Ventas;
 import retail.modelo.servicios.ServiciosCliente;
 import retail.modelo.servicios.ServiciosDetalleVenta;
+import retail.modelo.servicios.ServiciosExistencia;
 import retail.modelo.servicios.ServiciosProducto;
 import retail.modelo.servicios.ServiciosVendedor;
 import retail.modelo.servicios.ServiciosVenta;
@@ -51,6 +55,7 @@ public class VentasControlador extends HttpServlet {
         ServiciosVenta serviciosVenta = new ServiciosVenta();
         ServiciosDetalleVenta serviciosVentaDetalle = new ServiciosDetalleVenta();
         ServiciosProducto serviciosProductos = new ServiciosProducto();
+        ServiciosExistencia serviciosExistencia = new ServiciosExistencia();
         String accion = request.getParameter("accion");
         RequestDispatcher salidaListaVentas = request.getRequestDispatcher(
                 "ListaVentas.jsp");
@@ -137,11 +142,10 @@ public class VentasControlador extends HttpServlet {
                             idVenta);
                     ventaEfectuar.setEstado(1);
                     for (Detalleventa ventadetalle : ventadetalles) {
-                        Producto producto = serviciosProductos.obtenerProductoById(
-                                ventadetalle.getProducto().getCodigoProducto());
-                        producto.setExistenciaProducto(
-                                producto.getExistenciaProducto() - ventadetalle.getCantidadDetalle());
-                        serviciosProductos.actualizarProducto(producto);
+                        Producto producto = ventadetalle.getProducto();
+                        Existencia existencia = serviciosExistencia.obtenerExistenciaByProductoByDepartamento(producto.getCodigoProducto(), 3);
+                        existencia.setDisponible(existencia.getDisponible() + ventadetalle.getCantidadDetalle());
+                        serviciosExistencia.actualizarExistencia(existencia);
                     }
 
                     serviciosVenta.actualizarVentas(ventaEfectuar);
@@ -225,31 +229,31 @@ public class VentasControlador extends HttpServlet {
                 break;
             }
             case "anular": {
-                try {
-                    int idVenta = Integer.parseInt(request.getParameter(
-                            "idVenta"));
-                    List<Detalleventa> ventadetalles = serviciosVentaDetalle.obtenerDetalleventasByIdVenta(
-                            idVenta);
-                    Ventas ventaEfectuar = serviciosVenta.obtenerVentasById(
-                            idVenta);
-                    ventaEfectuar.setEstado(0);
-                    for (Detalleventa ventadetalle : ventadetalles) {
-                        Producto producto = serviciosProductos.obtenerProductoById(
-                                ventadetalle.getProducto().getCodigoProducto());
-                        producto.setExistenciaProducto(
-                                producto.getExistenciaProducto() + ventadetalle.getCantidadDetalle());
-                        serviciosProductos.actualizarProducto(producto);
-                    }
-
-                    serviciosVenta.actualizarVentas(ventaEfectuar);
-                    Mensaje = "La venta se anuló de manera correcta";
-                    request.setAttribute("Mensaje",
-                            Mensaje);
-                    salidaListaVentas.forward(request,
-                            response);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+//                try {
+//                    int idVenta = Integer.parseInt(request.getParameter(
+//                            "idVenta"));
+//                    List<Detalleventa> ventadetalles = serviciosVentaDetalle.obtenerDetalleventasByIdVenta(
+//                            idVenta);
+//                    Ventas ventaEfectuar = serviciosVenta.obtenerVentasById(
+//                            idVenta);
+//                    ventaEfectuar.setEstado(0);
+//                    for (Detalleventa ventadetalle : ventadetalles) {
+//                        Producto producto = serviciosProductos.obtenerProductoById(
+//                                ventadetalle.getProducto().getCodigoProducto());
+//                        producto.setExistenciaProducto(
+//                                producto.getExistenciaProducto() + ventadetalle.getCantidadDetalle());
+//                        serviciosProductos.actualizarProducto(producto);
+//                    }
+//
+//                    serviciosVenta.actualizarVentas(ventaEfectuar);
+//                    Mensaje = "La venta se anuló de manera correcta";
+//                    request.setAttribute("Mensaje",
+//                            Mensaje);
+//                    salidaListaVentas.forward(request,
+//                            response);
+//                } catch (Exception ex) {
+//                    ex.printStackTrace();
+//                }
                 break;
             }
             case "nombreProducto": {
@@ -259,9 +263,10 @@ public class VentasControlador extends HttpServlet {
                             "idProducto"));
                     Producto producto = serviciosProductos.obtenerProductoById(
                             codigoProducto);
+                    Existencia existencia = serviciosExistencia.obtenerExistenciaByProductoByDepartamento(producto.getCodigoProducto(), 3);
                     if (producto.getNombreProducto() != null) {
                         response.getWriter().write(
-                                producto.getNombreProducto() + "," + producto.getExistenciaProducto() + "," + producto.getPrecioProducto());
+                                producto.getNombreProducto() + "," + existencia.getDisponible()+ "," + producto.getPrecioProducto());
                     } else {
                         response.getWriter().write("Error de Producto");
                     }
@@ -273,23 +278,23 @@ public class VentasControlador extends HttpServlet {
                 break;
             }
             case "existencia": {
-                try {
-                    response.setContentType("text/html");
-                    int codigoProducto = Integer.parseInt(request.getParameter(
-                            "codigoProducto"));
-                    Producto producto = serviciosProductos.obtenerProductoById(
-                            codigoProducto);
-                    if (producto.getNombreProducto() != null) {
-                        response.getWriter().write(
-                                producto.getExistenciaProducto());
-                    } else {
-                        response.getWriter().write("0");
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    response.getWriter().write("0");
-                }
+//                try {
+//                    response.setContentType("text/html");
+//                    int codigoProducto = Integer.parseInt(request.getParameter(
+//                            "codigoProducto"));
+//                    Producto producto = serviciosProductos.obtenerProductoById(
+//                            codigoProducto);
+//                    if (producto.getNombreProducto() != null) {
+//                        response.getWriter().write(
+//                                producto.getExistenciaProducto());
+//                    } else {
+//                        response.getWriter().write("0");
+//                    }
+//
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    response.getWriter().write("0");
+//                }
                 break;
             }
             case "buscarVentasqr": {

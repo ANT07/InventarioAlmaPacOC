@@ -6,26 +6,23 @@
 package retail.controlador;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.ResultSet;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import retail.modelo.entidades.Clientes;
 import retail.modelo.entidades.Compra;
-import retail.modelo.entidades.Detalleventa;
 import retail.modelo.entidades.Detallecompra;
+import retail.modelo.entidades.Existencia;
 import retail.modelo.entidades.Producto;
 import retail.modelo.entidades.Provider;
 import retail.modelo.entidades.Ventas;
 import retail.modelo.servicios.ServiciosCompra;
 import retail.modelo.servicios.ServiciosDetalleCompra;
 import retail.modelo.servicios.ServiciosDetalleVenta;
+import retail.modelo.servicios.ServiciosExistencia;
 import retail.modelo.servicios.ServiciosProducto;
 import retail.modelo.servicios.ServiciosVenta;
 import retail.util.UtilClass;
@@ -57,6 +54,7 @@ public class ComprasControlador extends HttpServlet {
 
         ServiciosDetalleVenta serviciosVentaDetalle = new ServiciosDetalleVenta();
         ServiciosDetalleCompra serviciosCompraDetalle = new ServiciosDetalleCompra();
+        ServiciosExistencia serviciosExistencia = new ServiciosExistencia();
 
         ServiciosProducto serviciosProductos = new ServiciosProducto();
 
@@ -158,9 +156,9 @@ public class ComprasControlador extends HttpServlet {
 
                     for (Detallecompra compradetalle : compradetalles) {
                         Producto producto = compradetalle.getProducto();
-                        producto.setExistenciaProducto(
-                                producto.getExistenciaProducto() + compradetalle.getCantidadDetalle());
-                        serviciosProductos.actualizarProducto(producto);
+                        Existencia existencia = serviciosExistencia.obtenerExistenciaByProductoByDepartamento(producto.getCodigoProducto(), 2);
+                        existencia.setDisponible(existencia.getDisponible() + compradetalle.getCantidadDetalle());
+                        serviciosExistencia.actualizarExistencia(existencia);
                     }
 
                     serviciosCompra.actualizarCompra(compraEfectuar);
@@ -217,7 +215,7 @@ public class ComprasControlador extends HttpServlet {
                                 detalleCompraViejo);
                     }
                     //insertando nuevos detalles de la venta
-                     HashSet<Detallecompra> detalleCompraNuevos = new HashSet<>();
+                    HashSet<Detallecompra> detalleCompraNuevos = new HashSet<>();
                     for (int i = 0; i < codigosProductos.length; i++) {
 
                         Detallecompra detalleCompra = new Detallecompra();
@@ -250,53 +248,53 @@ public class ComprasControlador extends HttpServlet {
                 break;
             }
             case "anular": {
-                try {
-
-                    int idCompra = Integer.parseInt(request.getParameter(
-                            "idCompra"));
-
-                    List<Detallecompra> compradetalles = serviciosCompraDetalle.obtenerDetallecomprasByCompra(
-                            idCompra);
-                    Compra compraEfectuar = serviciosCompra.obtenerCompraById(
-                            idCompra);
-                    compraEfectuar.setEstado(0);
-
-                    for (Detallecompra compradetalle : compradetalles) {
-                        Producto producto = compradetalle.getProducto();
-                        producto.setExistenciaProducto(
-                                producto.getExistenciaProducto() - compradetalle.getCantidadDetalle());
-                        serviciosProductos.actualizarProducto(producto);
-                    }
-
-                    serviciosCompra.actualizarCompra(compraEfectuar);
-                    Mensaje = "La Compra se anuló de manera correcta";
-                    request.setAttribute("Mensaje",
-                            Mensaje);
-                    salidaListaCompra.forward(request,
-                            response);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+//                try {
+//
+//                    int idCompra = Integer.parseInt(request.getParameter(
+//                            "idCompra"));
+//
+//                    List<Detallecompra> compradetalles = serviciosCompraDetalle.obtenerDetallecomprasByCompra(
+//                            idCompra);
+//                    Compra compraEfectuar = serviciosCompra.obtenerCompraById(
+//                            idCompra);
+//                    compraEfectuar.setEstado(0);
+//
+//                    for (Detallecompra compradetalle : compradetalles) {
+//                        Producto producto = compradetalle.getProducto();
+//                        producto.setExistenciaProducto(
+//                                producto.getExistenciaProducto() - compradetalle.getCantidadDetalle());
+//                        serviciosProductos.actualizarProducto(producto);
+//                    }
+//
+//                    serviciosCompra.actualizarCompra(compraEfectuar);
+//                    Mensaje = "La Compra se anuló de manera correcta";
+//                    request.setAttribute("Mensaje",
+//                            Mensaje);
+//                    salidaListaCompra.forward(request,
+//                            response);
+//                } catch (Exception ex) {
+//                    ex.printStackTrace();
+//                }
                 break;
             }
             case "nombreProducto": {
-                try {
-                    response.setContentType("text/html");
-                    int codigoProducto = Integer.parseInt(request.getParameter(
-                            "idProducto"));
-                    Producto producto = serviciosProductos.obtenerProductoById(
-                            codigoProducto);
-                    if (producto.getNombreProducto() == null) {
-                        response.getWriter().write("Error de Producto");
-                    } else {
-                        response.getWriter().write(
-                                producto.getNombreProducto() + "," + producto.getExistenciaProducto() + "," + producto.getPrecioProducto());
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    response.getWriter().write("Error de Producto");
-                }
+//                try {
+//                    response.setContentType("text/html");
+//                    int codigoProducto = Integer.parseInt(request.getParameter(
+//                            "idProducto"));
+//                    Producto producto = serviciosProductos.obtenerProductoById(
+//                            codigoProducto);
+//                    if (producto.getNombreProducto() == null) {
+//                        response.getWriter().write("Error de Producto");
+//                    } else {
+//                        response.getWriter().write(
+//                                producto.getNombreProducto() + "," + producto.getExistenciaProducto() + "," + producto.getPrecioProducto());
+//                    }
+//
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    response.getWriter().write("Error de Producto");
+//                }
                 break;
             }
             case "buscarVentasqr": {

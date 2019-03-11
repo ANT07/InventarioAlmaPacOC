@@ -14,8 +14,6 @@
     <head>
 
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <link href="../css/bootstrap-theme.css" rel="stylesheet"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="js/BuscadorTabla.js" type="text/javascript"></script>
         <title>Producto</title>
@@ -37,11 +35,10 @@
 
         <div class="container well" id="ContainerLogin">
 
-            <h1>Productos</h1>
+            <h1>Existencia de Producto</h1>
 
             <hr><center>
                 <input class="form-control" style="width: 150px" id="txtBuscar" type="text" onkeyup="Buscar()" placeholder="Buscar" ></center>
-            <a href="InsertarProductos.jsp" class="btn btn-primary" style="float: left;">+ Insertar producto</a> <br> 
 
 
             <div class="form-group col-md-2" style="float: right">
@@ -112,51 +109,24 @@
             <table  style="width: 100%;"  class="table table-condensed table-striped table-hover table-bordered col-md-10" id="lista">
                 <thead class="thead-light"> 
                     <tr class="info">
-                        <th style="width: 5%;"><center>ID</center></th>
-                <!--                    <th><center>Código de Barra</center></th>-->
-                <th style="width: 15%;"><center >Nombre</center></th>
-                <th style="width: 40%;"><center >Descripcion</center></th>
-                <th style="width: 15%;"><center>Precio</center></th>
-                <th style="width: 10%;"><center>Acciones</center></th>
+                        <th style="width: 50%;"><center >Ubicacion de Existencia</center></th>
+                <th style="width: 50%;"><center >Cantidad Disponible</center></th>
                 </tr>
                 </thead>
                 <tbody>
                     <c:forEach var="producto" items="${producto}">
                         <tr>
-
-                            <td><center><b>${producto.codigoProducto}</b></center></td>
     <!--                        <td style="text-align: center;"><img src="barra.do?value=${producto.codigoProducto}"></td>-->
-                    <td>${producto.nombreProducto}</td>
+                            <td colspan="2" class="success"><b>${producto.codigoProducto} ${producto.nombreProducto}</b></td>
 
-                    <td>${producto.descripcionProducto}</td>
-                    <td>$   ${producto.precioProducto}</td>
-
-                    <td >
-
-
-                        <c:url var="urlEditar" value="productoscontrolador.do">
-                            <c:param name="txtCarnet" value="${producto.codigoProducto}"></c:param>
-                            <c:param name="Tipo" value="editar"></c:param>
-                        </c:url>
-                        <script type="text/javascript">
-                            function CambiarValor(userId)
-                            {
-                                var hiddenCod = document.getElementById("cod");
-                                hiddenCod.value = userId;
-                            }
-                        </script>
-                        <a href="#modalEliminar" onclick="CambiarValor('${producto.codigoProducto}')" data-toggle="modal" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a> 
-                        <form action="productoscontrolador.do" method="post" style="display: inline;">
-                            <input type="hidden" name="Tipo" value="buscar">
-                            <input type="hidden" name="codigoProducto" value="${producto.codigoProducto}"> 
-
-                            <button type="submit" class="btn btn-info btn-sm" ><span class="glyphicon glyphicon-pencil"></span></button>
-                            <!--<a href="${urlEditar}">Editar</a>-->
-                        </form>
-                    </td>
-
-                    </tr>
-                </c:forEach>
+                        </tr>
+                        <c:forEach items="${producto.existencias}" var="existencia">
+                            <tr>
+                                <td style="padding-left: 30px;"><span class="glyphicon glyphicon-tag"></span> ${existencia.departamento.departmentname}</td>
+                                <td>${existencia.disponible}</td>
+                            </tr>
+                        </c:forEach>
+                    </c:forEach>
                 </tbody>
             </table>
 
@@ -181,43 +151,43 @@
         <script src="js/jquery.min.js"></script>
 
         <script>
-                                var table = '#lista';
-                                $('#maxRows').on('change', function () {
-                                    $('.pagination').html('');
-                                    var trnum = 0;
-                                    var maxRows = parseInt($(this).val());
-                                    var totalRows = $(table + ' tbody tr').length;
-                                    $(table + ' tr:gt(0)').each(function () {
-                                        trnum++;
-                                        if (trnum > maxRows) {
-                                            $(this).hide();
-                                        }
-                                        if (trnum <= maxRows) {
-                                            $(this).show();
-                                        }
-                                    });
-                                    if (totalRows > maxRows) {
-                                        var pagenum = Math.ceil(totalRows / maxRows);
-                                        for (var i = 1; i <= pagenum; ) {
-                                            $('.pagination').append('<li data-page="' + i + '">\<span>' + i++ + '<span class="sr-only">(current)</span></span>\</li>').show();
-                                        }
-                                    }
-                                    $('.pagination li:first-child').addClass('active');
-                                    $('.pagination li').on('click', function () {
-                                        var pageNum = $(this).attr('data-page');
-                                        var trIndex = 0;
-                                        $('.pagination li').removeClass('active');
-                                        $(this).addClass('active');
-                                        $(table + ' tr:gt(0)').each(function () {
-                                            trIndex++;
-                                            if (trIndex > (maxRows * pageNum) || trIndex <= ((maxRows * pageNum) - maxRows)) {
-                                                $(this).hide();
-                                            } else {
-                                                $(this).show();
-                                            }
-                                        });
-                                    });
-                                });
+                    var table = '#lista';
+                    $('#maxRows').on('change', function () {
+                        $('.pagination').html('');
+                        var trnum = 0;
+                        var maxRows = parseInt($(this).val());
+                        var totalRows = $(table + ' tbody tr').length;
+                        $(table + ' tr:gt(0)').each(function () {
+                            trnum++;
+                            if (trnum > maxRows) {
+                                $(this).hide();
+                            }
+                            if (trnum <= maxRows) {
+                                $(this).show();
+                            }
+                        });
+                        if (totalRows > maxRows) {
+                            var pagenum = Math.ceil(totalRows / maxRows);
+                            for (var i = 1; i <= pagenum; ) {
+                                $('.pagination').append('<li data-page="' + i + '">\<span>' + i++ + '<span class="sr-only">(current)</span></span>\</li>').show();
+                            }
+                        }
+                        $('.pagination li:first-child').addClass('active');
+                        $('.pagination li').on('click', function () {
+                            var pageNum = $(this).attr('data-page');
+                            var trIndex = 0;
+                            $('.pagination li').removeClass('active');
+                            $(this).addClass('active');
+                            $(table + ' tr:gt(0)').each(function () {
+                                trIndex++;
+                                if (trIndex > (maxRows * pageNum) || trIndex <= ((maxRows * pageNum) - maxRows)) {
+                                    $(this).hide();
+                                } else {
+                                    $(this).show();
+                                }
+                            });
+                        });
+                    });
 
         </script>
 

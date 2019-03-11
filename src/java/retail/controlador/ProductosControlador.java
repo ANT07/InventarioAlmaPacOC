@@ -7,13 +7,20 @@ package retail.controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import retail.modelo.entidades.Department;
+import retail.modelo.entidades.Existencia;
 import retail.modelo.entidades.Producto;
+import retail.modelo.servicios.DepartmentImpl;
+import retail.modelo.servicios.ServiciosExistencia;
 import retail.modelo.servicios.ServiciosProducto;
 
 /**
@@ -39,16 +46,24 @@ public class ProductosControlador extends HttpServlet {
             String menu = request.getParameter("Tipo");
             String Mensaje = "";
             ServiciosProducto Producto = new ServiciosProducto();
-
+            ServiciosExistencia serviciosExistencia = new ServiciosExistencia();
+            DepartmentImpl serviciosDepartamento = new DepartmentImpl();
+                    
             Producto Produc = new Producto();
             switch (menu) {
                 case "insertar": {
                     try {
                         String nombre = request.getParameter("txtNombre");
                         String descripcion = request.getParameter("txtDescripcion");
-                        double precio = Double.parseDouble(request.getParameter("txtPrecio"));
-                        
-
+                        double precio = Double.parseDouble(request.getParameter("txtPrecio"));                      
+                        List<Department> departamentos = serviciosDepartamento.getDepartmentsByInventario(1);
+                        for (Department departamento : departamentos) {
+                            Existencia existencia = new Existencia();
+                            existencia.setDepartamento(departamento);
+                            existencia.setProducto(Produc);
+                            existencia.setDisponible(0);
+                            Produc.getExistencias().add(existencia);
+                        }
                         Produc.setNombreProducto(nombre);
                         Produc.setDescripcionProducto(descripcion);
                         Produc.setPrecioProducto(precio);

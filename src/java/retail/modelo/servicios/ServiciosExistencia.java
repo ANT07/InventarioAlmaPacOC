@@ -6,88 +6,84 @@
 package retail.modelo.servicios;
 
 import retail.modelo.conexion.NewHibernateUtil;
-import retail.modelo.servicios.interfaces.DetalleCompraDAO;
+import retail.modelo.servicios.interfaces.ExistenciaDAO;
 import java.util.List;
 import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Restrictions;
-import retail.modelo.entidades.Detallecompra;
-
-;
+import retail.modelo.entidades.Existencia;
 
 /**
  *
  * @author William Vasquez
  */
-public class ServiciosDetalleCompra implements DetalleCompraDAO {
+public class ServiciosExistencia implements ExistenciaDAO {
 
-    public void insertarDetallecompra(Detallecompra detalleCompra)
+    public void insertarExistencia(Existencia existencia)
             throws Exception {
         SessionFactory sessionFactory = NewHibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-        session.save(detalleCompra);
+        session.save(existencia);
         tx.commit();
         session.close();
     }
 
-    public void eliminarDetallecompra(Detallecompra detalleCompra)
+    public void eliminarExistencia(Existencia existencia)
             throws Exception {
         SessionFactory sessionFactory = NewHibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-        session.delete(detalleCompra);
+        session.delete(existencia);
         tx.commit();
         session.close();
     }
 
-    public void actualizarDetallecompra(Detallecompra detalleCompra)
+    public void actualizarExistencia(Existencia existencia)
             throws Exception {
         SessionFactory sessionFactory = NewHibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-        session.update(detalleCompra);
+        session.update(existencia);
         tx.commit();
         session.close();
     }
 
-    public List<Detallecompra> obtenerDetallecompra()
+    public List<Existencia> obtenerExistencias()
             throws Exception {
         SessionFactory sessionFactory = NewHibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
-        Query query = session.createQuery("from Detallecompra");
+        Query query = session.createQuery("from Existencia");
+        List<Existencia> existenciaes = query.list();
         session.close();
-        return query.list();
+        return existenciaes;
     }
 
-    public Detallecompra obtenerDetallecompraById(int id)
+    public Existencia obtenerExistenciaById(int id)
             throws Exception {
         SessionFactory sessionFactory = NewHibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
-        Detallecompra detalleCompras = (Detallecompra) session.get(
-                Detallecompra.class,
+        Existencia existencias = (Existencia) session.get(Existencia.class,
                 id);
         session.close();
-        return detalleCompras;
+        return existencias;
     }
 
-    public List<Detallecompra> obtenerDetallecomprasByCompra(int idCompra) {
+    public Existencia obtenerExistenciaByProductoByDepartamento(int codigoProducto, int idDepartamento)
+            throws Exception {
         SessionFactory sessionFactory = NewHibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
-        Criteria criteriaDetalleCompra = session.createCriteria(Detallecompra.class);
-        Criteria criteriaCompra = criteriaDetalleCompra.createCriteria(
-                "compra");
-        criteriaCompra.add(Restrictions.idEq(idCompra));
-        criteriaDetalleCompra.setFetchMode("producto", FetchMode.JOIN);
-        criteriaDetalleCompra.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
-        List<Detallecompra> detalleCompras = criteriaDetalleCompra.list();
+        Criteria criteriaExistencia = session.createCriteria(Existencia.class);
+        criteriaExistencia.createAlias("departamento", "dep");
+        criteriaExistencia.createAlias("producto", "p");
+        criteriaExistencia.add(Restrictions.eq("dep.departmentid", idDepartamento));
+        criteriaExistencia.add(Restrictions.eq("p.codigoProducto", codigoProducto));
+        Existencia existencia = (Existencia) criteriaExistencia.list().get(0);
         session.close();
-        return detalleCompras;
+        return existencia;
     }
 
 }
