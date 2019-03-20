@@ -65,5 +65,6 @@ Contributor(s):
     <mapping resource="retail/files/Detalleventa.hbm.xml"/>
     <mapping resource="retail/files/Department.hbm.xml"/>
     <mapping resource="retail/files/Existencia.hbm.xml"/>
+    <mapping resource="retail/files/Traslado.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

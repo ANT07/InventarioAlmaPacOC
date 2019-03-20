@@ -31,7 +31,7 @@
             </key>
             <one-to-many class="retail.modelo.entidades.Detallecompra"/>
         </set>
-        <set fetch="join" lazy="false" inverse="true"  name="existencias" table="existencia" cascade="all">
+        <set fetch="join" lazy="false" inverse="true"  name="existencias" table="existencia" cascade="all" order-by="departamento.departmentid desc">
             <key>
                 <column name="codigoProducto" not-null="true"/>
             </key>

@@ -20,8 +20,8 @@
                paths);
 %>
     
-<select class="form-control" id="url" onchange="cambioValorSelect(event)">
-    <option value="-1" selected >Seleccione...</option>
+<select class="form-control" id="url" name="urlSelect" onchange="cambioValorSelect(event)">
+    <option value="" selected >Seleccione...</option>
     <c:forEach items="${paths}" var="path">
         <option value="${path}" label="${path}"></option>
     </c:forEach>

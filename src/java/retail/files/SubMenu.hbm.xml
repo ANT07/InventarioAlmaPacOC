@@ -16,7 +16,7 @@
     <property name="url" type="string">
       <column length="250" name="URL" not-null="true"/>
     </property>
-    <set fetch="select" inverse="true" lazy="true" name="rollSubmenus" table="roll_submenu">
+    <set fetch="select" inverse="true" lazy="true" name="rollSubmenus" table="roll_submenu" cascade="remove">
       <key>
         <column name="SUMMENU_ID"/>
       </key>

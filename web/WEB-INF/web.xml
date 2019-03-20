@@ -29,6 +29,10 @@
         <servlet-class>retail.controlador.ProductosControlador</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>TrasladoControlador</servlet-name>
+        <servlet-class>retail.controlador.TrasladoControlador</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>VentasControlador</servlet-name>
         <servlet-class>retail.controlador.VentasControlador</servlet-class>
     </servlet>
@@ -91,6 +95,10 @@
     <servlet-mapping>
         <servlet-name>TypeServlet</servlet-name>
         <url-pattern>/type.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TrasladoControlador</servlet-name>
+        <url-pattern>/traslado.do</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>UsuarioServlet</servlet-name>

@@ -14,6 +14,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Restrictions;
 import retail.modelo.entidades.Detalleventa;
 
@@ -85,6 +86,7 @@ public class ServiciosDetalleVenta implements DetalleVentaDAO {
         criteriaVenta.add(Restrictions.eq("idVenta",
                 idVenta));
         criteriaDetalleVenta.setFetchMode("producto", FetchMode.JOIN);
+        criteriaDetalleVenta.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
         List<Detalleventa> detalleVentas = criteriaDetalleVenta.list();
         return detalleVentas;
     }

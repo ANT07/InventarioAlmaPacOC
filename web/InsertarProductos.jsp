@@ -104,7 +104,6 @@
         </div>
         <script src="//oss.maxcdn.com/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
 
-        <script src="js/jquery-3.1.1.min.js"></script>
         <script type="text/javascript">
 
                                     function valida(e) {
@@ -137,7 +136,7 @@
 
                                                         message: 'El nombre del producto es requerido'
 
-                                                    },
+                                                    }
 
                                                 }
                                             },
@@ -149,7 +148,7 @@
                                                     },
                                                     notEmpty: {
                                                         message: 'La descripcion del producto es requerida'
-                                                    },
+                                                    }
 
                                                 }
                                             },
@@ -163,11 +162,15 @@
                                                     numeric: {
                                                         message: 'El precio no es válido'
                                                     },
+                                                    regexp:{
+                                                        regexp: /^\d*(\.\d{1})?\d{0,3}$/,
+                                                        message: "Ingresar precio con al menos 4 decimales"
+                                                    }
                                                 }
-                                            },
+                                            }
 
                                         }
-                                    })
+                                    });
 
         </script>
     </body>

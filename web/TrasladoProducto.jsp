@@ -10,7 +10,7 @@
     <head>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Insertar cliente</title>
+        <title>Registro de Traslado</title>
         <style>
             .login{
                 width: 700px;
@@ -39,7 +39,7 @@
         %>
         <div class="">
             <div  class="col-xs-6 col-xs-offset-3 " id="cont" >
-                <form action="provider.do"  method="post" class="usuario form-horizontal" id="FormCrearUs">
+                <form action="traslado.do"  method="post" class="usuario form-horizontal" id="FormCrearUs">
                     <input type="hidden" name="tipo" value="insertar">
                     <div class="form-header">
                         <h3 class="text-center">Traslado de Producto</h3>
@@ -76,7 +76,7 @@
                         <label class="col-md-4 control-label" >Cantidad a Trasladar</label>
                         <div class="col-md-6  inputGroupContainer">
                             <div class="input-group"> <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-                                <input type="number" min="1" step="0.01" class="form-control">
+                                <input type="number" min="1" step="0.01" class="form-control" name="cantidadTralado">
                             </div>
                         </div>
                     </div>

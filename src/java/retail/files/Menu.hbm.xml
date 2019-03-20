@@ -10,7 +10,7 @@
     <property name="menuName" type="string">
       <column length="250" name="MENU_NAME" not-null="true"/>
     </property>
-    <set fetch="select" inverse="true" lazy="true" name="subMenus" table="sub_menu">
+    <set fetch="select" inverse="true" lazy="true" name="subMenus" table="sub_menu" cascade="remove">
       <key>
         <column name="MENU_ID" not-null="true"/>
       </key>

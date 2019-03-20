@@ -144,7 +144,7 @@ public class VentasControlador extends HttpServlet {
                     for (Detalleventa ventadetalle : ventadetalles) {
                         Producto producto = ventadetalle.getProducto();
                         Existencia existencia = serviciosExistencia.obtenerExistenciaByProductoByDepartamento(producto.getCodigoProducto(), 3);
-                        existencia.setDisponible(existencia.getDisponible() + ventadetalle.getCantidadDetalle());
+                        existencia.setDisponible(existencia.getDisponible() - ventadetalle.getCantidadDetalle());
                         serviciosExistencia.actualizarExistencia(existencia);
                     }
 

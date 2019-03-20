@@ -204,4 +204,19 @@
         var urlHidden = document.querySelector("form#formSubroll input[type='hidden']#url");
         urlHidden.value = element.value;
     }
+    
+    $("#formRoll").validate({
+        rules: {
+//            name: "required",
+            nombreRoll: {
+                required: true
+            }
+        }, 
+        messages: {
+//            name: "Please specify your name",
+            nombreRoll:: {
+                required: "Nombre del roll es requerido"
+            }
+        }
+    });
 </script>

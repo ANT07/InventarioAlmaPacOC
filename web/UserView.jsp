@@ -138,4 +138,37 @@
         }
 
     }
+
+    $("#form").validate({
+        rules: {
+//            name: "required",
+            usuario: {
+                required: true
+            },
+            nombreUsuario: {
+                required: true
+            },
+            selectRoll: {
+                required: true
+            },
+            contrasena: {
+                required: true
+            }
+        },
+        messages: {
+//            name: "Please specify your name",
+            usuario:  {
+                required: "Usuario es requerido"
+            },
+            nombreUsuario: {
+                required: "Nombre de usuario es requerido"
+            },
+            selectRoll: {
+                required: "Seleccione..."
+            },
+            contrasena: {
+                required: "Contraseña es requerida"
+            }
+        }
+    });
 </script>

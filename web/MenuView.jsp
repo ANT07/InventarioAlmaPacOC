@@ -64,13 +64,14 @@
                                 <input name="tipo" id="tipoSubmenu" value="guardar" type="hidden">
                                 <input name="menuId" id="menuId" value="0" type="hidden">
                                 <input name="SubMenuId" id="SubMenuId" value="0" type="hidden">
-                                <input name="url" id="url" value="0" type="hidden">
+
                                 <div class="form-group">
                                     <label>Nombre Sub-Menu: </label>
-                                    <input name="nombreSumenu" id="nombreMenu" type="text" class="form-control">
+                                    <input name="nombreSumenu" id="nombreSumenu" type="text" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Url: </label>
+                                    <input name="url" id="url" value="" type="hidden">
                                     <%@include file="/WEB-INF/jspf/SelectPath.jspf" %>
                                 </div>
                             </form>
@@ -182,7 +183,7 @@
         tipo.value = "editar";
 
         var submenuIdHidden = document.querySelector("form#formSubmenu #SubMenuId");
-        var submenuNameText = document.querySelector("form#formSubmenu #nombreMenu");
+        var submenuNameText = document.querySelector("form#formSubmenu #nombreSumenu");
         var menuIdHidden = document.querySelector("form#formSubmenu #menuId");
         var urlSelect = document.querySelector("form#formSubmenu select#url");
         var urlHidden = document.querySelector("form#formSubmenu input[type='hidden']#url");
@@ -212,4 +213,40 @@
         var urlHidden = document.querySelector("form#formSubmenu input[type='hidden']#url");
         urlHidden.value = element.value;
     }
+
+    $("#formMenu").validate({
+        rules: {
+//            name: "required",
+            nombreMenu: {
+                required: true
+            }
+        },
+        messages: {
+//            name: "Please specify your name",
+            nombreMenu: {
+                required: "Nombre del menu es requerido"
+            }
+        }
+    });
+
+    $("#formSubmenu").validate({
+        rules: {
+//            name: "required",
+            nombreSumenu: {
+                required: true
+            },
+            urlSelect: {
+                required: true
+            }
+        },
+        messages: {
+//            name: "Please specify your name",
+            nombreSumenu: {
+                required: "Nombre del submenu es requerido"
+            },
+           urlSelect: {
+                required: "Seleccione..."
+            }
+        }
+    });
 </script>
