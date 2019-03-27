@@ -12,7 +12,7 @@
 %>
     
 <select class="form-control" id="idDepartamento" name="departamentoDestino">
-    <option value="-1" selected >Seleccione...</option>
+    <option value="" selected >Seleccione...</option>
     <c:forEach items="${departamentos}" var="departamento">
         <option value="${departamento.departmentid}" label="${departamento.departmentname}"></option>
     </c:forEach>

@@ -34,14 +34,14 @@
 
         <div class="container well" >
 
-            <h1>Tipos de Orden</h1>
+            <h1>Departamentos</h1>
 
             <!--            <a href="ResultadosMaterias.jsp" class="btn btn-info">Ver Materias</a> 
                         <a href="ResultadosNotas.jsp" class="btn btn-info">Ver Asignaciones</a> 
                         <a href="AsignarMateriaAlumno.jsp" class="btn btn-info">Nueva Asinacion</a> -->
             <hr><center>
                 <input class="form-control" style="width: 150px" id="txtBuscar" type="text" onkeyup="Buscar()" placeholder="Buscar" ></center>
-            <a href="InsertarTipoOrden.jsp" class="btn btn-primary" style="float: left;">+ Insertar Tipo</a><br> 
+            <a href="InsertarDepartamento.jsp" class="btn btn-primary" style="float: left;">+ Insertar Departamento</a><br> 
 
             <div class="form-group col-md-2" style="float: right">
                 <a href="#modalFiltros" data-toggle="modal" class="btn btn-link">Filtrar</a>
@@ -107,23 +107,22 @@
             </div> 
 
             <br> <div class="form-group">
-                <p  class="alert-info" style="font-size: 16px; color: #007bff; width: 330px;<c:if var="prueba" test="${Mensaje == null}" > display: none; </c:if>">${Mensaje}</p> 
-                </div>
-                <!--class="table table-hover table-striped table-condensed"-->
-                <table  style="width: 100%;"  class="table table-condensed table-striped table-hover  col-md-10" id="lista">
-                    <thead class="thead-light"> 
-                        <tr class="info">
-                            <th><center>ID</center></th>
-                    <th><center>Nombre Departamento</center></th>
-                    <th><center>Acciones</center></th>
-                    </tr>
-                    </thead>
+            </div>
+            <!--class="table table-hover table-striped table-condensed"-->
+            <table  style="width: 100%;"  class="table table-condensed table-striped table-hover  col-md-10" id="lista">
+                <thead class="thead-light"> 
+                    <tr class="info">
+                        <th><center>ID</center></th>
+                <th><center>Nombre Departamento</center></th>
+                <th><center>Acciones</center></th>
+                </tr>
+                </thead>
                 <c:forEach var="department" items="${departments}">
                     <tr>
 
                         <td><center><b>${department.departmentid}</b></center></td>
-                        <td><center>${department.departmentname}</center></td>
-                        <td style="text-align: center;">
+                    <td><center>${department.departmentname}</center></td>
+                    <td style="text-align: center;">
 
                         <c:url var="urlEditar" value="department.do">
                             <c:param name="departmentid" value="${department.departmentid}"></c:param>
@@ -169,43 +168,43 @@
     <script src="js/jquery.min.js"></script>
 
     <script>
-                                var table = '#lista';
-                                $('#maxRows').on('change', function () {
-                                    $('.pagination').html('');
-                                    var trnum = 0;
-                                    var maxRows = parseInt($(this).val());
-                                    var totalRows = $(table + ' tbody tr').length;
+                            var table = '#lista';
+                            $('#maxRows').on('change', function () {
+                                $('.pagination').html('');
+                                var trnum = 0;
+                                var maxRows = parseInt($(this).val());
+                                var totalRows = $(table + ' tbody tr').length;
+                                $(table + ' tr:gt(0)').each(function () {
+                                    trnum++;
+                                    if (trnum > maxRows) {
+                                        $(this).hide();
+                                    }
+                                    if (trnum <= maxRows) {
+                                        $(this).show();
+                                    }
+                                });
+                                if (totalRows > maxRows) {
+                                    var pagenum = Math.ceil(totalRows / maxRows);
+                                    for (var i = 1; i <= pagenum; ) {
+                                        $('.pagination').append('<li data-page="' + i + '">\<span>' + i++ + '<span class="sr-only">(current)</span></span>\</li>').show();
+                                    }
+                                }
+                                $('.pagination li:first-child').addClass('active');
+                                $('.pagination li').on('click', function () {
+                                    var pageNum = $(this).attr('data-page');
+                                    var trIndex = 0;
+                                    $('.pagination li').removeClass('active');
+                                    $(this).addClass('active');
                                     $(table + ' tr:gt(0)').each(function () {
-                                        trnum++;
-                                        if (trnum > maxRows) {
+                                        trIndex++;
+                                        if (trIndex > (maxRows * pageNum) || trIndex <= ((maxRows * pageNum) - maxRows)) {
                                             $(this).hide();
-                                        }
-                                        if (trnum <= maxRows) {
+                                        } else {
                                             $(this).show();
                                         }
                                     });
-                                    if (totalRows > maxRows) {
-                                        var pagenum = Math.ceil(totalRows / maxRows);
-                                        for (var i = 1; i <= pagenum; ) {
-                                            $('.pagination').append('<li data-page="' + i + '">\<span>' + i++ + '<span class="sr-only">(current)</span></span>\</li>').show();
-                                        }
-                                    }
-                                    $('.pagination li:first-child').addClass('active');
-                                    $('.pagination li').on('click', function () {
-                                        var pageNum = $(this).attr('data-page');
-                                        var trIndex = 0;
-                                        $('.pagination li').removeClass('active');
-                                        $(this).addClass('active');
-                                        $(table + ' tr:gt(0)').each(function () {
-                                            trIndex++;
-                                            if (trIndex > (maxRows * pageNum) || trIndex <= ((maxRows * pageNum) - maxRows)) {
-                                                $(this).hide();
-                                            } else {
-                                                $(this).show();
-                                            }
-                                        });
-                                    });
                                 });
+                            });
 
     </script>
 

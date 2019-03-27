@@ -25,7 +25,6 @@
             body
             {
                 background: #00606F;
-                padding-top: 20px;
             }
             #cont{
                 background: #e9e9e9;
@@ -43,7 +42,7 @@
                     <input type="hidden" name="departemetstate" value="1">
                     <input type="hidden" name="departmentid" value="${department.departmentid}">
                     <div class="form-header">
-                        <h3 class="text-center">Actualizar Departamento</h3>
+                        <h3 class="text-center">Editar Departamento</h3>
                     </div>  <hr>
 
                     <div class="form-group">

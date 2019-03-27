@@ -25,7 +25,6 @@
             body
             {
                 background: #00606F;
-                padding-top: 100px;
             }
             #cont{
                 background: #e9e9e9;
@@ -34,7 +33,7 @@
         </style>
     </head>
     <body>
-        <%@include file="WEB-INF/jspf/NavBar.jspf"%><br><br>
+        <%@include file="WEB-INF/jspf/NavBar.jspf"%>
         <div class="">
             <div  class="col-xs-6 col-xs-offset-3 " id="cont" >
                 <label>${Mensaje}</label>
@@ -106,37 +105,47 @@
 
         <script type="text/javascript">
 
-            function valida(e) {
-                tecla = (document.all) ? e.keyCode : e.which;
+                                    function valida(e) {
+                                        tecla = (document.all) ? e.keyCode : e.which;
 
-                if (tecla == 8) {
-                    return true;
-                }
+                                        if (tecla == 8) {
+                                            return true;
+                                        }
 
-                patron = /[0-9]/;
-                tecla_final = String.fromCharCode(tecla);
-                return patron.test(tecla_final);
-            }
+                                        patron = /[0-9]/;
+                                        tecla_final = String.fromCharCode(tecla);
+                                        return patron.test(tecla_final);
+                                    }
 
-            $('#FormCrearUs').bootstrapValidator({
-                message: 'Este valor no es valido',
-                feedbackIcons: {
-                    valid: 'glyphicon glyphicon-ok',
-                    invalid: 'glyphicon glyphicon-remove',
-                    validating: 'glyphicon glyphicon-refresh'
-                },
-                fields: {
-                    txtNombre: {
-                        validators: {
-                            notEmpty: {
+                                    $('#FormCrearUs').bootstrapValidator({
+                                        message: 'Este valor no es valido',
+                                        feedbackIcons: {
+                                            valid: 'glyphicon glyphicon-ok',
+                                            invalid: 'glyphicon glyphicon-remove',
+                                            validating: 'glyphicon glyphicon-refresh'
+                                        },
+                                        fields: {
+                                            providername: {
+                                                validators: {
+                                                    stringLength: {
+                                                        min: 2,
+                                                        message: 'Por favor ingrese 2 caracteres como mínimo'
+                                                    },
+                                                    notEmpty: {
 
-                                message: 'El nombre del cliente es requerido'
+                                                        message: 'El nombre del producto es requerido'
 
-                            }
-                        }
-                    }
-                }
-            });
+                                                    },
+                                                    regexp: {
+                                                        regexp: /^[a-zA-Z0-9_]+$/,
+                                                        message: 'No debe ingresar caracteres especiales'
+                                                    }
+
+                                                }
+                                            }
+
+                                        }
+                                    });
 
         </script>
 

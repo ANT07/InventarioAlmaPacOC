@@ -10,7 +10,7 @@
     <head>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Insertar vendedor</title>
+        <title>Insertar Tipo de Orden</title>
         <style>
             .login{
                 width: 700px;
@@ -25,7 +25,6 @@
             body
             {
                 background: #00606F;
-                padding-top: 40px;
             }
             #cont{
                 background: #e9e9e9;
@@ -107,8 +106,7 @@
                 typename: {
                     validators: {
                         notEmpty: {
-
-                            message: 'El nombre del vendedor es requerido'
+                            message: 'El nombre es requerido'
 
                         }
                     }

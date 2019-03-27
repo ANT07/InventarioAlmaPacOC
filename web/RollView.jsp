@@ -214,7 +214,7 @@
         }, 
         messages: {
 //            name: "Please specify your name",
-            nombreRoll:: {
+            nombreRoll: {
                 required: "Nombre del roll es requerido"
             }
         }

@@ -20,7 +20,7 @@
         <link href="../css/bootstrap-theme.css" rel="stylesheet"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="js/BuscadorTabla.js" type="text/javascript"></script>
-        <title>Producto</title>
+        <title>Proveedores</title>
     </head>
     <body>
         <%
@@ -38,11 +38,11 @@
 
         <div class="container well" id="ContainerLogin">
 
-            <h1>Productos</h1>
+            <h1>Proveedores</h1>
 
             <hr><center>
                 <input class="form-control" style="width: 150px" id="txtBuscar" type="text" onkeyup="Buscar()" placeholder="Buscar" ></center>
-            <a href="InsertarProveedor.jsp" class="btn btn-primary" style="float: left;">+ Insertar producto</a> <br> 
+            <a href="InsertarProveedor.jsp" class="btn btn-primary" style="float: left;">+ Insertar proveedor</a> <br> 
 
 
             <div class="form-group col-md-2" style="float: right">
@@ -97,7 +97,7 @@
                                 <center>
                                     <form action="provider.do" method="post">
                                         <input type="hidden" value='' name='cod' id='cod'>
-                                        <input type="hidden" value='eliminar' name='Tipo'>
+                                        <input type="hidden" value='eliminar' name='tipo'>
                                         <input type="submit" class="btn btn-danger" value="Sí, eliminar">
                                         <button class="btn btn-info btn-m" data-dismiss="modal" aria-hidden="true">No</button>
                                     </form>
@@ -211,6 +211,36 @@
                                     });
                                 });
                             });
+                            
+                                                                $('#FormCrearUs').bootstrapValidator({
+                                        message: 'Este valor no es valido',
+                                        feedbackIcons: {
+                                            valid: 'glyphicon glyphicon-ok',
+                                            invalid: 'glyphicon glyphicon-remove',
+                                            validating: 'glyphicon glyphicon-refresh'
+                                        },
+                                        fields: {
+                                            providername: {
+                                                validators: {
+                                                    stringLength: {
+                                                        min: 2,
+                                                        message: 'Por favor ingrese 2 caracteres como mínimo'
+                                                    },
+                                                    notEmpty: {
+
+                                                        message: 'El nombre del producto es requerido'
+
+                                                    },
+                                                    regexp: {
+                                                        regexp: /^[a-zA-Z0-9_]+$/,
+                                                        message: 'No debe ingresar caracteres especiales'
+                                                    }
+
+                                                }
+                                            }
+
+                                        }
+                                    });
 
     </script>
 

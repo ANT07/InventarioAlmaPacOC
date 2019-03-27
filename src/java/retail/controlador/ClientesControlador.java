@@ -124,7 +124,8 @@ public class ClientesControlador extends HttpServlet {
                         request.setAttribute("Mensaje", Mensaje);
                         request.getRequestDispatcher("ListaClientes.jsp").forward(request, response);
                     } catch (Exception e) {
-                        Mensaje = "No se pudo eliminar el cliente " + e;
+                        Mensaje = "Error, no es posible eliminar a un cliente que ha sido asociado a otros registros ";
+                        request.setAttribute("Mensaje", Mensaje);
                         request.getRequestDispatcher("ListaClientes.jsp").forward(request, response);
                     }
 

@@ -25,7 +25,6 @@
             body
             {
                 background: #00606F;
-                padding-top: 40px;
             }
             #cont{
                 background: #e9e9e9;
@@ -136,7 +135,6 @@
         </div>
         <script src="//oss.maxcdn.com/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
 
-        <script src="js/jquery-3.1.1.min.js"></script>
         <script type="text/javascript">
         function valida(e) {
             tecla = (document.all) ? e.keyCode : e.which;

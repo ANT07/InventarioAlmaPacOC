@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Actualizar Producto</title>
+        <title>Actualizar Proveedor</title>
         <style>
             .login{
                 width: 700px;
@@ -24,7 +24,6 @@
             body
             {
                 background: #00606F;
-                padding-top: 60px;
             }
             #cont{
                 background: #e9e9e9;
@@ -32,7 +31,7 @@
 
         </style>
     </head>
-    <body><br><br>
+    <body>
         <%@include file="WEB-INF/jspf/NavBar.jspf"%><br><br>
         <div class="">
             <div  class="col-xs-6 col-xs-offset-3 " id="cont" >
@@ -78,7 +77,7 @@
                         <span><a href="#modalGuardar" data-toggle="modal"> <input type="button" class="btn btn-primary btn-md" value="Guardar" ></a>
                             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCanc">Cancelar</button>
                         </span></center><br>
-                        
+
                     <div class="modal fade" id="modalGuardar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -142,7 +141,7 @@
                                             validating: 'glyphicon glyphicon-refresh'
                                         },
                                         fields: {
-                                            txtNombre: {
+                                            providername: {
                                                 validators: {
                                                     stringLength: {
                                                         min: 2,
@@ -159,34 +158,10 @@
                                                     }
 
                                                 }
-                                            },
-                                            txtDescripcion: {
-                                                validators: {
-                                                    stringLength: {
-                                                        min: 5,
-                                                        message: 'Por favor ingrese 5 caracteres como mínimo'
-                                                    },
-                                                    notEmpty: {
-                                                        message: 'La descripcion del producto es requerida'
-                                                    },
-
-                                                }
-                                            },
-                                            txtPrecio: {
-                                                validators: {
-
-                                                    notEmpty: {
-                                                        message: 'El precio del producto es requerido'
-                                                    },
-                                                    invalid: {
-                                                        message: 'No es válido'
-                                                    },
-
-                                                }
-                                            },
+                                            }
 
                                         }
-                                    })
+                                    });
 
             </script>               
         </div>

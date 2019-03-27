@@ -114,8 +114,7 @@
                 </div>
             </div> 
 
-            <br> <div class="form-group ">
-                <center><p  class="alert-info" style="font-size: 16px; color: #007bff; width: 330px;<c:if var="prueba" test="${Mensaje == null}" > display: none; </c:if>">${Mensaje}</p> </center>   
+            <br> <div class="form-group ">  
                 </div>
                 <!--class="table table-hover table-striped table-condensed"-->
                 <table  style="width: 100%;"  class="table table-condensed table-striped table-hover  col-md-10" id="lista">

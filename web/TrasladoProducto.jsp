@@ -50,7 +50,7 @@
                         <label class="col-md-4 control-label">Producto</label>
                         <div class="col-md-6  inputGroupContainer">
                             <div class="input-group"> <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                <%@include file="/HelperPages/ProductDataList.jsp" %>
+                                    <%@include file="/HelperPages/ProductDataList.jsp" %>
                             </div>
                         </div>
                     </div>
@@ -132,12 +132,38 @@
                     validating: 'glyphicon glyphicon-refresh'
                 },
                 fields: {
-                    txtNombre: {
+                    productid: {
                         validators: {
                             notEmpty: {
-
-                                message: 'El nombre del cliente es requerido'
-
+                                message: 'El codigo de producto es requerido es requerido'
+                            },
+                            numeric: {
+                                message: 'El codigo de producto es de tipo numerico'
+                            }
+                        }
+                    },
+                    departamentoOrigen: {
+                        validators: {
+                            notEmpty: {
+                                message: "Seleccione..."
+                            }
+                        }
+                    },
+                    departamentoDestino: {
+                        validators: {
+                            notEmpty: {
+                                message: "Seleccione..."
+                            }
+                        }
+                    },
+                    cantidadTralado: {
+                        validators: {
+                            notEmpty: {
+                                message: "La cantidad es requerida"
+                            },
+                            greaterThan:{
+                                value : 0,
+                                message: "La cantidad debe ser mayor que cero (0)"
                             }
                         }
                     }

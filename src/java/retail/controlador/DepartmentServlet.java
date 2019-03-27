@@ -7,6 +7,7 @@ package retail.controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import retail.modelo.entidades.Department;
 import retail.modelo.servicios.DepartmentImpl;
+import retail.modelo.servicios.interfaces.DepartmentDAO;
 
 /**
  *
@@ -30,6 +32,9 @@ public class DepartmentServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    @Inject
+    DepartmentDAO departmentImpl;
+
     protected void processRequest(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException,
@@ -43,11 +48,10 @@ public class DepartmentServlet extends HttpServlet {
                 "/ListaDepartamentos.jsp");
 
         Department department = new Department();
-        DepartmentImpl departmentImpl = new DepartmentImpl();
 
         department.setDepartmentname(departmentname);
         department.setDepartemetstate(departmentstate);
-
+        String mensaje = "";
         try {
             switch (tipo) {
                 case "buscar": {
@@ -82,22 +86,34 @@ public class DepartmentServlet extends HttpServlet {
                 }
                 case "insertar":
                     departmentImpl.insertDepartment(department);
+                    mensaje = "Departamento insertado correctamente";
+                    request.setAttribute("Mensaje", mensaje);
+                    requestDispatcher.forward(request,
+                            response);
                     break;
                 case "actualizar":
                     int departmentid = Integer.parseInt(request.getParameter(
                             "departmentid"));
                     department.setDepartmentid(departmentid);
                     departmentImpl.updateDepartment(department);
-
+                    mensaje = "Departamento actualizado correctamente";
+                    request.setAttribute("Mensaje", mensaje);
                     requestDispatcher.forward(request,
                             response);
                     break;
                 case "eliminar":
-                    departmentid = Integer.parseInt(request.getParameter(
-                            "departmentid"));
-                    department = departmentImpl.getDepartmentById(
-                            departmentid);
-                    departmentImpl.deleteDepartment(department);
+                    try {
+                        departmentid = Integer.parseInt(request.getParameter(
+                                "departmentid"));
+                        department = departmentImpl.getDepartmentById(
+                                departmentid);
+                        departmentImpl.deleteDepartment(department);
+                        mensaje = "Departamento eliminado correctamente";
+                        request.setAttribute("Mensaje", mensaje);
+                    } catch (Exception e) {
+                        mensaje = "Error, no es posible eliminar a un departamento que ha sido asociado a otros registros";
+                        request.setAttribute("Mensaje", mensaje);
+                    }
 
                     requestDispatcher.forward(request,
                             response);

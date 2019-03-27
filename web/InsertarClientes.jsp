@@ -25,7 +25,6 @@
             body
             {
                 background: #00606F;
-                padding-top: 100px;
             }
             #cont{
                 background: #e9e9e9;
@@ -123,93 +122,88 @@
             </div>        
         </div>
         <script src="//oss.maxcdn.com/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
-
-        <script src="js/jquery-3.1.1.min.js"></script>
-
         <script type="text/javascript">
 
-            function valida(e) {
-                tecla = (document.all) ? e.keyCode : e.which;
+                                    function valida(e) {
+                                        tecla = (document.all) ? e.keyCode : e.which;
 
-                if (tecla == 8) {
-                    return true;
-                }
+                                        if (tecla == 8) {
+                                            return true;
+                                        }
 
-                patron = /[0-9]/;
-                tecla_final = String.fromCharCode(tecla);
-                return patron.test(tecla_final);
-            }
+                                        patron = /[0-9]/;
+                                        tecla_final = String.fromCharCode(tecla);
+                                        return patron.test(tecla_final);
+                                    }
 
-            $('#FormCrearUs').bootstrapValidator({
-                message: 'Este valor no es valido',
-                feedbackIcons: {
-                    valid: 'glyphicon glyphicon-ok',
-                    invalid: 'glyphicon glyphicon-remove',
-                    validating: 'glyphicon glyphicon-refresh'
-                },
-                fields: {
-                    txtNombre: {
-                        validators: {
-                            stringLength: {
-                                min: 5,
-                                message: 'Por favor ingrese 5 caracteres como mínimo'
-                            },
-                            notEmpty: {
+                                    $('#FormCrearUs').bootstrapValidator({
+                                        message: 'Este valor no es valido',
+                                        feedbackIcons: {
+                                            valid: 'glyphicon glyphicon-ok',
+                                            invalid: 'glyphicon glyphicon-remove',
+                                            validating: 'glyphicon glyphicon-refresh'
+                                        },
+                                        fields: {
+                                            txtNombre: {
+                                                validators: {
+                                                    stringLength: {
+                                                        min: 5,
+                                                        message: 'Por favor ingrese 5 caracteres como mínimo'
+                                                    },
+                                                    notEmpty: {
 
-                                message: 'El nombre del cliente es requerido'
+                                                        message: 'El nombre del cliente es requerido'
 
-                            },
-                            
+                                                    }
+                                                }
+                                            },
+                                            txtApellido: {
+                                                validators: {
+                                                    stringLength: {
+                                                        min: 5,
+                                                        message: 'Por favor ingrese 5 caracteres como mínimo'
+                                                    },
+                                                    notEmpty: {
+                                                        message: 'El apellido del cliente es requerido'
+                                                    }
 
-                        }
-                    },
-                    txtApellido: {
-                        validators: {
-                            stringLength: {
-                                min: 5,
-                                message: 'Por favor ingrese 5 caracteres como mínimo'
-                            },
-                            notEmpty: {
-                                message: 'El apellido del cliente es requerido'
-                            },
-                            
-                        }
-                    },
-                    txtDireccion: {
-                        validators: {
-                            stringLength: {
-                                min: 10,
-                                message: 'Por favor ingrese 10 caracteres como mínimo'
-                            },
-                            notEmpty: {
-                                message: 'La dirección del cliente es requerida'
-                            }
-                        }
-                    },
-                    txtTelefono: {
-                        validators: {
-                            stringLength: {
-                                min: 8,
+                                                }
+                                            },
+                                            txtDireccion: {
+                                                validators: {
+                                                    stringLength: {
+                                                        min: 10,
+                                                        message: 'Por favor ingrese 10 caracteres como mínimo'
+                                                    },
+                                                    notEmpty: {
+                                                        message: 'La dirección del cliente es requerida'
+                                                    }
+                                                }
+                                            },
+                                            txtTelefono: {
+                                                validators: {
+                                                    stringLength: {
+                                                        min: 8,
 
-                                message: 'Por favor ingrese 8 caracteres como mínimo (sin guiones)'
-                            },
-                            notEmpty: {
-                                message: 'El teléfono es requerido'
-                            }
-                        }
-                    },
-                    sexoCliente: {
-                        validators: {
+                                                        message: 'Por favor ingrese 8 caracteres como mínimo (sin guiones)'
+                                                    },
+                                                    notEmpty: {
+                                                        message: 'El teléfono es requerido'
+                                                    }
+                                                }
+                                            },
+                                            sexoCliente: {
+                                                validators: {
 
-                            notEmpty: {
-                                message: 'El sexo es requerido'
-                            }
-                        }
-                    },
-                    
+                                                    notEmpty: {
+                                                        message: 'El sexo es requerido'
+                                                    }
+                                                }
+                                            }
 
-                }
-            })
+
+                                        }
+                                    });
 
         </script>
 

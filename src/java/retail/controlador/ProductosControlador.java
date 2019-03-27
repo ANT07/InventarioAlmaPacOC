@@ -48,14 +48,14 @@ public class ProductosControlador extends HttpServlet {
             ServiciosProducto Producto = new ServiciosProducto();
             ServiciosExistencia serviciosExistencia = new ServiciosExistencia();
             DepartmentImpl serviciosDepartamento = new DepartmentImpl();
-                    
+
             Producto Produc = new Producto();
             switch (menu) {
                 case "insertar": {
                     try {
                         String nombre = request.getParameter("txtNombre");
                         String descripcion = request.getParameter("txtDescripcion");
-                        double precio = Double.parseDouble(request.getParameter("txtPrecio"));                      
+                        double precio = Double.parseDouble(request.getParameter("txtPrecio"));
                         List<Department> departamentos = serviciosDepartamento.getDepartmentsByInventario(1);
                         for (Department departamento : departamentos) {
                             Existencia existencia = new Existencia();
@@ -67,7 +67,6 @@ public class ProductosControlador extends HttpServlet {
                         Produc.setNombreProducto(nombre);
                         Produc.setDescripcionProducto(descripcion);
                         Produc.setPrecioProducto(precio);
-                       
 
                         Producto.insertarProducto(Produc);
                         Mensaje = "Producto ingresado satisfactoriamente";
@@ -89,12 +88,12 @@ public class ProductosControlador extends HttpServlet {
                     String nombre = request.getParameter("txtNombre");
                     String descripcion = request.getParameter("txtDescripcion");
                     double precio = Double.parseDouble(request.getParameter("txtPrecio"));
-                    
+
                     try {
                         Produc.setNombreProducto(nombre);
                         Produc.setDescripcionProducto(descripcion);
                         Produc.setPrecioProducto(precio);
-                        
+
                         Produc.setCodigoProducto(codigoProducto);
                         Producto.actualizarProducto(Produc);
                         Mensaje = "Producto actualizado correctamente";
@@ -108,14 +107,13 @@ public class ProductosControlador extends HttpServlet {
                     }
                     break;
                 }
-                case "buscar": 
-                {
+                case "buscar": {
 
                     int cod = Integer.parseInt(request.getParameter("codigoProducto"));
 
                     try {
                         Produc = Producto.obtenerProductoById(cod);
-                        
+
                         request.setAttribute("Produc", Produc);
                         request.getRequestDispatcher("ActualizarProducto.jsp").forward(request, response);
 
@@ -134,7 +132,8 @@ public class ProductosControlador extends HttpServlet {
                         request.setAttribute("Mensaje", Mensaje);
                         request.getRequestDispatcher("ListaProductos.jsp").forward(request, response);
                     } catch (Exception e) {
-                        Mensaje = "No se pudo eliminar el Producto " + e;
+                        Mensaje = "Error, no es posible eliminar a un producto que ha sido asociado a otros registros";
+                        request.setAttribute("Mensaje", Mensaje);
                         request.getRequestDispatcher("ListaProductos.jsp").forward(request, response);
                     }
 

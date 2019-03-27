@@ -6,6 +6,7 @@
 package retail.modelo.servicios;
 
 import java.util.List;
+import javax.ejb.Stateless;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -20,6 +21,7 @@ import retail.modelo.servicios.interfaces.DepartmentDAO;
  *
  * @author anthony
  */
+@Stateless
 public class DepartmentImpl implements DepartmentDAO {
 
     @Override

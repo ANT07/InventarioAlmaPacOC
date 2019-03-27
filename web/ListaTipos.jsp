@@ -17,7 +17,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="js/BuscadorTabla.js" type="text/javascript"></script>
-        <title>Clientes</title>
+        <title>Tipos de orden</title>
     </head>
     <body>
         <%
@@ -106,7 +106,6 @@
             </div> 
 
             <br> <div class="form-group">
-                <p  class="alert-info" style="font-size: 16px; color: #007bff; width: 330px;<c:if var="prueba" test="${Mensaje == null}" > display: none; </c:if>">${Mensaje}</p> 
                 </div>
                 <!--class="table table-hover table-striped table-condensed"-->
                 <table  style="width: 100%;"  class="table table-condensed table-striped table-hover  col-md-10" id="lista">

@@ -25,7 +25,6 @@
             body
             {
                 background: #00606F;
-                padding-top: 60px;
             }
             #cont{
                 background: #e9e9e9;
@@ -158,7 +157,6 @@
             </div> 
             <script src="//oss.maxcdn.com/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
 
-            <script src="js/jquery-3.1.1.min.js"></script>
             
             <script type="text/javascript">
 
@@ -192,7 +190,7 @@
 
                                 message: 'El nombre del cliente es requerido'
 
-                            },
+                            }
                             
 
                         }
@@ -205,7 +203,7 @@
                             },
                             notEmpty: {
                                 message: 'El apellido del cliente es requerido'
-                            },
+                            }
                             
                         }
                     },
@@ -239,11 +237,11 @@
                                 message: 'El sexo es requerido'
                             }
                         }
-                    },
+                    }
                     
 
                 }
-            })
+            });
 
         </script>
 

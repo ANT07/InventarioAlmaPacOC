@@ -131,72 +131,71 @@
             <script src="js/jquery-3.1.1.min.js"></script>              
             <script type="text/javascript">
 
-                function valida(e) {
-                    tecla = (document.all) ? e.keyCode : e.which;
+                                   function valida(e) {
+                                        tecla = (document.all) ? e.keyCode : e.which;
 
-                    if (tecla == 8) {
-                        return true;
-                    }
+                                        if (tecla == 8) {
+                                            return true;
+                                        }
 
-                    patron = /[0-9 \d/./]/;
-                    tecla_final = String.fromCharCode(tecla);
-                    return patron.test(tecla_final);
-                }
+                                        patron = /[0-9 \d/./]/;
+                                        tecla_final = String.fromCharCode(tecla);
+                                        return patron.test(tecla_final);
+                                    }
 
-                $('#FormCrearUs').bootstrapValidator({
-                    message: 'Este valor no es valido',
-                    feedbackIcons: {
-                        valid: 'glyphicon glyphicon-ok',
-                        invalid: 'glyphicon glyphicon-remove',
-                        validating: 'glyphicon glyphicon-refresh'
-                    },
-                    fields: {
-                        txtNombre: {
-                            validators: {
-                                stringLength: {
-                                    min: 2,
-                                    message: 'Por favor ingrese 2 caracteres como mínimo'
-                                },
-                                notEmpty: {
+                                    $('#FormCrearUs').bootstrapValidator({
 
-                                    message: 'El nombre del producto es requerido'
+                                        feedbackIcons: {
+                                            valid: 'glyphicon glyphicon-ok',
+                                            invalid: 'glyphicon glyphicon-remove',
+                                            validating: 'glyphicon glyphicon-refresh'
+                                        },
+                                        fields: {
+                                            txtNombre: {
+                                                validators: {
+                                                    stringLength: {
+                                                        min: 2,
+                                                        message: 'Por favor ingrese 2 caracteres como mínimo'
+                                                    },
+                                                    notEmpty: {
 
-                                },
-                                regexp: {
-                                    regexp: /^[a-zA-Z0-9_]+$/,
-                                    message: 'No debe ingresar caracteres especiales'
-                                }
+                                                        message: 'El nombre del producto es requerido'
 
-                            }
-                        },
-                        txtDescripcion: {
-                            validators: {
-                                stringLength: {
-                                    min: 5,
-                                    message: 'Por favor ingrese 5 caracteres como mínimo'
-                                },
-                                notEmpty: {
-                                    message: 'La descripcion del producto es requerida'
-                                },
+                                                    }
 
-                            }
-                        },
-                        txtPrecio: {
-                            validators: {
+                                                }
+                                            },
+                                            txtDescripcion: {
+                                                validators: {
+                                                    stringLength: {
+                                                        min: 5,
+                                                        message: 'Por favor ingrese 5 caracteres como mínimo'
+                                                    },
+                                                    notEmpty: {
+                                                        message: 'La descripcion del producto es requerida'
+                                                    }
 
-                                notEmpty: {
-                                    message: 'El precio del producto es requerido'
-                                },
-                                invalid: {
-                                    message: 'No es válido'
-                                },
+                                                }
+                                            },
+                                            txtPrecio: {
+                                                validators: {
 
-                            }
-                        },
+                                                    notEmpty: {
+                                                        message: 'El precio del producto es requerido'
+                                                    },
 
-                    }
-                })
+                                                    numeric: {
+                                                        message: 'El precio no es válido'
+                                                    },
+                                                    regexp: {
+                                                        regexp: /^\d*(\.\d{1})?\d{0,3}$/,
+                                                        message: "Ingresar precio con al menos 4 decimales"
+                                                    }
+                                                }
+                                            }
 
+                                        }
+                                    });
             </script>               
         </div>
     </body>

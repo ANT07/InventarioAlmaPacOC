@@ -25,7 +25,6 @@
             body
             {
                 background: #00606F;
-                padding-top: 20px;
             }
             #cont{
                 background: #e9e9e9;

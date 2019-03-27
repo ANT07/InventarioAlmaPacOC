@@ -153,6 +153,14 @@ public class ProviderServlet extends HttpServlet {
                     requestDispatcher.forward(request,
                             response);
                     break;
+                case "eliminar": {
+                    providerid = Integer.parseInt(request.getParameter(
+                            "cod"));
+                    provider.setProviderid(providerid);
+                    providerImpl.deleteProvider(provider);
+                    requestDispatcher.forward(request,
+                            response);
+                }
                 default:
                     throw new Exception("Error de operacion" + this.getClass());
             }

@@ -49,6 +49,7 @@ public class TypeServlet extends HttpServlet {
 
         type.setTypename(typename);
         type.setTypestate(typestate);
+        String mensaje = "";
 
         try {
             switch (tipo) {
@@ -80,6 +81,8 @@ public class TypeServlet extends HttpServlet {
                 }
                 case "insertar":
                     typeImpl.insertOrderType(type);
+                    mensaje = "Tipo de orden insertado correctamente";
+                    request.setAttribute("Mensaje", mensaje);
                     requestDispatcher.forward(request,
                             response);
                     break;
@@ -87,14 +90,22 @@ public class TypeServlet extends HttpServlet {
                     int typeid = Integer.parseInt(request.getParameter("typeid"));
                     type.setTypeid(typeid);
                     typeImpl.updateOrderType(type);
-
+                    mensaje = "Tipo de orden actualizado correctamente";
+                    request.setAttribute("Mensaje", mensaje);
                     requestDispatcher.forward(request,
                             response);
                     break;
                 case "eliminar":
-                    typeid = Integer.parseInt(request.getParameter("typeid"));
-                    type.setTypeid(typeid);
-                    typeImpl.deleteOrderType(type);
+                    try {
+                        typeid = Integer.parseInt(request.getParameter("typeid"));
+                        type.setTypeid(typeid);
+                        mensaje = "Tipo de orden eliminado correctamente";
+                        request.setAttribute("Mensaje", mensaje);
+                        typeImpl.deleteOrderType(type);
+                    } catch (Exception e) {
+                            mensaje = "Error, no es posible eliminar a un tipo de orden que ha sido asociado a otros registros";
+                        request.setAttribute("Mensaje", mensaje);
+                    }
                     requestDispatcher.forward(request,
                             response);
                     break;
