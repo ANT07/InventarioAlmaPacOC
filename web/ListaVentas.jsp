@@ -26,7 +26,7 @@
     <body>
         <%@include file="WEB-INF/jspf/NavBar.jspf"%>
         <div class="container well " >
-            <center><h1>Ventas</h1></center>
+            <center><h1>VENTAS</h1></center>
             <hr>
             <%
                 ServiciosCliente serviciosCliente = new ServiciosCliente();
@@ -45,15 +45,16 @@
                 pageContext.setAttribute("ventas", ventas);
                 pageContext.setAttribute("utilClass", utilClass);
             %>
-            <hr><center>
-                <input class="form-control" style="width: 150px" id="txtBuscar" type="text" onkeyup="Buscar()" placeholder="Buscar" ></center>
-            <div class="form-group" style="float: left;">
+
+            <!--            <center>
+                            <input class="form-control" style="width: 150px" id="txtBuscar" type="text" onkeyup="Buscar()" placeholder="Buscar" ></center>-->
+            <div class="form-group" style="text-align: left;">
                 <a href="InsertarVenta.jsp"  class="btn btn-primary" >+ Nueva Venta</a>
             </div>
-            <div class="form-group col-md-2" style="float: right">
-                <a href="#modalFiltros" data-toggle="modal" class="btn btn-link">Filtrar</a>
-
-            </div>
+            <!--            <div class="form-group col-md-2" style="float: right">
+                            <a href="#modalFiltros" data-toggle="modal" class="btn btn-link">Filtrar</a>
+            
+                        </div>-->
             <div class="modal fade" style="align-content: center" id="modalFiltros" role="dialog" tabindex="-1" >
                 <div class="modal-dialog modal-sm" role="document" style="width:  300px">
                     <div class="modal-content">
@@ -89,20 +90,20 @@
                 </div>
             </div><br>
             <center> <div class="form-group">
-                    </div></center>
-                <div class="table-condensed" >
-                    <table class="table table-condensed table-hover table-striped" id="lista">
-                        <thead class="thead-light" style="align-content: center">
-                            <tr class="info">
-                                <th>No. Venta</th>
-                                <th>Fecha</th>
-                                <th>Vendedor</th>
-                                <th>Cliente</th>
-                                <th>Monto</th>
-                                <th>Acción</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                </div></center>
+            <div class="table-condensed" >
+                <table class="table table-condensed table-hover table-striped" id="lista">
+                    <thead class="thead-light" style="align-content: center">
+                        <tr class="info">
+                            <th>No. Venta</th>
+                            <th>Fecha</th>
+                            <th>Vendedor</th>
+                            <th>Cliente</th>
+                            <th>Monto</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         <c:forEach var="venta" items="${ventas}" >
 
                             <tr>
@@ -124,14 +125,18 @@
                                         <c:param name="accion" value="anular"></c:param>
                                     </c:url>
                                     <c:if test="${venta.estado == 0}">
-                                        <a href="${efectuar}"  class="btn btn-success"> <span class="glyphicon glyphicon-ok"></span> Efectuar Venta</a>
+                                        <a href="${efectuar}"  class="btn btn-success btn-xs"> <span class="glyphicon glyphicon-ok"></span> Emitir Factura</a>
                                     </c:if>
                                     <c:if test="${venta.estado == 0}">
-                                        <a href="${editar}" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span> Editar</a>
+                                        <a href="${editar}" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-edit"></span> Editar</a>
                                     </c:if>
                                     <c:if test="${venta.estado == 1}">
-                                        <a href="${anular}"  class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Anular</a>
+                                        <h4><span class="label label-info pull-left" title="niewc">
+                                                Factura Emitida
+                                            </span>
+                                        </h4>&nbsp;&nbsp;
                                     </c:if>
+                                    <a href="#" class="btn btn-primary btn-xs" target="_blank"><span class="glyphicon glyphicon-print"></span></a>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -151,43 +156,43 @@
         <script src="js/jquery.min.js"></script>
 
         <script>
-                    var table = '#lista';
-                    $('#maxRows').on('change', function () {
-                        $('.pagination').html('');
-                        var trnum = 0;
-                        var maxRows = parseInt($(this).val());
-                        var totalRows = $(table + ' tbody tr').length;
-                        $(table + ' tr:gt(0)').each(function () {
-                            trnum++;
-                            if (trnum > maxRows) {
-                                $(this).hide();
-                            }
-                            if (trnum <= maxRows) {
-                                $(this).show();
-                            }
-                        });
-                        if (totalRows > maxRows) {
-                            var pagenum = Math.ceil(totalRows / maxRows);
-                            for (var i = 1; i <= pagenum; ) {
-                                $('.pagination').append('<li data-page="' + i + '">\<span>' + i++ + '<span class="sr-only">(current)</span></span>\</li>').show();
-                            }
+            var table = '#lista';
+            $('#maxRows').on('change', function () {
+                $('.pagination').html('');
+                var trnum = 0;
+                var maxRows = parseInt($(this).val());
+                var totalRows = $(table + ' tbody tr').length;
+                $(table + ' tr:gt(0)').each(function () {
+                    trnum++;
+                    if (trnum > maxRows) {
+                        $(this).hide();
+                    }
+                    if (trnum <= maxRows) {
+                        $(this).show();
+                    }
+                });
+                if (totalRows > maxRows) {
+                    var pagenum = Math.ceil(totalRows / maxRows);
+                    for (var i = 1; i <= pagenum; ) {
+                        $('.pagination').append('<li data-page="' + i + '">\<span>' + i++ + '<span class="sr-only">(current)</span></span>\</li>').show();
+                    }
+                }
+                $('.pagination li:first-child').addClass('active');
+                $('.pagination li').on('click', function () {
+                    var pageNum = $(this).attr('data-page');
+                    var trIndex = 0;
+                    $('.pagination li').removeClass('active');
+                    $(this).addClass('active');
+                    $(table + ' tr:gt(0)').each(function () {
+                        trIndex++;
+                        if (trIndex > (maxRows * pageNum) || trIndex <= ((maxRows * pageNum) - maxRows)) {
+                            $(this).hide();
+                        } else {
+                            $(this).show();
                         }
-                        $('.pagination li:first-child').addClass('active');
-                        $('.pagination li').on('click', function () {
-                            var pageNum = $(this).attr('data-page');
-                            var trIndex = 0;
-                            $('.pagination li').removeClass('active');
-                            $(this).addClass('active');
-                            $(table + ' tr:gt(0)').each(function () {
-                                trIndex++;
-                                if (trIndex > (maxRows * pageNum) || trIndex <= ((maxRows * pageNum) - maxRows)) {
-                                    $(this).hide();
-                                } else {
-                                    $(this).show();
-                                }
-                            });
-                        });
                     });
+                });
+            });
 
         </script>
     </body>

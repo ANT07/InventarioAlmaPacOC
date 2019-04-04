@@ -41,7 +41,7 @@
                     <input type="hidden" name="tipo" value="insertar">
                     <input type="hidden" name="estado" value="1">
                     <div class="form-header">
-                        <h3 class="text-center">Crear Proveedor</h3>
+                        <h3 class="text-center">NUEVO PROVEEDOR</h3>
                     </div>  <hr>
 
                     <!--Carnet-->
@@ -137,7 +137,7 @@
 
                                                     },
                                                     regexp: {
-                                                        regexp: /^[a-zA-Z0-9_]+$/,
+                                                        regexp: /^[a-zA-Z0-9_ ]+$/,
                                                         message: 'No debe ingresar caracteres especiales'
                                                     }
 

@@ -51,6 +51,7 @@ public class DepartmentServlet extends HttpServlet {
 
         department.setDepartmentname(departmentname);
         department.setDepartemetstate(departmentstate);
+
         String mensaje = "";
         try {
             switch (tipo) {
@@ -85,6 +86,8 @@ public class DepartmentServlet extends HttpServlet {
                     break;
                 }
                 case "insertar":
+                    int isInventario = Integer.parseInt(request.getParameter("inventario"));
+                    department.setInventario(isInventario);
                     departmentImpl.insertDepartment(department);
                     mensaje = "Departamento insertado correctamente";
                     request.setAttribute("Mensaje", mensaje);

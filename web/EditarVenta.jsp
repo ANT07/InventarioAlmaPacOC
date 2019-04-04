@@ -115,7 +115,7 @@
                                                 <input type="text" id="descripcion" value="${detalleVenta.producto.nombreProducto}" readonly class="form-control input-sm" >
                                             </td>
                                             <td>
-                                                <input type="number" name="cantidadDetalle" value="${detalleVenta.cantidadDetalle}" oninvalid="validarExistencia(event)" max="${detalleVenta.producto.existenciaProducto}" id="cantidadDetalle" class="form-control input-sm" step="1" min="1" onblur="totalizarDetalle(this)">
+                                                <input type="number" name="cantidadDetalle" value="${detalleVenta.cantidadDetalle}" oninvalid="validarExistencia(event)" max="" id="cantidadDetalle" class="form-control input-sm" step="1" min="1" onblur="totalizarDetalle(this)">
                                             </td>
                                             <td  >
                                                 <input type="number" min="0" name="precioDetalle" value="${detalleVenta.precioDetalle}" id="precioDetalle" step="0.01" class="form-control input-sm" onblur="totalizarDetalle(this)">
@@ -261,7 +261,7 @@
             //validacion de existencias por productos
             for (var i = 0; i < codigosProductos.length; i++) {
                 estadoValidacion = validarExistenciaByCodigo(codigosProductos[i]);
-                if(!estadoValidacion){
+                if (!estadoValidacion) {
                     break;
                 }
             }
@@ -334,6 +334,7 @@
             }
         }
 
+
         function validarExistenciaByCodigo(element) {
             var otrosCodigosSimilares = $("input[type='hidden'][value='" + element.value + "']#codigoProductoHidden");
             var sumaExistencia = 0;
@@ -344,19 +345,38 @@
                 var cantidadProdcutos = document.querySelector("tr#" + fila.id + " input[type='number']#cantidadDetalle");
                 otrosCodigosSimilares[i].parentNode.classList.add("danger");
                 cantidadProdcutos.parentNode.classList.add("danger");
-                existenciaCodigoReal = parseFloat(cantidadProdcutos.max);
+//                existenciaCodigoReal = parseFloat(cantidadProdcutos.max);
                 sumaExistencia += parseFloat(cantidadProdcutos.value);
             }
 
+            $.ajax({
+                url: "${pageContext.request.contextPath}/ventascontrolador.do",
+                dataType: "html",
+                async: false,
+                data: {
+                    idProducto: element.value,
+                    accion: 'nombreProducto'
+                },
+                success: function (text) {
+                    var info = text.split(",");
+                    existenciaCodigoReal = parseFloat(info[1]);
+                    if (sumaExistencia > existenciaCodigoReal) {
+                        estado = false;
+                        mensajeError(
+                                "<h5>Error, Existencia no disponible</h5>",
+                                '<h6>Codigo: ' + element.value + ' Existencia disponible: ' + existenciaCodigoReal + '</h6>',
+                                "alert-danger");
+                    }
+                },
+                error: function () {
+                    mensajeError(
+                            "<h5>Error</h5>",
+                            '<h6> Error </h6>',
+                            "alert-danger");
+                }
+            });
 
 
-            if (sumaExistencia > existenciaCodigoReal) {
-                estado = false;
-                mensajeError(
-                        "<h5>Error, Existencia no disponible</h5>",
-                        '<h6>Codigo: ' + element.value + ' Existencia disponible: ' + existenciaCodigoReal + '</h6>',
-                        "alert-danger");
-            }
 
             return estado;
         }

@@ -14,9 +14,10 @@
 
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <title>Iniciar sesión</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link href="//oss.maxcdn.com/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <!-- Optional theme -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
         <style>
             body{
                 background-color: #00606F;
@@ -40,43 +41,71 @@
         ${NoPermiso}
         <div class="container well" id="ContainerLogin">
 
-            <center><img src="image/ic_login.jpg" alt="" class="img-circle"/></center>
+            <center><img src="image/logopacifico.png" width="250" height="150" alt="" class="img-circle"/></center>
 
             <form action="sesion.do" method="post" id="FormLogin">
                 <div class="form-group">
                     <input type="hidden" name="accion" value="entrar">
                     <p  class="alert alert-danger" style="color:#ff0000;<c:if var="prueba" test="${mensaje == null}" > display: none; </c:if>">${mensaje}</p> 
                     <label for="usuario">Nombre de usuario</label>
-                    <input type="text" class="form-control"  id="usuario" placeholder="Usuario" name="usuario" required>
+                    <input type="text" class="form-control"  id="usuario" placeholder="Usuario" name="usuario" >
                 </div>
                 <div class="form-group">
 
                     <label >Contraseña</label>
                     <div class="input-group">
-                        <input type="password" class="form-control"  id="password" placeholder="Contraseña" name="password" required>
                         <span class="input-group-addon" onclick="mostrarContra()"><span onclick="mostrarContra()" id="span" class="glyphicon glyphicon-eye-open {toggleClass}"></span></span>
+                        <input type="password" class="form-control"  id="password" placeholder="Contraseña" name="password" required>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary" id="btnIngresar">Iniciar sesión</button><br><br>
                 <!--                    <center><a href="Registro.jsp" >No tengo un usuario</a></center>-->
             </form>
         </div>
+        <script src="//oss.maxcdn.com/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
         <script>
-            $('#span').click(mostrarContra);
-            function mostrarContra() {
+                            $('#span').click(mostrarContra);
+                            function mostrarContra() {
 
-                var pass = document.getElementById("password");
+                                var pass = document.getElementById("password");
 
-                if (pass.type == 'password') {
+                                if (pass.type == 'password') {
 
-                    $('#span').addClass('glyphicon glyphicon-eye-close {toggleClass}');
-                    pass.type = 'text';
-                } else {
-                    $('#span').removeClass('glyphicon glyphicon-eye-close {toggleClass}');
-                    $('#span').addClass('glyphicon glyphicon-eye-open {toggleClass}');
-                    pass.type = 'password'
-                }
-            }
+                                    $('#span').addClass('glyphicon glyphicon-eye-close {toggleClass}');
+                                    pass.type = 'text';
+                                } else {
+                                    $('#span').removeClass('glyphicon glyphicon-eye-close {toggleClass}');
+                                    $('#span').addClass('glyphicon glyphicon-eye-open {toggleClass}');
+                                    pass.type = 'password'
+                                }
+                            }
+
+                            $(document).ready(function () {
+                                $("#FormLogin").bootstrapValidator({
+                                    message: 'Este valor no es valido',
+                                    feedbackIcons: {
+                                        valid: 'glyphicon glyphicon-ok',
+                                        invalid: 'glyphicon glyphicon-remove',
+                                        validating: 'glyphicon glyphicon-refresh'
+                                    },
+                                    fields: {
+                                        usuario: {
+                                            validators: {
+                                                notEmpty: {
+                                                    message: "El usuario es requerido \n para iniciar sesion"
+                                                }
+                                            }
+                                        },
+                                        password: {
+                                            validators: {
+                                                notEmpty: {
+                                                    message: "Ingrese Contraseña"
+                                                }
+                                            }
+                                        }
+                                    }
+                                });
+                            });
         </script>
     </body>
 </html>

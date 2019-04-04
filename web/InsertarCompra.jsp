@@ -43,6 +43,9 @@
             <form class="form-horizontal" action="comprascontrolador.do" method="post" onsubmit="validarFormulario(event)">
 
                 <input type="hidden" value="insertar" name="accion">
+                <div class="form-group">
+                    <h2 style="padding-left: 50px;">NUEVA COMPRA</h2>
+                </div>
                 <div class="form-group has-feedback ">
                     <label class="control-label col-md-2 ">Proveedor: </label>
                     <div class="col-md-4">
@@ -107,9 +110,25 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <div class="input-group">
+                                <span class="input-group-addon">SubTotal: $</span>
+                                <div>
+                                    <input type="text" class="form-control input-sm" name="totalCompra" id="totalCompra" value="0.00" readonly> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">I.V.A: $</span>
+                                <div>
+                                    <input type="text" class="form-control input-sm"  id="iva" value="0.00" readonly> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
                                 <span class="input-group-addon">Total: $</span>
                                 <div>
-                                    <input type="text" class="form-control input-sm" name="totalCompra" id="totalVenta" value="0.00" readonly> 
+                                    <input type="text" class="form-control input-sm" id="totalFinal" value="0.00" readonly> 
                                 </div>
                             </div>
                         </div>
@@ -137,13 +156,17 @@
 
         function totalizarTotal() {
             var totalDetalleTexts = document.querySelectorAll("#totalDetalle");
-            var totalVentaText = document.querySelector("#totalVenta");
+            var totalVentaText = document.querySelector("#totalCompra");
+            var ivaText = document.querySelector("#iva");
+            var totalFinalText = document.querySelector("#totalFinal");
             var total = 0;
             for (var i = 0; i < totalDetalleTexts.length; i++) {
                 total += parseFloat(totalDetalleTexts[i].value);
             }
 
             totalVentaText.value = total;
+            ivaText.value = Math.round((total * 0.13) * 100) / 100;
+            totalFinalText.value = total + parseFloat(ivaText.value);
         }
 
         function redondear(number) {

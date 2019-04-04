@@ -65,6 +65,7 @@ public class ClientesControlador extends HttpServlet {
                         request.getRequestDispatcher("ListaClientes.jsp").forward(request, response);
                     } catch (Exception e) {
                         Mensaje = "Error " + e;
+                        e.printStackTrace();
                         request.setAttribute("Mensaje", Mensaje);
 
                         request.getRequestDispatcher("InsertarClientes.jsp").forward(request, response);

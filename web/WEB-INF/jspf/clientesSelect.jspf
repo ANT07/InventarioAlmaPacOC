@@ -9,7 +9,7 @@
     List<Clientes> clientes = serviciosCliente.obtenerClientes();
     pageContext.setAttribute("clientes", clientes);
 %>
-<select name="idCliente" id="idCliente" class="form-control input-sm">
+<select name="idCliente" id="idCliente" class="form-control input-sm" >
     <option value="-1" label="Seleccione..."></option>
     <c:forEach var="cliente" items="${clientes}">
         <option value="${cliente.idCliente}" label="${cliente.nombreCliente} ${cliente.apellidoCliente}"></option>

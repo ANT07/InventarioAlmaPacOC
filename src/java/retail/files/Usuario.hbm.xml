@@ -16,6 +16,9 @@
     <property name="contrasena" type="string">
       <column length="250" name="CONTRASENA"/>
     </property>
+    <property name="rutaImagen" type="string">
+      <column length="250" name="RUTAIMAGEN"/>
+    </property>
     <property name="estadousuario" type="java.lang.Integer">
       <column name="ESTADOUSUARIO"/>
     </property>

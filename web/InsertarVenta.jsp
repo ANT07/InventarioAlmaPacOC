@@ -37,9 +37,12 @@
                     fecha);
         %>
         <%@include file="WEB-INF/jspf/NavBar.jspf"%>
-        <div class="container well" style="height:  500px;">
+        <div class="container well" style="height:  700px;">
             <form class="form-horizontal" action="ventascontrolador.do" method="post" onsubmit="validarFormulario(event)">
                 <input type="hidden" value="insertar" name="accion">
+                <div class="form-group">
+                    <h2 style="padding-left: 50px;">VENTA CONSUMIDOR FINAL</h2>
+                </div>
                 <div class="form-group ">
                     <input type="hidden" name="fechaVenta" value="${fecha}">
                     <div class="col-md-2">
@@ -63,7 +66,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-9">
-                        <div class="table-responsive" style="overflow: auto; height: 225px;">
+                        <div class="table-responsive" style="overflow: auto; height: 375px;">
                             <table class="table table-condensed table-hover table-striped">
                                 <thead>
                                     <tr class="info">
@@ -127,7 +130,6 @@
             var totalDetalleText = document.querySelector("tr#" + fila.id + " #totalDetalle");
             var cantidadDetalleText = document.querySelector("tr#" + fila.id + " #cantidadDetalle");
             var precioDetalleText = document.querySelector("tr#" + fila.id + " #precioDetalle");
-
             totalDetalleText.value = redondear(cantidadDetalleText.value * precioDetalleText.value);
             totalizarTotal();
         }
@@ -154,14 +156,12 @@
             var filaEliminar = element.parentNode.parentNode;
             var cuerpoTabla = document.querySelector("tbody");
             var filasCuerpo = document.querySelectorAll("tbody tr");
-
             if (filasCuerpo.length > 1) {
                 cuerpoTabla.removeChild(filaEliminar);
                 numerarFilas();
             }
 
             totalizarTotal();
-
         }
 
         function insertarFila() {
@@ -170,15 +170,12 @@
             var nuevaFila = document.createElement("tr");
             nuevaFila.innerHTML = primeraFila.innerHTML;
             var filasCuerpo = document.querySelectorAll("tbody tr");
-
             nuevaFila.id = "fila" + (filasCuerpo.length + 1);
             cuerpoTabla.appendChild(nuevaFila);
-
         }
 
         function numerarFilas() {
             var filasCuerpo = document.querySelectorAll("tbody tr");
-
             for (var i = 0; i < filasCuerpo.length; i++) {
                 filasCuerpo[i].id = "fila" + (i + 1);
             }
@@ -200,7 +197,6 @@
                 totalizarDetalle(element);
                 totalizarTotal();
             });
-
         }
 
         function validarFormulario(e) {
@@ -213,8 +209,9 @@
             var estadoValidacion = true;
             //validacion de existencias por productos             
             for (var i = 0; i < codigosProductos.length; i++) {
-                estadoValidacion = validarExistenciaByCodigo(codigosProductos[i]);
-
+                if (codigosProductos[i].value != "") {
+                    estadoValidacion = validarExistenciaByCodigo(codigosProductos[i]);
+                }
             }
             //validacion para selects
             for (var i = 0; i < selects.length; i++) {
@@ -293,17 +290,38 @@
                 var cantidadProdcutos = document.querySelector("tr#" + fila.id + " input[type='number']#cantidadDetalle");
                 otrosCodigosSimilares[i].parentNode.classList.add("danger");
                 cantidadProdcutos.parentNode.classList.add("danger");
-                existenciaCodigoReal = parseFloat(cantidadProdcutos.max);
+//                existenciaCodigoReal = parseFloat(cantidadProdcutos.max);
                 sumaExistencia += parseFloat(cantidadProdcutos.value);
             }
 
-            if (sumaExistencia > existenciaCodigoReal) {
-                estado = false;
-                mensajeError(
-                        "<h5>Error, Existencia no disponible</h5>",
-                        '<h6>Codigo: ' + element.value + ' Existencia disponible: ' + existenciaCodigoReal + '</h6>',
-                        "alert-danger");
-            }
+            $.ajax({
+                url: "${pageContext.request.contextPath}/ventascontrolador.do",
+                dataType: "html",
+                async: false,
+                data: {
+                    idProducto: element.value,
+                    accion: 'nombreProducto'
+                },
+                success: function (text) {
+                    var info = text.split(",");
+                    existenciaCodigoReal = parseFloat(info[1]);
+                    if (sumaExistencia > existenciaCodigoReal) {
+                        estado = false;
+                        mensajeError(
+                                "<h5>Error, Existencia no disponible</h5>",
+                                '<h6>Codigo: ' + element.value + ' Existencia disponible: ' + existenciaCodigoReal + '</h6>',
+                                "alert-danger");
+                    }
+                },
+                error: function () {
+                    mensajeError(
+                            "<h5>Error</h5>",
+                            '<h6> Error </h6>',
+                            "alert-danger");
+                }
+            });
+
+
 
             return estado;
         }

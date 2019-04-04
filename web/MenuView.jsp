@@ -32,7 +32,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Proveedores</h4>
+                            <h4 class="modal-title" id="myModalLabel">MENU DE APLICACION</h4>
                         </div>
                         <div class="modal-body">
                             <form action="${pageContext.request.contextPath}/menu.do" method="post" id="formMenu">
@@ -57,7 +57,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Proveedores</h4>
+                            <h4 class="modal-title" id="myModalLabel">SUBMENU DE APLICACION</h4>
                         </div>
                         <div class="modal-body">
                             <form action="${pageContext.request.contextPath}/submenu.do" method="post" id="formSubmenu">

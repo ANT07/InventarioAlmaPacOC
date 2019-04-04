@@ -42,7 +42,8 @@
                 <form action="traslado.do"  method="post" class="usuario form-horizontal" id="FormCrearUs">
                     <input type="hidden" name="tipo" value="insertar">
                     <div class="form-header">
-                        <h3 class="text-center">Traslado de Producto</h3>
+                        <h3 class="text-center">TRASLADO DE PRODUCTO</h3>
+                         <h4 class="text-center" id="nombreProducto"></h4>
                     </div>  <hr>
 
                     <!--Carnet-->
@@ -76,7 +77,7 @@
                         <label class="col-md-4 control-label" >Cantidad a Trasladar</label>
                         <div class="col-md-6  inputGroupContainer">
                             <div class="input-group"> <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-                                <input type="number" min="1" step="0.01" class="form-control" name="cantidadTralado">
+                                <input type="number" min="1" step="0.01" class="form-control" name="cantidadTralado" id ="cantidadTralado">
                             </div>
                         </div>
                     </div>
@@ -108,7 +109,6 @@
         </div>
         <script src="//oss.maxcdn.com/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
 
-        <script src="js/jquery-3.1.1.min.js"></script>
 
         <script type="text/javascript">
 
@@ -124,50 +124,121 @@
                 return patron.test(tecla_final);
             }
 
-            $('#FormCrearUs').bootstrapValidator({
-                message: 'Este valor no es valido',
-                feedbackIcons: {
-                    valid: 'glyphicon glyphicon-ok',
-                    invalid: 'glyphicon glyphicon-remove',
-                    validating: 'glyphicon glyphicon-refresh'
-                },
-                fields: {
-                    productid: {
-                        validators: {
-                            notEmpty: {
-                                message: 'El codigo de producto es requerido es requerido'
+            $(document).ready(function () {
+                $.fn.bootstrapValidator.validators.validarProducto = {
+                    validate: function (validator, $field, options) {
+                        var codProduc = $field.val();
+                        var estadoValidacion = false;
+                        $.ajax({
+                            url: "${pageContext.request.contextPath}/productoscontrolador.do",
+                            dataType: "html",
+                            async: false,
+                            data: {
+                                codigoProducto: codProduc,
+                                Tipo: "nombreProducto"
                             },
-                            numeric: {
-                                message: 'El codigo de producto es de tipo numerico'
-                            }
-                        }
-                    },
-                    departamentoOrigen: {
-                        validators: {
-                            notEmpty: {
-                                message: "Seleccione..."
-                            }
-                        }
-                    },
-                    departamentoDestino: {
-                        validators: {
-                            notEmpty: {
-                                message: "Seleccione..."
-                            }
-                        }
-                    },
-                    cantidadTralado: {
-                        validators: {
-                            notEmpty: {
-                                message: "La cantidad es requerida"
+                            success: function (data) {
+                                $("#nombreProducto").html(data);
+                                if (data != "Error de codigo") {
+                                    estadoValidacion = true;
+                                }
                             },
-                            greaterThan:{
-                                value : 0,
-                                message: "La cantidad debe ser mayor que cero (0)"
+                            error: function () {
+                                alertify.alert("ERROR");
+                            }
+
+                        });
+                        return estadoValidacion;
+                    }
+                };
+            });
+
+
+            $(document).ready(function () {
+                $('#FormCrearUs').bootstrapValidator({
+                    message: 'Este valor no es valido',
+                    feedbackIcons: {
+                        valid: 'glyphicon glyphicon-ok',
+                        invalid: 'glyphicon glyphicon-remove',
+                        validating: 'glyphicon glyphicon-refresh'
+                    },
+                    fields: {
+                        productid: {
+                            validators: {
+                                notEmpty: {
+                                    message: 'El codigo de producto es requerido'
+                                },
+                                numeric: {
+                                    message: 'El codigo de producto es de tipo numerico'
+                                },
+                                validarProducto: {
+                                    message: 'Error el producto no existe'
+                                }
+                            }
+                        },
+                        departamentoOrigen: {
+                            validators: {
+                                notEmpty: {
+                                    message: "Seleccione..."
+                                }
+                            }
+                        },
+                        departamentoDestino: {
+                            validators: {
+                                notEmpty: {
+                                    message: "Seleccione..."
+                                }
+                            }
+                        },
+                        cantidadTralado: {
+                            validators: {
+                                notEmpty: {
+                                    message: "La cantidad es requerida"
+                                },
+                                greaterThan: {
+                                    value: 0,
+                                    message: "La cantidad debe ser mayor que cero (0)"
+                                }
                             }
                         }
                     }
-                }
+                }).on('success.form.bv', function (e) {
+                    // Prevent form submission
+                    var formulario = e.target;
+                    var bodegaDestino = formulario.querySelector("select[name='departamentoOrigen']");
+                    var bodegaOrigen = formulario.querySelector("select[name='departamentoDestino']");
+                    var cantidadTrasladar = formulario.querySelector("input#cantidadTralado");
+                    var codigoProducto = formulario.querySelector("input#productid");
+
+                    var existenciaReal = 0;
+
+                    if (bodegaDestino.value != bodegaOrigen.value) {
+                        $.ajax({
+                            url: "${pageContext.request.contextPath}/productoscontrolador.do",
+                            dataType: "html",
+                            async: false,
+                            data: {
+                                idDestino: bodegaDestino.value,
+                                Tipo: "existenciaBodega",
+                                codigoProducto: codigoProducto.value
+                            },
+                            success: function (data) {
+                                existenciaReal = parseFloat(data);
+                                if (cantidadTrasladar.value > existenciaReal) {
+                                    e.preventDefault();
+                                    alertify.alert("EXISTENCIA NO DISPONIBLE EN BODEGA DE ORIGEN, \n LA EXITENCIA REAL ES: " + data);
+                                }
+                            },
+                            error: function () {
+                                alertify.alert("ERROR");
+                            }
+
+                        });
+                    } else {
+                        e.preventDefault();
+                        alertify.alert("SELECCIONE UNA BODEGA DE DESTINO \n DIFERENTE DE LA BODEGA DE ORIGEN");
+                    }
+                });
             });
 
         </script>

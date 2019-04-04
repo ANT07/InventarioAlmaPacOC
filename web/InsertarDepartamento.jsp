@@ -41,7 +41,7 @@
                     <input type="hidden" name="tipo" value="insertar">
                     <input type="hidden" name="departemetstate" value="1">
                     <div class="form-header">
-                        <h3 class="text-center">Crear Departamento</h3>
+                        <h3 class="text-center">NUEVO DEPARTAMENT0 </h3>
                     </div>  <hr>
 
                     <div class="form-group">
@@ -49,6 +49,15 @@
                         <div class="col-md-6  inputGroupContainer">
                             <div class="input-group"> <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                                 <input type="text" class="form-control" placeholder="Nombre Departamento" name="departmentname" id="departmentname" data-minLength="5" data-error="some error" required >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">¿Sera almacen de inventario?</label>
+                        <div class="col-md-6  inputGroupContainer">
+                            <div class="radio-inline">
+                                <input type="radio" name="inventario" checked value="1"> Si<br>
+                                <input type="radio" name="inventario" value="0"> No
                             </div>
                         </div>
                     </div>

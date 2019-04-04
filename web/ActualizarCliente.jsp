@@ -10,7 +10,7 @@
     <head>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Actualizar Cliente</title>
+        <title>ACTUALIZAR CLIENTE</title>
         <style>
             .login{
                 width: 700px;
@@ -33,14 +33,14 @@
         </style>
     </head>
     <body>
-        <%@include file="WEB-INF/jspf/NavBar.jspf"%><br><br>
+        <%@include file="WEB-INF/jspf/NavBar.jspf"%>
         <div class="">
             <div  class="col-xs-6 col-xs-offset-3 " id="cont" >
                 <label>${Mensaje}</label>
                 <form action="clientescontrolador.do"  method="post" class="usuario form-horizontal" id="FormCrearUs">
                     <input type="hidden" name="Tipo" value="actualizar">
                     <div class="form-header">
-                        <h3 class="text-center">Actualizar cliente</h3>
+                        <h3 class="text-center">ACTUALIZAR CLIENTE</h3>
                     </div>  <hr>
                     <div class="form-group">
                         <label class="col-md-4 control-label">ID</label>

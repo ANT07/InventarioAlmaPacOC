@@ -10,7 +10,7 @@
     <head>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Actualizar Tipo de Orden</title>
+        <title>ACTUALIZAR TIPO DE ORDEN</title>
         <style>
             .login{
                 width: 700px;
@@ -33,7 +33,7 @@
         </style>
     </head>
     <body>
-        <%@include file="WEB-INF/jspf/NavBar.jspf"%><br><br>
+        <%@include file="WEB-INF/jspf/NavBar.jspf"%>
         <div class="">
             <div  class="col-xs-6 col-xs-offset-3 " id="cont" >
                 <label>${Mensaje}</label>
@@ -42,7 +42,7 @@
                     <input type="hidden" name="estado" value="1">
                     <input type="hidden" name="typeid" value="${orderType.typeid}">
                     <div class="form-header">
-                        <h3 class="text-center">Editar Tipo de Orden</h3>
+                        <h3 class="text-center">ACTUALIZAR TIPO DE ORDEN</h3>
                     </div>  <hr>
 
                     <div class="form-group">

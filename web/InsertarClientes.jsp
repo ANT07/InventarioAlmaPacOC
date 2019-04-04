@@ -40,7 +40,7 @@
                 <form action="clientescontrolador.do"  method="post" class="usuario form-horizontal" id="FormCrearUs">
                     <input type="hidden" name="Tipo" value="insertar">
                     <div class="form-header">
-                        <h3 class="text-center">Crear cliente</h3>
+                        <h3 class="text-center">NUEVO CLIENTE</h3>
                     </div>  <hr>
 
                     <!--Carnet-->

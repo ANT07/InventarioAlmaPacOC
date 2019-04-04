@@ -22,7 +22,7 @@
         <title>JSP Page</title>
         <style>
             body{
-                padding-top: 50px !important;
+
             }
             #tableCont{
                 height: 300px !important;
@@ -38,8 +38,8 @@
         <div class="container">
             
             <form style="width: 100%;" class="center-block form-horizontal" action="EditOrderServlet" method="post"  id="formulario">
-                <div class="row">
-                <div class="col-md-4">
+                <div class="well well-lg">
+                <div class="">
                             <% 
                                     String orderId = request.getParameter("orderId");
                                     OrdermasterImpl ordermasterImpl = new OrdermasterImpl();
@@ -108,7 +108,7 @@
                                 <textarea id="orderComent"   placeholder="Comentario..." rows="7" class="form-control input-sm" style="resize:none;" name="comentario">${orderMaster.ordercoment}</textarea>
                         </div>
                 </div>
-                <div class="col-md-8" style="margin-top: 40px;">
+                <div class="well well-lg" style="margin-top: 40px;">
                     <div class="form-group">
                         <button class="btn btn-sm btn-success " type="button" id="newRow"><span class="glyphicon glyphicon-plus"></span> Fila</button>
                     </div>

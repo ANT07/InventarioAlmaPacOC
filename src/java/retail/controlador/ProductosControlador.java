@@ -7,9 +7,7 @@ package retail.controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -45,7 +43,7 @@ public class ProductosControlador extends HttpServlet {
 
             String menu = request.getParameter("Tipo");
             String Mensaje = "";
-            ServiciosProducto Producto = new ServiciosProducto();
+            ServiciosProducto serviciosProducto = new ServiciosProducto();
             ServiciosExistencia serviciosExistencia = new ServiciosExistencia();
             DepartmentImpl serviciosDepartamento = new DepartmentImpl();
 
@@ -68,7 +66,7 @@ public class ProductosControlador extends HttpServlet {
                         Produc.setDescripcionProducto(descripcion);
                         Produc.setPrecioProducto(precio);
 
-                        Producto.insertarProducto(Produc);
+                        serviciosProducto.insertarProducto(Produc);
                         Mensaje = "Producto ingresado satisfactoriamente";
 
                         request.setAttribute("Mensaje", Mensaje);
@@ -95,7 +93,7 @@ public class ProductosControlador extends HttpServlet {
                         Produc.setPrecioProducto(precio);
 
                         Produc.setCodigoProducto(codigoProducto);
-                        Producto.actualizarProducto(Produc);
+                        serviciosProducto.actualizarProducto(Produc);
                         Mensaje = "Producto actualizado correctamente";
                         request.setAttribute("Mensaje", Mensaje);
                         request.getRequestDispatcher("ListaProductos.jsp").forward(request, response);
@@ -112,7 +110,7 @@ public class ProductosControlador extends HttpServlet {
                     int cod = Integer.parseInt(request.getParameter("codigoProducto"));
 
                     try {
-                        Produc = Producto.obtenerProductoById(cod);
+                        Produc = serviciosProducto.obtenerProductoById(cod);
 
                         request.setAttribute("Produc", Produc);
                         request.getRequestDispatcher("ActualizarProducto.jsp").forward(request, response);
@@ -127,7 +125,7 @@ public class ProductosControlador extends HttpServlet {
                     try {
                         int cod = Integer.parseInt(request.getParameter("cod"));
                         Produc.setCodigoProducto(cod);
-                        Producto.eliminarProducto(Produc);
+                        serviciosProducto.eliminarProducto(Produc);
                         Mensaje = "Producto eliminado correctamente";
                         request.setAttribute("Mensaje", Mensaje);
                         request.getRequestDispatcher("ListaProductos.jsp").forward(request, response);
@@ -137,6 +135,27 @@ public class ProductosControlador extends HttpServlet {
                         request.getRequestDispatcher("ListaProductos.jsp").forward(request, response);
                     }
 
+                    break;
+                }
+                case "existenciaBodega": {
+                    int idBodega = Integer.parseInt(request.getParameter("idDestino"));
+                    int codigoProducto = Integer.parseInt(request.getParameter("codigoProducto"));
+                    Existencia existenciaReal = serviciosProducto.getExistenciaByCodigo(codigoProducto, idBodega);
+                    response.getWriter().print(existenciaReal.getDisponible());
+                    break;
+                }
+                case "nombreProducto": {
+                    try {
+                        int codigoProducto = Integer.parseInt(request.getParameter("codigoProducto"));
+                        Producto producto = serviciosProducto.obtenerProductoById(codigoProducto);
+                        String nombreProducto = "Error de codigo";
+                        if (producto != null) {
+                            nombreProducto = producto.getNombreProducto();
+                        }
+                        response.getWriter().print(nombreProducto);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     break;
                 }
             }

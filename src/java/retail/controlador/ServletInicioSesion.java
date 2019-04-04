@@ -109,6 +109,7 @@ public class ServletInicioSesion extends HttpServlet {
                                     user);
                             RequestDispatcher salidaExito = request.getRequestDispatcher(
                                     "/MenuView.jsp");
+                            request.getSession().setAttribute("usuario", user);
                             salidaExito.forward(request,
                                     response);
                         }else{

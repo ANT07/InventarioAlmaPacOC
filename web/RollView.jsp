@@ -41,7 +41,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Nuevo Roll</h4>
+                                <h4 class="modal-title" id="myModalLabel">ROLL DE USUARIO</h4>
                             </div>
                             <div class="modal-body">
                                 <form action="${pageContext.request.contextPath}/roll.do" method="post" id="formRoll">
@@ -75,7 +75,7 @@
 
                                     <div class="panel-heading">
                                         <div class="btn-group btn-group-sm">
-                                            <button type="button" class="btn btn-success btn-sm " data-toggle="modal" data-target="#myModalRoll" onclick=""><span class="glyphicon glyphicon-pencil" ></span></button>
+                                            <button type="button" class="btn btn-success btn-sm " data-toggle="modal" data-target="#myModalRoll" onclick="abrirDialogoRoll('${roll.rollId}','${roll.rollName}')"><span class="glyphicon glyphicon-pencil" ></span></button>
                                             <a href="${pageContext.request.contextPath}/roll.do?tipo=eliminar&rollId=${roll.rollId}" class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-remove"></span></a>
                                         </div>
                                         <span style="font-weight: bold;">${roll.rollName}</span>

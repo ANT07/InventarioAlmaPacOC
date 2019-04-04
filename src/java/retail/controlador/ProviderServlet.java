@@ -99,6 +99,7 @@ public class ProviderServlet extends HttpServlet {
 
         provider.setProvidername(providername);
         provider.setProviderstate(providerstate);
+        String Mensaje = "";
 
         try {
             switch (tipo) {
@@ -114,7 +115,7 @@ public class ProviderServlet extends HttpServlet {
                                     "ActualizarProveedor.jsp").forward(request,
                                             response);
                         } else {
-                            String Mensaje = "error no se encontraron datos ";
+                            Mensaje = "error no se encontraron datos ";
                             request.setAttribute("Mensaje",
                                     Mensaje);
                             request.getRequestDispatcher(
@@ -137,7 +138,9 @@ public class ProviderServlet extends HttpServlet {
                     provider.setContact(contact);
 
                     providerImpl.insertProvider(provider);
-
+                    Mensaje = "Proveedor insertado correctamente";
+                    request.setAttribute("Mensaje",
+                            Mensaje);
                     requestDispatcher.forward(request,
                             response);
                     break;
@@ -149,15 +152,27 @@ public class ProviderServlet extends HttpServlet {
                     provider.getContact().setContactname(contactname);
                     provider.getContact().setPhone(contactPhone);
                     providerImpl.updateProvider(provider);
-
+                    Mensaje = "Proveedor actualizado correctamente";
+                    request.setAttribute("Mensaje",
+                            Mensaje);
                     requestDispatcher.forward(request,
                             response);
                     break;
                 case "eliminar": {
-                    providerid = Integer.parseInt(request.getParameter(
-                            "cod"));
-                    provider.setProviderid(providerid);
-                    providerImpl.deleteProvider(provider);
+                    try {
+                        providerid = Integer.parseInt(request.getParameter(
+                                "cod"));
+                        provider.setProviderid(providerid);
+                        providerImpl.deleteProvider(provider);
+                        Mensaje = "Proveedor eliminado";
+                        request.setAttribute("Mensaje",
+                                Mensaje);
+                    } catch (Exception e) {
+                        Mensaje = "Error, no es posible eliminar a un proveedor que ha sido asociado a otros registros";
+                        request.setAttribute("Mensaje",
+                                Mensaje);
+                    }
+
                     requestDispatcher.forward(request,
                             response);
                 }

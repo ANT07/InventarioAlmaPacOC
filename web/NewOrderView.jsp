@@ -43,6 +43,9 @@
 
             <form style="width: 100%;" class="center-block form-horizontal" action="NewOrderServlet" method="post"  id="formulario">
                 <div class="well well-lg" style="">
+                    <div class="form-group">
+                        <h2>NUEVA ORDEN DE COMPRA</h2>
+                    </div>
                     <div class="">
                         <div class="form-group">
                             <div class="form-group">

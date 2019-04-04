@@ -40,6 +40,10 @@
         <servlet-name>ReportesControlador</servlet-name>
         <servlet-class>retail.controlador.ReportesControlador</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ImagenControlador</servlet-name>
+        <servlet-class>retail.controlador.ImagenControlador</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ClientesControlador</servlet-name>
         <url-pattern>/clientescontrolador.do</url-pattern>
@@ -150,7 +154,7 @@
     <servlet-mapping>
         <servlet-name>NewOrderServlet</servlet-name>
         <url-pattern>/NewOrderServlet</url-pattern>
-    </servlet-mapping>    
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EditOrderServlet</servlet-name>
         <url-pattern>/EditOrderServlet</url-pattern>
@@ -170,6 +174,10 @@
     <servlet-mapping>
         <servlet-name>ReportesControlador</servlet-name>
         <url-pattern>/reporte.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ImagenControlador</servlet-name>
+        <url-pattern>/ImagenControlador</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

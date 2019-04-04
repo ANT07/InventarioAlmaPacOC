@@ -31,7 +31,7 @@
     <body>
         <%@include file="WEB-INF/jspf/NavBar.jspf"%>
         <div class="container well center-block" >
-            <center><h1>Compras</h1></center>
+            <center><h1>COMPRAS</h1></center>
             <hr>
             <%
                 ServiciosProducto serviciosProducto = new ServiciosProducto();
@@ -52,50 +52,53 @@
 
                 pageContext.setAttribute("utilClass", utilClass);
             %>
-            <hr><center>
-                <input class="form-control" style="width: 150px" id="txtBuscar" type="text" onkeyup="Buscar()" placeholder="Buscar" ></center>
-            <div class="form-group" style="float: left;">
-                <a href="InsertarCompra.jsp"  class="btn btn-primary">+ Nueva Compra</a>
-            </div>
-            <div class="form-group col-md-2" style="float: right">
-                <a href="#modalFiltros" data-toggle="modal" class="btn btn-link">Filtrar</a>
-
-            </div>
-            <div class="modal fade" id="modalFiltros" role="dialog" tabindex="-1" >
-                <div class="modal-dialog modal-sm" role="document" style="width:  300px">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <center><h3>Filtros</h3></center>  
-                        </div>
-                        <div class="modal-body">
-
-                            <div class="form-group">
-                                <h4>N°Registros</h4>
-                                <select name="state" id="maxRows" class="form-control" style="width: 100px;">
-                                    <option value="5000">Ver todo</option>
-                                    <option value="5" >5</option>
-                                    <option value="10">10</option>
-                                    <option value="15">15</option>
-                                    <option value="20">20</option>
-                                    <option value="50">50</option>
-                                    <option value="75">75</option>
-                                    <option value="100">100</option>
-                                </select>
-
-                            </div>          
-                        </div> 
-
-                        <div class="modal-footer">
-
-
-                            <center><button type="button"  class="btn btn-success" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-ok" ></span></center>                                            
-                        </div>
-
-                    </div>
+            <center>
+                <!--                <input class="form-control" style="width: 150px" id="txtBuscar" type="text" onkeyup="Buscar()" placeholder="Buscar" ></center>
+                            <div class="form-group" style="float: left;">-->
+                <div style="text-align: left;">
+                    <a href="InsertarCompra.jsp"  class="btn btn-primary">+ Nueva Compra</a> 
                 </div>
-            </div><br>
-            <center> <div class="form-group">
+
+                <!--            </div>
+                            <div class="form-group col-md-2" style="float: right">
+                                <a href="#modalFiltros" data-toggle="modal" class="btn btn-link">Filtrar</a>
+                
+                            </div>-->
+                <div class="modal fade" id="modalFiltros" role="dialog" tabindex="-1" >
+                    <div class="modal-dialog modal-sm" role="document" style="width:  300px">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <center><h3>Filtros</h3></center>  
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="form-group">
+                                    <h4>N°Registros</h4>
+                                    <select name="state" id="maxRows" class="form-control" style="width: 100px;">
+                                        <option value="5000">Ver todo</option>
+                                        <option value="5" >5</option>
+                                        <option value="10">10</option>
+                                        <option value="15">15</option>
+                                        <option value="20">20</option>
+                                        <option value="50">50</option>
+                                        <option value="75">75</option>
+                                        <option value="100">100</option>
+                                    </select>
+
+                                </div>          
+                            </div> 
+
+                            <div class="modal-footer">
+
+
+                                <center><button type="button"  class="btn btn-success" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-ok" ></span></center>                                            
+                            </div>
+
+                        </div>
+                    </div>
+                </div><br>
+                <center> <div class="form-group">
                     </div></center>
                 <div class="table-condensed" >
                     <table class="table table-condensed table-hover table-striped" id="lista">
@@ -111,60 +114,63 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <c:forEach var="compra" items="${compras}" >
-                            <c:set var="proveedor" value="${serviciosCompra.obtenerComprasById(compra.idCompra)}"></c:set>
+                            <c:forEach var="compra" items="${compras}" >
+                                <c:set var="proveedor" value="${serviciosCompra.obtenerComprasById(compra.idCompra)}"></c:set>
 
 
-                                <tr>
-                                    <td>${compra.idCompra}</td>
-                                <td>${utilClass.formatoFecha(compra.fechaCompra)}</td>
-                                <td>${utilClass.formatoFecha(compra.fechaDocumento)}</td>
-                                <td>
-                                    <c:if test="${compra.fechaInventario == null}">
-                                        00/00/00
-                                    </c:if>
-                                    <c:if test="${compra.fechaInventario != null}">
-                                        ${utilClass.formatoFecha(compra.fechaInventario)}
-                                    </c:if>                              
-                                </td>
-                                <td>${compra.proveedor.providername}</td>
+                                    <tr>
+                                        <td>${compra.idCompra}</td>
+                                    <td>${utilClass.formatoFecha(compra.fechaCompra)}</td>
+                                    <td>${utilClass.formatoFecha(compra.fechaDocumento)}</td>
+                                    <td>
+                                        <c:if test="${compra.fechaInventario == null}">
+                                            00/00/0000
+                                        </c:if>
+                                        <c:if test="${compra.fechaInventario != null}">
+                                            ${utilClass.formatoFecha(compra.fechaInventario)}
+                                        </c:if>                              
+                                    </td>
+                                    <td>${compra.proveedor.providername}</td>
 
-                                <td>$ ${utilClass.formatoDecimales(compra.totalCompra)}</td>
-                                <td>
-                                    <c:url var="editar" value="EditarCompra.jsp">
-                                        <c:param name="idCompra" value="${compra.idCompra}"></c:param>
-                                    </c:url>
-                                    <c:url var="efectuar" value="comprascontrolador.do">
-                                        <c:param name="idCompra" value="${compra.idCompra}"></c:param>
-                                        <c:param name="accion" value="efectuar"></c:param>
-                                    </c:url>
-                                    <c:url var="anular" value="comprascontrolador.do">
-                                        <c:param name="idCompra" value="${compra.idCompra}"></c:param>
-                                        <c:param name="accion" value="anular"></c:param>
-                                    </c:url>
-                                    <c:if test="${compra.estado == 0}">
-                                        <a href="${efectuar}"  class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Confirmar Compra</a>
-                                    </c:if>
-                                    <c:if test="${compra.estado == 0}">
-                                        <a href="${editar}" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span> Editar</a>
-                                    </c:if>
-                                    <c:if test="${compra.estado == 1}">
-                                        <h4><span class="label label-info" title="niewc">
-                                            Compra Actualizada
-                                            </span></h4>
-<!--                                        <a href="${anular}"  class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Anular</a>-->
-                                    </c:if>    
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
-                <div class="pagination-container">
-                    <nav>
-                        <ul class="pagination" ></ul>
-                    </nav>
+                                    <td>$ ${utilClass.formatoDecimales(compra.totalCompra)}</td>
+                                    <td>
+                                        <c:url var="editar" value="EditarCompra.jsp">
+                                            <c:param name="idCompra" value="${compra.idCompra}"></c:param>
+                                        </c:url>
+                                        <c:url var="efectuar" value="comprascontrolador.do">
+                                            <c:param name="idCompra" value="${compra.idCompra}"></c:param>
+                                            <c:param name="accion" value="efectuar"></c:param>
+                                        </c:url>
+                                        <c:url var="anular" value="comprascontrolador.do">
+                                            <c:param name="idCompra" value="${compra.idCompra}"></c:param>
+                                            <c:param name="accion" value="anular"></c:param>
+                                        </c:url>
+                                        <c:url var="reporteCompra" value="reporteCompra.do">
+                                            <c:param name="idCompra" value="${compra.idCompra}"></c:param>
+                                        </c:url>
+                                        <c:if test="${compra.estado == 0}">
+                                            <a href="${efectuar}"  data-toggle="tooltip" data-placement="top" title="Confirmar Compra" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-ok"></span> Confirmar Compra</a>
+                                        </c:if>
+                                        <c:if test="${compra.estado == 0}">
+                                            <a href="${editar}" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-edit"></span> Editar</a>
+                                        </c:if>
+                                        <c:if test="${compra.estado == 1}">
+                                            <h4><span class="label label-info pull-left" title="niewc">
+                                                    Compra Actualizada
+                                                </span></h4>&nbsp;&nbsp;
+                                            </c:if>    
+                                        <a href="${reporteCompra}" class="btn btn-primary btn-xs" target="_blank"><span class="glyphicon glyphicon-print"></span></a>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                    <div class="pagination-container">
+                        <nav>
+                            <ul class="pagination" ></ul>
+                        </nav>
+                    </div>
                 </div>
-            </div>
 
         </div>
 
@@ -174,43 +180,50 @@
         <script src="js/jquery.min.js"></script>
 
         <script>
-                    var table = '#lista';
-                    $('#maxRows').on('change', function () {
-                        $('.pagination').html('');
-                        var trnum = 0;
-                        var maxRows = parseInt($(this).val());
-                        var totalRows = $(table + ' tbody tr').length;
-                        $(table + ' tr:gt(0)').each(function () {
-                            trnum++;
-                            if (trnum > maxRows) {
-                                $(this).hide();
-                            }
-                            if (trnum <= maxRows) {
-                                $(this).show();
-                            }
-                        });
-                        if (totalRows > maxRows) {
-                            var pagenum = Math.ceil(totalRows / maxRows);
-                            for (var i = 1; i <= pagenum; ) {
-                                $('.pagination').append('<li data-page="' + i + '">\<span>' + i++ + '<span class="sr-only">(current)</span></span>\</li>').show();
-                            }
+            $(document).ready(function(){
+                var idCompraInsertada = "${compraInsertada}";
+                if(idCompraInsertada !== ""){
+                    window.open("reporteCompra.do?idCompra=" + idCompraInsertada, "Compra No.:" + idCompraInsertada);
+                }
+            });
+            
+            var table = '#lista';
+            $('#maxRows').on('change', function () {
+                $('.pagination').html('');
+                var trnum = 0;
+                var maxRows = parseInt($(this).val());
+                var totalRows = $(table + ' tbody tr').length;
+                $(table + ' tr:gt(0)').each(function () {
+                    trnum++;
+                    if (trnum > maxRows) {
+                        $(this).hide();
+                    }
+                    if (trnum <= maxRows) {
+                        $(this).show();
+                    }
+                });
+                if (totalRows > maxRows) {
+                    var pagenum = Math.ceil(totalRows / maxRows);
+                    for (var i = 1; i <= pagenum; ) {
+                        $('.pagination').append('<li data-page="' + i + '">\<span>' + i++ + '<span class="sr-only">(current)</span></span>\</li>').show();
+                    }
+                }
+                $('.pagination li:first-child').addClass('active');
+                $('.pagination li').on('click', function () {
+                    var pageNum = $(this).attr('data-page');
+                    var trIndex = 0;
+                    $('.pagination li').removeClass('active');
+                    $(this).addClass('active');
+                    $(table + ' tr:gt(0)').each(function () {
+                        trIndex++;
+                        if (trIndex > (maxRows * pageNum) || trIndex <= ((maxRows * pageNum) - maxRows)) {
+                            $(this).hide();
+                        } else {
+                            $(this).show();
                         }
-                        $('.pagination li:first-child').addClass('active');
-                        $('.pagination li').on('click', function () {
-                            var pageNum = $(this).attr('data-page');
-                            var trIndex = 0;
-                            $('.pagination li').removeClass('active');
-                            $(this).addClass('active');
-                            $(table + ' tr:gt(0)').each(function () {
-                                trIndex++;
-                                if (trIndex > (maxRows * pageNum) || trIndex <= ((maxRows * pageNum) - maxRows)) {
-                                    $(this).hide();
-                                } else {
-                                    $(this).show();
-                                }
-                            });
-                        });
                     });
+                });
+            });
 
         </script>
     </body>

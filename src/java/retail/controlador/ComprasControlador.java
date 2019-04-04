@@ -126,6 +126,7 @@ public class ComprasControlador extends HttpServlet {
 
                     serviciosCompra.insertarCompra(compra);
                     Mensaje = "Compra realizada correctamente";
+                    request.setAttribute("compraInsertada", compra.getIdCompra());
                     request.setAttribute("Mensaje",
                             Mensaje);
                     //Redirigiendo a la lista

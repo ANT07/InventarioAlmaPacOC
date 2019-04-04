@@ -41,7 +41,7 @@
                     <input type="hidden" name="tipo" value="insertar">
                     <input type="hidden" name="typestate" value="1">
                     <div class="form-header">
-                        <h3 class="text-center">Crear Tipo de Orden</h3>
+                        <h3 class="text-center">NUEVO TIPO DE ORDEN</h3>
                     </div>  <hr>
 
                     <div class="form-group">

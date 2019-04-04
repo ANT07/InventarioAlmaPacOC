@@ -57,7 +57,7 @@ public class UsuarioDAO {
         Usuario usuario = (Usuario)session.get(Usuario.class,
                 id);
         //transaction.commit();
-        //session.close();
+        session.close();
         return usuario;
     }
 }

@@ -8,18 +8,37 @@ package retail.modelo.servicios;
 import retail.modelo.conexion.NewHibernateUtil;
 import retail.modelo.servicios.interfaces.ProductoDAO;
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.CriteriaSpecification;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
+import retail.modelo.entidades.Existencia;
 import retail.modelo.entidades.Producto;
+
 ;
 
 /**
  *
  * @author William Vasquez
  */
-public class ServiciosProducto implements ProductoDAO{
+public class ServiciosProducto implements ProductoDAO {
+
+    public Existencia getExistenciaByCodigo(int codigoProducto, int idBodega) {
+        SessionFactory sessionFactory = NewHibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        Criteria criteria = session.createCriteria(Existencia.class);
+        criteria.createAlias("departamento", "dep");
+        criteria.add(Restrictions.eq("dep.departmentid", idBodega));
+        criteria.createAlias("producto", "p");
+        criteria.add(Restrictions.eq("p.codigoProducto", codigoProducto));
+        criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+        Existencia existencia = (Existencia) criteria.list().get(0);
+        return existencia;
+    }
 
     public void insertarProducto(Producto producto)
             throws Exception {
@@ -70,7 +89,7 @@ public class ServiciosProducto implements ProductoDAO{
         session.close();
         return productos;
     }
-    
+
 //    public List<Object []> obtenerProducto_ExistenciaVentas(int codigoProducto){
 //        SessionFactory sessionFactory = NewHibernateUtil.getSessionFactory();
 //        Session session = sessionFactory.openSession();
@@ -79,5 +98,4 @@ public class ServiciosProducto implements ProductoDAO{
 //        session.close();
 //        return productos;
 //    }
-
 }

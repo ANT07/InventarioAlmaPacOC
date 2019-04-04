@@ -40,7 +40,7 @@
                 <form action="vendedorescontrolador.do"  method="post" class="usuario form-horizontal" id="FormCrearUs">
                     <input type="hidden" name="Tipo" value="insertar">
                     <div class="form-header">
-                        <h3 class="text-center">Crear vendedor</h3>
+                        <h3 class="text-center">NUEVO VENDEDOR</h3>
                     </div>  <hr>
 
                     <!--Nombre-->

@@ -30,7 +30,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Usuarios</h4>
+                                <h4 class="modal-title" id="myModalLabel">USUARIO DE SISTEMA</h4>
                             </div>
                             <div class="modal-body">
                                 <form action="${pageContext.request.contextPath}/usuario.do" method="post" id="form">
@@ -65,6 +65,36 @@
                         </div>
                     </div>
                 </div>
+                <div class="modal fade" id="modalUserImage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">IMAGEN DE USUARIO</h4>
+                            </div>
+                            <div class="modal-body"> 
+                                <form action="${pageContext.request.contextPath}/ImagenControlador" method="post" id="formImage"  enctype='multipart/form-data'>
+                                    <input name="usuarioIdImg" id="usuarioIdImg" type="hidden" value="0">
+                                    <input name="accion" id="accion" type="hidden" value="cambiarImagen">
+                                    <div class="form-group">
+                                        <h3 id="nombreUsuarioTitle"></h3>
+                                    </div>
+                                    <div class="form-group text-center">
+                                        <img src="image/ic_login.jpg" width="300px" height="300px" id="imagen" class="img-rounded"> 
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Seleccione archivo: </label>
+                                        <input type="file" name="fileImage" onchange="cambiarImagen(this)" class="form-control" required>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-success" form="formImage" >Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-md-8 col-md-offset-2">
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-success btn-sm btn-block" data-toggle="modal" data-target="#myModal" onclick="resetForm(), habilitarSelect()">
@@ -72,15 +102,19 @@
                     </button><br><br>
                     <div  id="tableCont" class="table-responsive well well-sm">
                         <table  class="table table-hover table-striped table-condensed">
-                            <tr class="success"><th>Usuario</th><th>Nombre</th><th>Roll</th><th></th></tr>
+                            <tr class="success"><th>Usuario</th><th>Nombre</th><th>Foto</th><th>Roll</th><th></th></tr>
                                     <c:forEach items="${usuarios}" var="usuario">
                                 <tr>
                                     <td>${usuario.usuario}</td>
                                     <td>${usuario.nombre}</td>
+                                    <td><img src="${pageContext.request.contextPath}${usuario.rutaImagen}" height="50px" width="50px" class="img-circle"></td>
                                     <td>${usuario.roll.rollName}</td>
                                     <td>
-                                        <button type="button" class="btn btn-success btn-sm btn-block" data-toggle="modal" data-target="#myModal" onclick="abrirDialogoUsuario('${usuario.usuario}', '${usuario.nombre}', '${usuario.roll.rollId}', '${usuario.contrasena}')">
+                                        <button type="button" class="btn btn-success btn-sm " data-toggle="modal" data-target="#myModal" onclick="abrirDialogoUsuario('${usuario.usuario}', '${usuario.nombre}', '${usuario.roll.rollId}', '${usuario.contrasena}')">
                                             <span class="glyphicon glyphicon-edit"></span> Editar
+                                        </button>
+                                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modalUserImage" onclick="abrirDialogoImg('${usuario.usuario}', '${usuario.nombre}','${usuario.rutaImagen}')">
+                                            <span class="glyphicon glyphicon-user"></span> Editar
                                         </button>
                                     </td>
                                 </tr>
@@ -93,6 +127,36 @@
     </body>
 </html>
 <script>
+
+    function cambiarImagen(elemet) {
+        var file = elemet.files[0];
+        var reader = new FileReader();
+        var allowedExtensions = /(.jpg|.jpeg|.png|.gif)$/i;
+
+        if (!allowedExtensions.exec(elemet.value)) {
+            alertify.alert("TIPO DE ARCHIVO INCORRECTO,\n SELECCIONE UN ARCHIVO DE IMAGEN CORRECTO");
+            elemet.value = '';
+        } else {
+            reader.readAsDataURL(file);
+            reader.onload = function (e) {
+                cargar(e);
+            };
+        }
+    }
+
+    function cargar(e) {
+        var img = document.getElementById("imagen");
+        img.src = e.target.result;
+    }
+    
+    function abrirDialogoImg(usuario,nombreUsuario,rutaImagen){
+        var usuarioHidden = document.getElementById("usuarioIdImg");
+        usuarioHidden.value = usuario;
+        var usuarioNombre = document.getElementById("nombreUsuarioTitle");
+        usuarioNombre.innerHTML = nombreUsuario;
+        var img = document.getElementById("imagen");
+        img.src = '${pageContext.request.contextPath}'+rutaImagen;
+    }
 
     $("#selectRoll").on("change", function (e) {
         $("#rollId").val(e.target.value);
@@ -121,6 +185,7 @@
 
     function resetForm() {
         var formulario = document.getElementById("form");
+        habilitarInput();
         formulario.reset();
     }
 
@@ -157,7 +222,7 @@
         },
         messages: {
 //            name: "Please specify your name",
-            usuario:  {
+            usuario: {
                 required: "Usuario es requerido"
             },
             nombreUsuario: {
