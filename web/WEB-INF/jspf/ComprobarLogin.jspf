@@ -1,6 +1,8 @@
 <%-- any content can be specified here e.g.: --%>
 
 
+<%@page import="retail.modelo.entidades.SubMenu"%>
+<%@page import="retail.modelo.servicios.SubmenuDAO"%>
 <%@page import="retail.modelo.entidades.Usuario"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
@@ -16,4 +18,26 @@
                 response);
     }
 
+    boolean permiso = false;
+    SubmenuDAO submenuDAOs = new SubmenuDAO();
+    String urlThisPage = request.getRequestURL().toString();
+
+    List<SubMenu> submenusList = submenuDAOs.obtenerSubmenuByRoll(
+            userLogin.getRoll().getRollId());
+
+    for (SubMenu submenu : submenusList) {
+        String submenuUrl = submenu.getUrl();
+        int prueba = urlThisPage.indexOf(submenuUrl);
+        if (prueba != -1) {
+            permiso = true;
+        }
+    }
+
+    if (!permiso) {
+        request.setAttribute("Mensaje",
+                "No tienes acceso a esta pagina");
+        RequestDispatcher salida = request.getRequestDispatcher("/ExistenciaProducto.jsp");
+        salida.forward(request,
+                response);
+    }
 %>

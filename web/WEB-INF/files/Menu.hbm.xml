@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 02-15-2019 04:07:08 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="InventarioAlmaPacOC" name="retail.modelo.entidades.Menu" optimistic-lock="version" schema="dbo" table="menu">
+    <id name="menuId" type="int">
+      <column name="MENU_ID"/>
+      <generator class="identity"/>
+    </id>
+    <property name="menuName" type="string">
+      <column length="250" name="MENU_NAME" not-null="true"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="subMenus" table="sub_menu" cascade="remove">
+      <key>
+        <column name="MENU_ID" not-null="true"/>
+      </key>
+      <one-to-many class="retail.modelo.entidades.SubMenu"/>
+    </set>
+  </class>
+</hibernate-mapping>

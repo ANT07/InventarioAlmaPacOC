@@ -44,7 +44,7 @@
 
                 <input type="hidden" value="insertar" name="accion">
                 <div class="form-group">
-                    <h2 style="padding-left: 50px;">NUEVA COMPRA</h2>
+                    <h2 style="padding-left: 50px;">ENTRADA DE PRODUCTO</h2>
                 </div>
                 <div class="form-group has-feedback ">
                     <label class="control-label col-md-2 ">Proveedor: </label>
@@ -92,10 +92,10 @@
                                         <input type="text" id="descripcion" readonly class="form-control input-sm" >
                                     </td>
                                     <td >
-                                        <input type="number" name="cantidadDetalle"  oninvalid="validarExistencia(event)" id="cantidadDetalle" class="form-control input-sm" step="1" min="1" onblur="totalizarDetalle(this)">
+                                        <input type="number" name="cantidadDetalle"  oninvalid="validarExistencia(event)" id="cantidadDetalle" class="form-control input-sm"  min="1" onblur="totalizarDetalle(this)" step="0.01">
                                     </td>
                                     <td >
-                                        <input type="number" min="0" name="precioDetalle" id="precioDetalle" step="0.01" class="form-control input-sm" onblur="totalizarDetalle(this)">
+                                        <input type="number" min="1" name="precioDetalle"  id="precioDetalle" step="0.0001" class="form-control input-sm" onblur="totalizarDetalle(this)">
                                     </td>
                                     <td >
                                         <input type="number" min="0" name="totalDetalle" id="totalDetalle" step="1" readonly class="form-control input-sm" value="0.00" >
@@ -221,6 +221,16 @@
             var descripcionProducto = document.querySelectorAll("input[type='text']#descripcion");
             var inputs = document.querySelectorAll("input[type='text'], input[type='number']");
             var estadoValidacion = true;
+            var selectProveedor = document.querySelector("select#providerid");
+
+            if (selectProveedor.value == -1) {
+                estadoValidacion = false;
+                selectProveedor.parentNode.classList.add("has-error");
+                mensajeError(
+                        "<h5>Error, Seleccione Proveedor</h5>",
+                        '<h6>Seleccione un proveedor para la compra</h6>',
+                        "alert-danger");
+            }
 
             //validacion para productos
             for (var i = 0; i < descripcionProducto.length; i++) {

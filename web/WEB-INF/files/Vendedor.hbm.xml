@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 02-15-2019 04:07:08 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="InventarioAlmaPacOC" name="retail.modelo.entidades.Vendedor" optimistic-lock="version" schema="dbo" table="vendedor">
+    <id name="idVendedor" type="int">
+      <column name="idVendedor"/>
+      <generator class="identity"/>
+    </id>
+    <property name="nombreVendedor" type="string">
+      <column length="50" name="nombreVendedor" not-null="true"/>
+    </property>
+    <property name="apellidoVendedor" type="string">
+      <column length="50" name="apellidoVendedor" not-null="true"/>
+    </property>
+    <property name="direccionVendedor" type="string">
+      <column length="250" name="direccionVendedor" not-null="true"/>
+    </property>
+    <property name="sexoVendedor" type="char">
+      <column length="1" name="sexoVendedor" not-null="true"/>
+    </property>
+    <property name="telefonoVendedor" type="string">
+      <column length="10" name="telefonoVendedor" not-null="true"/>
+    </property>
+    <property name="duiVendedor" type="string">
+      <column length="15" name="duiVendedor" not-null="true"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="ventases" table="ventas">
+      <key>
+        <column name="idVendedor" not-null="true"/>
+      </key>
+      <one-to-many class="retail.modelo.entidades.Ventas"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="orderMasters" table="ORDER_MASTER">
+      <key>
+        <column name="SELLERID" not-null="true"/>
+      </key>
+      <one-to-many class="retail.modelo.entidades.OrderMaster"/>
+    </set>
+  </class>
+</hibernate-mapping>

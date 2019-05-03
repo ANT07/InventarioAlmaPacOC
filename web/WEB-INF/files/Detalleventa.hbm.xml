@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 02-15-2019 04:07:08 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="InventarioAlmaPacOC" name="retail.modelo.entidades.Detalleventa" optimistic-lock="version" schema="dbo" table="detalleventa">
+    <id name="idDetalleVenta" type="int">
+      <column name="idDetalleVenta"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="retail.modelo.entidades.Producto" fetch="select" name="producto">
+      <column name="codigoProducto" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="retail.modelo.entidades.Ventas" fetch="select" name="ventas">
+      <column name="idVenta" not-null="true"/>
+    </many-to-one>
+    <property name="cantidadDetalle" type="int">
+      <column name="cantidadDetalle" not-null="true"/>
+    </property>
+    <property name="precioDetalle" type="double">
+      <column name="precioDetalle" not-null="true" precision="53" scale="0"/>
+    </property>
+    <property name="totalDetalle" type="double">
+      <column name="totalDetalle" not-null="true" precision="53" scale="0"/>
+    </property>
+  </class>
+</hibernate-mapping>

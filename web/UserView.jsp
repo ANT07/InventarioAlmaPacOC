@@ -127,6 +127,13 @@
     </body>
 </html>
 <script>
+    
+    window.addEventListener("load",function(){
+        var cambioImagen = "${cambioImagen}";
+        if(cambioImagen != ""){
+            location.replace("UserView.jsp");
+        }
+    });
 
     function cambiarImagen(elemet) {
         var file = elemet.files[0];

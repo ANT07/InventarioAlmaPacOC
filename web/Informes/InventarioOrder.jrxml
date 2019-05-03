@@ -106,18 +106,36 @@
 	<queryString language="SQL">
 		<![CDATA[execute ORDERREPORT2  $P{ORDERID}]]>
 	</queryString>
-	<field name="ORDERID" class="java.lang.String"/>
-	<field name="PROVIDERNAME" class="java.lang.String"/>
-	<field name="CONTACTNAME" class="java.lang.String"/>
-	<field name="PHONE" class="java.lang.String"/>
-	<field name="SELLERNAME" class="java.lang.String"/>
-	<field name="TYPENAME" class="java.lang.String"/>
-	<field name="ORDERCOMENT" class="java.lang.String"/>
-	<field name="ORDERDATE" class="java.sql.Timestamp"/>
-	<field name="DEPARTMENTNAME" class="java.lang.String"/>
-	<field name="SUBTOTAL" class="java.lang.Float"/>
-	<field name="IVA" class="java.lang.Float"/>
-	<field name="TOTAL" class="java.lang.Float"/>
+	<field name="ORDERID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ORDERID"/>
+	</field>
+	<field name="PROVIDERNAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="PROVIDERNAME"/>
+	</field>
+	<field name="CONTACTNAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CONTACTNAME"/>
+	</field>
+	<field name="PHONE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="PHONE"/>
+	</field>
+	<field name="TYPENAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TYPENAME"/>
+	</field>
+	<field name="ORDERCOMENT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ORDERCOMENT"/>
+	</field>
+	<field name="ORDERDATE" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="ORDERDATE"/>
+	</field>
+	<field name="SUBTOTAL" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.label" value="SUBTOTAL"/>
+	</field>
+	<field name="IVA" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.label" value="IVA"/>
+	</field>
+	<field name="TOTAL" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.label" value="TOTAL"/>
+	</field>
 	<variable name="FormatoFecha" class="java.text.SimpleDateFormat">
 		<variableExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy")]]></variableExpression>
 	</variable>
@@ -169,66 +187,45 @@ E-Mail: info@apacifico.com]]></text>
 				<reportElement x="0" y="35" width="570" height="70" uuid="c39253e6-bd87-4239-8b01-2cf4b17aa8ce"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="10" y="42" width="87" height="20" uuid="755aafd5-32bc-4968-8aa6-70ffd9cb3091"/>
+				<reportElement x="10" y="46" width="87" height="20" uuid="755aafd5-32bc-4968-8aa6-70ffd9cb3091"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[PROVEEDOR:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="62" width="87" height="20" uuid="4403f243-7cf3-4e10-9ddc-69aeee468567"/>
+				<reportElement x="10" y="73" width="87" height="20" uuid="4403f243-7cf3-4e10-9ddc-69aeee468567"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CONTACTO:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="310" y="62" width="77" height="20" uuid="c5e198c8-8d33-45db-8cb2-0b7f11f8cfea"/>
+				<reportElement x="310" y="73" width="77" height="20" uuid="c5e198c8-8d33-45db-8cb2-0b7f11f8cfea"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[TELEFONO:]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="10" y="82" width="87" height="20" uuid="1c0aebfa-793b-4f14-811c-f65db9abb553"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
-				</textElement>
-				<text><![CDATA[VENDEDOR: ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="310" y="85" width="140" height="19" uuid="cdd60f49-d40d-47d7-bdda-b0f1a107ec0a"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
-				</textElement>
-				<text><![CDATA[DEPTO. QUE SOLICITA: ]]></text>
-			</staticText>
 			<rectangle radius="5">
 				<reportElement x="0" y="113" width="570" height="75" uuid="8df1fad7-fc5e-40c0-814b-7d06489b037d"/>
 			</rectangle>
 			<textField>
-				<reportElement x="100" y="42" width="451" height="20" uuid="b61584b2-5da9-489f-b113-a722405ef8db"/>
+				<reportElement x="100" y="46" width="451" height="20" uuid="b61584b2-5da9-489f-b113-a722405ef8db"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{PROVIDERNAME}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="62" width="190" height="20" uuid="cced9841-6951-4783-88d9-131d410c4297"/>
+				<reportElement x="100" y="73" width="190" height="20" uuid="cced9841-6951-4783-88d9-131d410c4297"/>
 				<textElement verticalAlignment="Middle">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{CONTACTNAME}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="83" width="190" height="19" uuid="06f4527c-b63c-41a2-a97f-7aa603dc0ccc"/>
-				<textElement verticalAlignment="Middle">
-					<font size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{SELLERNAME}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="390" y="63" width="161" height="20" uuid="adbfe7d4-c756-4215-ad7b-b435eac66ce8"/>
+				<reportElement x="390" y="74" width="161" height="20" uuid="adbfe7d4-c756-4215-ad7b-b435eac66ce8"/>
 				<textElement verticalAlignment="Middle">
 					<font size="11"/>
 				</textElement>
@@ -248,13 +245,6 @@ E-Mail: info@apacifico.com]]></text>
 				</textElement>
 				<text><![CDATA[COMENTARIO:]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="450" y="85" width="101" height="20" uuid="f6b81eb3-2227-42e5-9dd0-4dae3814daf6"/>
-				<textElement verticalAlignment="Middle">
-					<font size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{DEPARTMENTNAME}]]></textFieldExpression>
-			</textField>
 			<rectangle radius="5">
 				<reportElement x="1" y="0" width="570" height="28" uuid="4f78f1dc-1bc4-44c7-bbd6-0d437515e0e4"/>
 			</rectangle>

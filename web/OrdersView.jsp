@@ -49,7 +49,7 @@
 
         %>
         <div class="container">
-            <form class="form-horizontal" action="ServletBusqueda" method="post">
+<!--            <form class="form-horizontal" action="ServletBusqueda" method="post">
                 <div class="row well well-sm">
                     <div class="col-md-4">
                         <div class="form-group">
@@ -68,19 +68,20 @@
                     </div>
                 </div>
 
-            </form>
+            </form>-->
 
             <div class="row">
                 <div class="col-md-12 well well-sm">
-                    <br><br>
+                    
+                    <h1>ORDENES DE COMPRA</h1><br><br>
                     <div class="table-responsive" id="tableCont">
                         <table  class="table table-hover table-striped table-condensed">
                             <tr class="success">
                                 <th style="width: 7%">Fecha</th>
                                 <th style="width: 10%">No.: Orden</th>
-                                <th style="width: 20%">Vendedor</th>
+                                <!--<th style="width: 20%">Vendedor</th>-->
                                 <th style="width: 23%">Proveedor</th>
-                                <th style="width: 15%">Departamento</th>
+                                <!--<th style="width: 15%">Departamento</th>-->
                                 <th style="width: 15%">Tipo</th>
                                 <th style="width: 15%">Monto + IVA</th>
                                 <th style="width: 10%"></th>
@@ -90,9 +91,9 @@
                             <tr>
                                 <td><%= formato.format(ordersMaster.getOrderdate())%></td>
                                 <td><%= ordersMaster.getOrderid()%></td>
-                                <td><%= ordersMaster.getVendedor().getNombreVendedor()%></td>
+                                <!--<td ordersMaster.getVendedor().getNombreVendedor()%></td>-->
                                 <td><%= ordersMaster.getProvider().getProvidername()%></td>
-                                <td><%= ordersMaster.getDepartment().getDepartmentname()%></td>
+                                <!--<td> ordersMaster.getDepartment().getDepartmentname()%></td>-->
                                 <td><%= ordersMaster.getOrderType().getTypename()%></td>
                                 <td> <%= decimalFormat.format(ordersMaster.getOrdertotal())%></td>
 <!--                                <td>

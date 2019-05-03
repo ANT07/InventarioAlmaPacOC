@@ -43,11 +43,11 @@ public class ImagenControlador extends HttpServlet {
         try {
             FileItemFactory factory = new DiskFileItemFactory();
             ServletFileUpload upload = new ServletFileUpload(factory);
-             UsuarioDAO usuarioDAO= new  UsuarioDAO();
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
             List items = upload.parseRequest(request);
             HashMap<String, String> parametros = new HashMap<>();
             FileItem archivoImagen = null;
-            String carpetaDestino = "C:/Users/ANTHONY MARTINEZ/Documents/NetBeansProjects/InventarioAlmaPacOC/web/userImages/";
+            String carpetaDestino = "C:/Users/ANTHONY MARTINEZ/Documents/NetBeansProjects/InventarioAlmaPacOC/web";
 
             for (Object item : items) {
                 FileItem uploaded = (FileItem) item;
@@ -62,29 +62,31 @@ public class ImagenControlador extends HttpServlet {
                             uploaded.getString());
                 }
             }
-            
 
             String codigoUsuario = parametros.get("usuarioIdImg");
             Usuario usuario = usuarioDAO.obtenerUsuario(codigoUsuario);
-            
-            
-            String extencion = usuario.getUsuario() + archivoImagen.getName().substring(archivoImagen.getName().lastIndexOf("."));
-            carpetaDestino +=  extencion;
+            carpetaDestino += usuario.getRutaImagen();
             File archivoGuardar = new File(carpetaDestino);
-            if(archivoGuardar.exists()){
+
+            if (archivoGuardar.exists()) {
                 archivoGuardar.delete();
+
             }
-            archivoImagen.write(archivoGuardar);
             
+            carpetaDestino = "C:/Users/ANTHONY MARTINEZ/Documents/NetBeansProjects/InventarioAlmaPacOC/web/userImages/";
+            String extencion = usuario.getUsuario() + archivoImagen.getName().substring(archivoImagen.getName().lastIndexOf("."));
+            carpetaDestino += extencion;
+            archivoGuardar = new File(carpetaDestino);
+            archivoImagen.write(archivoGuardar);
+
             String rutaServidor = "/userImages/" + extencion;
             usuario.setRutaImagen(rutaServidor);
-            
+
             usuarioDAO.actualizarUsuario(usuario);
-            
+            request.setAttribute("cambioImagen", "cambioRealizado");
             request.getRequestDispatcher("/UserView.jsp").forward(request, response);
         } catch (Exception e) {
-e.printStackTrace();
-
+            e.printStackTrace();
 
         }
 

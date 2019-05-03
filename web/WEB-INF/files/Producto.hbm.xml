@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 02-15-2019 04:07:08 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class catalog="InventarioAlmaPacOC" name="retail.modelo.entidades.Producto" optimistic-lock="version" schema="dbo" table="producto">
+        <id name="codigoProducto" type="int">
+            <column name="codigoProducto"/>
+            <generator class="identity"/>
+        </id>
+        <property name="nombreProducto" type="string">
+            <column length="50" name="nombreProducto" not-null="true"/>
+        </property>
+        <property name="descripcionProducto" type="string">
+            <column length="250" name="descripcionProducto" not-null="true"/>
+        </property>
+        <property name="precioProducto" type="double">
+            <column name="precioProducto" not-null="true" precision="53" scale="0"/>
+        </property>
+        <!--    <property name="existenciaProducto" type="int">
+          <column name="existenciaProducto" not-null="true"/>
+        </property>-->
+        <set fetch="select" inverse="true" lazy="true" name="detalleventas" table="detalleventa">
+            <key>
+                <column name="codigoProducto" not-null="true"/>
+            </key>
+            <one-to-many class="retail.modelo.entidades.Detalleventa"/>
+        </set>
+        <set fetch="select" inverse="true" lazy="true" name="detallecompras" table="detallecompra">
+            <key>
+                <column name="codigoProducto" not-null="true"/>
+            </key>
+            <one-to-many class="retail.modelo.entidades.Detallecompra"/>
+        </set>
+        <set fetch="join" lazy="false" inverse="true"  name="existencias" table="existencia" cascade="all" order-by="departamento.departmentid desc">
+            <key>
+                <column name="codigoProducto" not-null="true"/>
+            </key>
+            <one-to-many class="retail.modelo.entidades.Existencia"/>
+        </set>
+<!--        <set fetch="select" inverse="true"  name="traslados" table="traslado" cascade="all">
+            <key>
+                <column name="codigoProducto" not-null="true"/>
+            </key>
+            <one-to-many class="retail.modelo.entidades.Traslado"/>
+        </set>-->
+    </class>
+</hibernate-mapping>

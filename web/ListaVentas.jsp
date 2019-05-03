@@ -48,9 +48,9 @@
 
             <!--            <center>
                             <input class="form-control" style="width: 150px" id="txtBuscar" type="text" onkeyup="Buscar()" placeholder="Buscar" ></center>-->
-            <div class="form-group" style="text-align: left;">
+<!--            <div class="form-group" style="text-align: left;">
                 <a href="InsertarVenta.jsp"  class="btn btn-primary" >+ Nueva Venta</a>
-            </div>
+            </div>-->
             <!--            <div class="form-group col-md-2" style="float: right">
                             <a href="#modalFiltros" data-toggle="modal" class="btn btn-link">Filtrar</a>
             
@@ -120,9 +120,8 @@
                                         <c:param name="idVenta" value="${venta.idVenta}"></c:param>
                                         <c:param name="accion" value="efectuar"></c:param>
                                     </c:url>
-                                    <c:url var="anular" value="ventascontrolador.do">
+                                    <c:url var="reporteVenta" value="reporteVenta.do">
                                         <c:param name="idVenta" value="${venta.idVenta}"></c:param>
-                                        <c:param name="accion" value="anular"></c:param>
                                     </c:url>
                                     <c:if test="${venta.estado == 0}">
                                         <a href="${efectuar}"  class="btn btn-success btn-xs"> <span class="glyphicon glyphicon-ok"></span> Emitir Factura</a>
@@ -136,7 +135,7 @@
                                             </span>
                                         </h4>&nbsp;&nbsp;
                                     </c:if>
-                                    <a href="#" class="btn btn-primary btn-xs" target="_blank"><span class="glyphicon glyphicon-print"></span></a>
+                                    <a href="${reporteVenta}" class="btn btn-primary btn-xs" target="_blank"><span class="glyphicon glyphicon-print"></span></a>
                                 </td>
                             </tr>
                         </c:forEach>

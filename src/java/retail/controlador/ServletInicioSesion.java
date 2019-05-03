@@ -108,7 +108,7 @@ public class ServletInicioSesion extends HttpServlet {
                             sesion.setAttribute("user",
                                     user);
                             RequestDispatcher salidaExito = request.getRequestDispatcher(
-                                    "/MenuView.jsp");
+                                    "/ExistenciaProducto.jsp");
                             request.getSession().setAttribute("usuario", user);
                             salidaExito.forward(request,
                                     response);

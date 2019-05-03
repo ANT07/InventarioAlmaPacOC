@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 02-15-2019 04:07:08 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="InventarioAlmaPacOC" name="retail.modelo.entidades.Contact" optimistic-lock="version" schema="dbo" table="CONTACT">
+    <id name="contactid" type="int">
+      <column name="CONTACTID"/>
+      <generator class="identity"/>
+    </id>
+    <property name="contactname" type="string">
+      <column length="250" name="CONTACTNAME"/>
+    </property>
+    <property name="contactstate" type="int">
+      <column name="CONTACTSTATE" not-null="true"/>
+    </property>
+    <property name="phone" type="string">
+      <column length="50" name="PHONE"/>
+    </property>
+        <set fetch="select" inverse="true" lazy="true" name="providers" table="PROVIDER">
+      <key>
+        <column name="CONTACID" not-null="true"/>
+      </key>
+      <one-to-many class="retail.modelo.entidades.Provider"/>
+    </set>
+  </class>
+</hibernate-mapping>

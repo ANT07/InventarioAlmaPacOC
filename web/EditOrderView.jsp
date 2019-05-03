@@ -77,7 +77,7 @@
                                 <jsp:include page="HelperPages/ProviderDropDown.jsp"></jsp:include>
                             </div>
                         </div>
-                         <div class="form-group">
+<!--                         <div class="form-group">
                              <div class="col-md-4">
                                 <label>Vendedor: </label>
                             </div>
@@ -85,7 +85,7 @@
                                 <input type="hidden" id="hiddensellerId" value="${orderMaster.vendedor.idVendedor}">
                                 <jsp:include page="HelperPages/SellerDropDown.jsp"></jsp:include>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="form-group">
                             <div class="col-md-4">
                                 <label>Tipo de Orden: </label>                               
@@ -95,7 +95,7 @@
                                 <jsp:include page="HelperPages/TypeDropDown.jsp"></jsp:include>
                             </div>
                         </div>
-                         <div class="form-group">
+<!--                         <div class="form-group">
                              <div class="col-md-4">
                                 <label>Departamento Solicitante: </label>
                              </div>
@@ -103,7 +103,7 @@
                                  <input type="hidden" id="hiddendepartmentId" value="${orderMaster.department.departmentid}">
                                 <jsp:include page="HelperPages/DepartmentDropDown.jsp"></jsp:include>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="form-group">
                                 <textarea id="orderComent"   placeholder="Comentario..." rows="7" class="form-control input-sm" style="resize:none;" name="comentario">${orderMaster.ordercoment}</textarea>
                         </div>
@@ -307,21 +307,21 @@
     }
     
     function asignarValores(){
-        var hiddenSellerId = document.getElementById("hiddensellerId");
+//        var hiddenSellerId = document.getElementById("hiddensellerId");
         var hiddenProviderId = document.getElementById("hiddenproviderId");
         var hiddenTypeId = document.getElementById("hiddentypeId");
-        var hiddenDepartmentId = document.getElementById("hiddendepartmentId");
+//        var hiddenDepartmentId = document.getElementById("hiddendepartmentId");
         var hiddenContactName = document.getElementById("hiddencontactname");
         
-        var selectSellerId = document.getElementById("sellerid");
+//        var selectSellerId = document.getElementById("sellerid");
         var selectProviderId = document.getElementById("providerid");
         var selectTypeId = document.getElementById("typeid");
-        var selectDepartmentId = document.getElementById("departmentid");
+//        var selectDepartmentId = document.getElementById("departmentid");
         
-        selectSellerId.value = hiddenSellerId.value;
+//        selectSellerId.value = hiddenSellerId.value;
         selectProviderId.value = hiddenProviderId.value;
         selectTypeId.value = hiddenTypeId.value;
-        selectDepartmentId.value = hiddenDepartmentId.value;
+//        selectDepartmentId.value = hiddenDepartmentId.value;
 
         
         var hiddenProductid = document.querySelectorAll("#hiddenproductid");

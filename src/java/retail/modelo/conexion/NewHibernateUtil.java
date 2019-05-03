@@ -7,6 +7,7 @@ package retail.modelo.conexion;
 
 
 import java.io.File;
+import listener.ContextListener;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -18,13 +19,14 @@ import org.hibernate.cfg.Configuration;
  */
 public class NewHibernateUtil {
 
-    private static final SessionFactory sessionFactory;
+    private static  SessionFactory sessionFactory;
     
-    static {
+    public NewHibernateUtil() {
         try {
             // Create the SessionFactory from standard (hibernate.cfg.xml) 
             // config file.
-            sessionFactory = new Configuration().configure(new File("C:\\Users\\ANTHONY MARTINEZ\\Documents\\NetBeansProjects\\InventarioAlmaPacOC\\src\\java\\retail\\files\\hibernate.cfg.xml")).buildSessionFactory();
+            String path = ContextListener.application.getRealPath("/WEB-INF/files/hibernate.cfg.xml");
+            sessionFactory = new Configuration().configure(new File(path)).buildSessionFactory();
         } catch (Throwable ex) {
             // Log the exception. 
             System.err.println("Initial SessionFactory creation failed." + ex);
@@ -32,7 +34,11 @@ public class NewHibernateUtil {
         }
     }
     
+    
     public static SessionFactory getSessionFactory() {
+        if(sessionFactory == null){
+             NewHibernateUtil utils = new NewHibernateUtil();
+        }
         return sessionFactory;
     }
 }

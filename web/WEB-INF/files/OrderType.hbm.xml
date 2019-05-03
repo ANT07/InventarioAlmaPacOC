@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 02-15-2019 04:07:08 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="InventarioAlmaPacOC" name="retail.modelo.entidades.OrderType" optimistic-lock="version" schema="dbo" table="ORDER_TYPE">
+    <id name="typeid" type="int">
+      <column name="TYPEID"/>
+      <generator class="identity"/>
+    </id>
+    <property name="typename" type="string">
+      <column length="50" name="TYPENAME"/>
+    </property>
+    <property name="typestate" type="java.lang.Integer">
+      <column name="TYPESTATE"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="orderMasters" table="ORDER_MASTER">
+      <key>
+        <column name="TYPEID" not-null="true"/>
+      </key>
+      <one-to-many class="retail.modelo.entidades.OrderMaster"/>
+    </set>
+  </class>
+</hibernate-mapping>

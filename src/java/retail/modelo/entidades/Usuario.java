@@ -15,6 +15,7 @@ public class Usuario  implements java.io.Serializable {
      private String contrasena;
      private Integer estadousuario;
      private String rutaImagen;
+     private int version;
 
     public Usuario() {
     }
@@ -73,6 +74,14 @@ public class Usuario  implements java.io.Serializable {
 
     public void setRutaImagen(String rutaImagen) {
         this.rutaImagen = rutaImagen;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
 

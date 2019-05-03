@@ -55,9 +55,9 @@
             <center>
                 <!--                <input class="form-control" style="width: 150px" id="txtBuscar" type="text" onkeyup="Buscar()" placeholder="Buscar" ></center>
                             <div class="form-group" style="float: left;">-->
-                <div style="text-align: left;">
+<!--                <div style="text-align: left;">
                     <a href="InsertarCompra.jsp"  class="btn btn-primary">+ Nueva Compra</a> 
-                </div>
+                </div>-->
 
                 <!--            </div>
                             <div class="form-group col-md-2" style="float: right">
@@ -116,8 +116,6 @@
                         <tbody>
                             <c:forEach var="compra" items="${compras}" >
                                 <c:set var="proveedor" value="${serviciosCompra.obtenerComprasById(compra.idCompra)}"></c:set>
-
-
                                     <tr>
                                         <td>${compra.idCompra}</td>
                                     <td>${utilClass.formatoFecha(compra.fechaCompra)}</td>

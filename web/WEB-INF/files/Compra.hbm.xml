@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 02-15-2019 04:07:08 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class catalog="InventarioAlmaPacOC" name="retail.modelo.entidades.Compra" optimistic-lock="version" schema="dbo" table="compra">
+        <id name="idCompra" type="int">
+            <column name="idCompra"/>
+            <generator class="identity"/>
+        </id>
+        <property name="fechaCompra" type="timestamp">
+            <column length="23" name="fechaCompra" not-null="true"/>
+        </property>
+        <property name="fechaDocumento" type="timestamp">
+            <column length="23" name="fechaDocumento" not-null="true"/>
+        </property>
+        <property name="fechaInventario" type="timestamp">
+            <column length="23" name="fechaInventario" />
+        </property>
+        <property name="totalCompra" type="double">
+            <column name="totalCompra" not-null="true" precision="53" scale="0"/>
+        </property>
+        <property name="estado" type="int">
+            <column name="estado" not-null="true"/>
+        </property>
+        <property name="noDocumento" type="string">
+            <column name="noDocumento" />
+        </property>
+        <many-to-one class="retail.modelo.entidades.Provider" fetch="join" name="proveedor"  >
+            <column name="proveedor" not-null="true"/>
+        </many-to-one>
+        <set fetch="select" inverse="true" lazy="true" name="detallecompras" table="detallecompra" cascade="all">
+            <key>
+                <column name="idCompra" not-null="true"/>
+            </key>
+            <one-to-many class="retail.modelo.entidades.Detallecompra"/>
+        </set>
+    </class>
+</hibernate-mapping>

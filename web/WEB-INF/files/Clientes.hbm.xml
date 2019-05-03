@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 02-15-2019 04:07:08 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="InventarioAlmaPacOC" name="retail.modelo.entidades.Clientes" optimistic-lock="version" schema="dbo" table="clientes">
+    <id name="idCliente" type="int">
+      <column name="idCliente"/>
+      <generator class="identity"/>
+    </id>
+    <property name="nombreCliente" type="string">
+      <column length="50" name="nombreCliente" not-null="true"/>
+    </property>
+    <property name="apellidoCliente" type="string">
+      <column length="50" name="apellidoCliente" not-null="true"/>
+    </property>
+    <property name="direccionCliente" type="string">
+      <column length="250" name="direccionCliente" not-null="true"/>
+    </property>
+    <property name="telefonoCliente" type="string">
+      <column length="10" name="telefonoCliente" not-null="true"/>
+    </property>
+    <property name="sexoCliente" type="char">
+      <column length="1" name="sexoCliente" not-null="true"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="ventases" table="ventas">
+      <key>
+        <column name="idCliente" not-null="true"/>
+      </key>
+      <one-to-many class="retail.modelo.entidades.Ventas"/>
+    </set>
+  </class>
+</hibernate-mapping>

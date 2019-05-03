@@ -75,7 +75,7 @@
                     <input type="hidden" name="fechaCompra" value="${fecha}">
                     <label for="idCliente" class="control-label col-md-2 ">Fecha Documento: </label>
                     <div class="col-md-4">
-                        <input type="text" class="datepicker form-control" name="fechaDocumento"/>
+                        <input type="text" class="datepicker form-control" name="fechaDocumento" pattern="(^(\d+){2}\/(\d+){2}\/(\d+){4})(?!\w\d)"/>
                     </div>
                 </div>
 
@@ -230,6 +230,16 @@
             var descripcionProducto = document.querySelectorAll("input[type='text']#descripcion");
             var inputs = document.querySelectorAll("input[type='text'], input[type='number']");
             var estadoValidacion = true;
+            var selectProveedor = document.querySelector("select#providerid");
+
+            if (selectProveedor.value == -1) {
+                estadoValidacion = false;
+                selectProveedor.parentNode.classList.add("has-error");
+                mensajeError(
+                        "<h5>Error, Seleccione Proveedor</h5>",
+                        '<h6>Seleccione un proveedor para la compra</h6>',
+                        "alert-danger");
+            }
 
             //validacion para productos
             for (var i = 0; i < descripcionProducto.length; i++) {
@@ -285,7 +295,7 @@
         window.addEventListener("load", colocarValuesSelects);
 
         $(document).ready(function () {
-            $( ".datepicker" ).datepicker({ dateFormat: 'dd/mm/yy'});
+            $(".datepicker").datepicker({dateFormat: 'dd/mm/yy'});
             $(".datepicker").datepicker("setDate", new Date("${utilClass.formatoFecha(compra.fechaDocumento)}"));
 
         });

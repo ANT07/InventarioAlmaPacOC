@@ -42,7 +42,7 @@
 
             <hr><center>
                 <input class="form-control" style="width: 150px" id="txtBuscar" type="text" onkeyup="Buscar()" placeholder="Buscar" ></center>
-            <a href="InsertarProveedor.jsp" class="btn btn-primary" style="float: left;">+ Insertar proveedor</a> <br> 
+            <!--<a href="InsertarProveedor.jsp" class="btn btn-primary" style="float: left;">+ Insertar proveedor</a> <br>--> 
 
 
             <div class="form-group col-md-2" style="float: right">

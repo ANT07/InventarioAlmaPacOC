@@ -4,6 +4,9 @@
         <servlet-name>ClientesControlador</servlet-name>
         <servlet-class>retail.controlador.ClientesControlador</servlet-class>
     </servlet>
+    <listener>
+        <listener-class>listener.ContextListener</listener-class>
+    </listener>
     <servlet>
         <servlet-name>NewOrderServlet</servlet-name>
         <servlet-class>retail.controlador.NewOrderServlet</servlet-class>

@@ -39,7 +39,7 @@
                         <a href="AsignarMateriaAlumno.jsp" class="btn btn-info">Nueva Asinacion</a> -->
             <hr><center>
                 <input class="form-control" style="width: 150px" id="txtBuscar" type="text" onkeyup="Buscar()" placeholder="Buscar" ></center>
-            <a href="InsertarClientes.jsp" class="btn btn-primary" style="float: left;">+ Insertar cliente</a><br> 
+            <!--<a href="InsertarClientes.jsp" class="btn btn-primary" style="float: left;">+ Insertar cliente</a><br>--> 
 
             <div class="form-group col-md-2" style="float: right">
                 <a href="#modalFiltros" data-toggle="modal" class="btn btn-link">Filtrar</a>

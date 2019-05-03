@@ -58,14 +58,14 @@
 
                     </div>
                     <div class="">
-                        <div class="form-group">
+<!--                        <div class="form-group">
                             <div class="col-md-4">
                                 <label>Vendedor: </label>
                             </div>
                             <div class="col-md-8">
                                 <jsp:include page="HelperPages/SellerDropDown.jsp"></jsp:include>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="form-group">
                                 <div class="col-md-4">
                                     <label>Tipo de Orden: </label>                               
@@ -82,14 +82,14 @@
                                 <jsp:include page="HelperPages/ProviderDropDown.jsp"></jsp:include>
                                 </div>
                             </div>
-                            <div class="form-group">
+<!--                            <div class="form-group">
                                 <div class="col-md-4">
                                     <label>Departamento Solicitante: </label>
                                 </div>
                                 <div class="col-md-8">
                                 <jsp:include page="HelperPages/DepartmentDropDown.jsp"></jsp:include>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="form-group">
                                 <textarea id="orderComent" placeholder="Comentario..." rows="7"  class="form-control input-sm" style="resize:none;" name="comentario"></textarea>
                             </div>

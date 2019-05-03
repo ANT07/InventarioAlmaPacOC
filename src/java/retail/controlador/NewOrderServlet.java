@@ -93,8 +93,8 @@ public class NewOrderServlet extends HttpServlet {
             String orderId = request.getParameter("orderid");
             int providerId = Integer.parseInt(request.getParameter("providerid"));
             int typeId = Integer.parseInt(request.getParameter("typeid"));
-            int sellerId = Integer.parseInt(request.getParameter("sellerid"));
-            int departmentId = Integer.parseInt(request.getParameter("departmentid"));
+//            int sellerId = Integer.parseInt(request.getParameter("sellerid"));
+//            int departmentId = Integer.parseInt(request.getParameter("departmentid"));
             
             String comentario = request.getParameter("comentario");
             
@@ -105,11 +105,11 @@ public class NewOrderServlet extends HttpServlet {
             Provider provider = new Provider();
             provider.setProviderid(providerId);
             Vendedor vendedor = new Vendedor();
-            vendedor.setIdVendedor(sellerId);
+//            vendedor.setIdVendedor(sellerId);
             OrderType orderType = new OrderType();
             orderType.setTypeid(typeId);
             Department department = new Department();
-            department.setDepartmentid(departmentId);
+//            department.setDepartmentid(departmentId);
             
 
             OrderDetail orderDetail;
@@ -136,10 +136,10 @@ public class NewOrderServlet extends HttpServlet {
             }
             
             orderMaster.setOrderid(orderId);
-            orderMaster.setDepartment(department);
+//            orderMaster.setDepartment(department);
             orderMaster.setOrderType(orderType);
             orderMaster.setOrdercoment(comentario);
-            orderMaster.setVendedor(vendedor);
+//            orderMaster.setVendedor(vendedor);
             orderMaster.setProvider(provider);
             
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
