@@ -63,6 +63,9 @@
 		</variable>
 	</subDataset>
 	<parameter name="idVenta" class="java.lang.String"/>
+	<parameter name="imageDir" class="java.lang.String" evaluationTime="Early">
+		<defaultValueExpression><![CDATA["C:/Users/ANTHONY MARTINEZ/Documents/NetBeansProjects/InventarioAlmaPacOC/web/image/logopacifico.png"]]></defaultValueExpression>
+	</parameter>
 	<queryString language="SQL">
 		<![CDATA[select ventas.idVenta,
 ventas.fechaVenta,
@@ -149,7 +152,7 @@ E-Mail: info@apacifico.com]]></text>
 			<image scaleImage="FillFrame">
 				<reportElement x="1" y="6" width="79" height="60" uuid="53cfeb72-6e2e-4a28-be34-e94c1b1e3d0f"/>
 				<graphicElement fill="Solid"/>
-				<imageExpression><![CDATA["C:/Users/ANTHONY MARTINEZ/Documents/NetBeansProjects/InventarioAlmaPacOC/web/image/logopacifico.png"]]></imageExpression>
+				<imageExpression><![CDATA[$P{imageDir}]]></imageExpression>
 			</image>
 			<rectangle radius="5">
 				<reportElement mode="Transparent" x="0" y="70" width="380" height="70" uuid="0a693499-6075-4a0e-8704-83a2a8094e22"/>

@@ -103,6 +103,9 @@
 		<field name="PRODUCTCOLOR" class="java.lang.String"/>
 	</subDataset>
 	<parameter name="ORDERID" class="java.lang.String"/>
+	<parameter name="imageDir" class="java.lang.String" evaluationTime="Early">
+		<defaultValueExpression><![CDATA["C:/Users/ANTHONY MARTINEZ/Documents/NetBeansProjects/InventarioAlmaPacOC/web/image/logopacifico.png"]]></defaultValueExpression>
+	</parameter>
 	<queryString language="SQL">
 		<![CDATA[execute ORDERREPORT2  $P{ORDERID}]]>
 	</queryString>
@@ -177,7 +180,7 @@ E-Mail: info@apacifico.com]]></text>
 			<image scaleImage="FillFrame">
 				<reportElement x="1" y="0" width="139" height="80" uuid="10460bd8-7708-448a-a1c9-9e64bf619c5c"/>
 				<graphicElement fill="Solid"/>
-				<imageExpression><![CDATA["C:/Users/ANTHONY MARTINEZ/Documents/NetBeansProjects/InventarioAlmaPacOC/web/image/logopacifico.png"]]></imageExpression>
+				<imageExpression><![CDATA[$P{imageDir}]]></imageExpression>
 			</image>
 		</band>
 	</title>

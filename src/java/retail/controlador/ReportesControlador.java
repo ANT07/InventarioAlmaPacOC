@@ -42,7 +42,6 @@ public class ReportesControlador extends HttpServlet {
      */
 //    @Resource(name = "jdbc/reporte")
 //    DataSource dataSource;
-
     protected void processRequest(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException,
@@ -59,12 +58,16 @@ public class ReportesControlador extends HttpServlet {
             Map parameters = new HashMap<String, Object>();
 
             String orderId = request.getParameter("orderId");
+            String imageDir = request.getSession().getServletContext().getRealPath("/image/logopacifico.png");
+
+            parameters.put("imageDir",
+                    imageDir);
             parameters.put("ORDERID",
                     orderId);
 
 //            reportFile = new File(application.getRealPath(
 //                    "Informes/InventarioOrder_2.jasper"));
-            JasperReport jasperReport =    JasperCompileManager.compileReport(application.getRealPath(
+            JasperReport jasperReport = JasperCompileManager.compileReport(application.getRealPath(
                     "Informes/InventarioOrder.jrxml"));
             // ruta del reporte, parametros y conexion
 

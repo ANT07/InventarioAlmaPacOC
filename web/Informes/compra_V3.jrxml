@@ -89,6 +89,9 @@ and detallecompra.idcompra =  $P{idCompraTable}]]>
 		<variable name="Variable_2" class="java.lang.String"/>
 	</subDataset>
 	<parameter name="idCompra" class="java.lang.String"/>
+	<parameter name="imageDir" class="java.lang.String" evaluationTime="Early">
+		<defaultValueExpression><![CDATA["C:/Users/ANTHONY MARTINEZ/Documents/NetBeansProjects/InventarioAlmaPacOC/web/image/logopacifico.png"]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[select compra.idCompra,provider.providername, 
 compra.fechaCompra, 

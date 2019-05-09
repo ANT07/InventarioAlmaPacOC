@@ -36,12 +36,23 @@ public class DepartmentImpl implements DepartmentDAO {
 
     @Override
     public void deleteDepartment(Department department) throws Exception {
-        SessionFactory sessionFactory = NewHibernateUtil.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
-        session.delete(department);
-        tx.commit();
-        session.close();
+        Session session = null;
+        Transaction tx = null;
+        try {
+            SessionFactory sessionFactory = NewHibernateUtil.getSessionFactory();
+            session = sessionFactory.openSession();
+            tx = session.beginTransaction();
+            session.delete(department);
+            tx.commit();
+        } catch (Exception e) {
+            tx.rollback();
+            throw e;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+
     }
 
     @Override

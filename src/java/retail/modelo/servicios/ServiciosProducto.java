@@ -52,12 +52,25 @@ public class ServiciosProducto implements ProductoDAO {
 
     public void eliminarProducto(Producto producto)
             throws Exception {
-        SessionFactory sessionFactory = NewHibernateUtil.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
-        session.delete(producto);
-        tx.commit();
-        session.close();
+        Session session = null;
+        Transaction tx = null;
+        try {
+            SessionFactory sessionFactory = NewHibernateUtil.getSessionFactory();
+            session = sessionFactory.openSession();
+            tx = session.beginTransaction();
+            session.delete(producto);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            System.out.println("Finally");
+            if (session != null) {
+                session.close();
+            }
+        }
     }
 
     public void actualizarProducto(Producto producto)

@@ -42,7 +42,6 @@ public class ReporteCompra extends HttpServlet {
      */
 //    @Resource(name = "jdbc/reporte")
 //    DataSource dataSource;
-
     protected void processRequest(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException,
@@ -58,12 +57,16 @@ public class ReporteCompra extends HttpServlet {
             Map parameters = new HashMap<String, Object>();
 
             String idCompra = request.getParameter("idCompra");
+            String imageDir = request.getSession().getServletContext().getRealPath("/image/logopacifico.png");
+
+            parameters.put("imageDir",
+                    imageDir);
             parameters.put("idCompra",
                     idCompra);
 
 //            reportFile = new File(application.getRealPath(
 //                    "Informes/InventarioOrder_2.jasper"));
-            JasperReport jasperReport =    JasperCompileManager.compileReport(application.getRealPath(
+            JasperReport jasperReport = JasperCompileManager.compileReport(application.getRealPath(
                     "Informes/compra_V3.jrxml"));
             // ruta del reporte, parametros y conexion
 
